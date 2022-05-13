@@ -1,0 +1,11 @@
+query Quests {
+  quest {
+    title
+    description
+    giver
+    imageURL
+    tags
+    created_at
+    updated_at
+  }
+}

@@ -1,0 +1,17 @@
+table:
+  schema: public
+  name: quest
+select_permissions:
+  - role: anon
+    permission:
+      columns:
+        - id
+        - tags
+        - description
+        - giver
+        - imageURL
+        - title
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true

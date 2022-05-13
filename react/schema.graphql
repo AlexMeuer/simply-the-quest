@@ -1,0 +1,638 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+scalar jsonb
+
+"""
+Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'.
+"""
+input jsonb_comparison_exp {
+  """is the column contained in the given json value"""
+  _contained_in: jsonb
+
+  """does the column contain the given json value at the top level"""
+  _contains: jsonb
+  _eq: jsonb
+  _gt: jsonb
+  _gte: jsonb
+
+  """does the string exist as a top-level key in the column"""
+  _has_key: String
+
+  """do all of these strings exist as top-level keys in the column"""
+  _has_keys_all: [String!]
+
+  """do any of these strings exist as top-level keys in the column"""
+  _has_keys_any: [String!]
+  _in: [jsonb!]
+  _is_null: Boolean
+  _lt: jsonb
+  _lte: jsonb
+  _neq: jsonb
+  _nin: [jsonb!]
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "quest"
+  """
+  delete_quest(
+    """filter the rows which have to be deleted"""
+    where: quest_bool_exp!
+  ): quest_mutation_response
+
+  """
+  delete single row from the table: "quest"
+  """
+  delete_quest_by_pk(id: Int!): quest
+
+  """
+  insert data into the table: "quest"
+  """
+  insert_quest(
+    """the rows to be inserted"""
+    objects: [quest_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: quest_on_conflict
+  ): quest_mutation_response
+
+  """
+  insert a single row into the table: "quest"
+  """
+  insert_quest_one(
+    """the row to be inserted"""
+    object: quest_insert_input!
+
+    """upsert condition"""
+    on_conflict: quest_on_conflict
+  ): quest
+
+  """
+  update data of the table: "quest"
+  """
+  update_quest(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: quest_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: quest_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: quest_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: quest_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: quest_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: quest_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: quest_set_input
+
+    """filter the rows which have to be updated"""
+    where: quest_bool_exp!
+  ): quest_mutation_response
+
+  """
+  update single row of the table: "quest"
+  """
+  update_quest_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: quest_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: quest_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: quest_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: quest_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: quest_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: quest_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: quest_set_input
+    pk_columns: quest_pk_columns_input!
+  ): quest
+}
+
+"""column ordering options"""
+enum order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+type query_root {
+  """
+  fetch data from the table: "quest"
+  """
+  quest(
+    """distinct select on columns"""
+    distinct_on: [quest_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_order_by!]
+
+    """filter the rows returned"""
+    where: quest_bool_exp
+  ): [quest!]!
+
+  """
+  fetch aggregated fields from the table: "quest"
+  """
+  quest_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_order_by!]
+
+    """filter the rows returned"""
+    where: quest_bool_exp
+  ): quest_aggregate!
+
+  """fetch data from the table: "quest" using primary key columns"""
+  quest_by_pk(id: Int!): quest
+}
+
+"""
+columns and relationships of "quest"
+"""
+type quest {
+  created_at: timestamptz!
+  description: String!
+  giver: String!
+  id: Int!
+  imageURL: String
+  tags(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  title: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "quest"
+"""
+type quest_aggregate {
+  aggregate: quest_aggregate_fields
+  nodes: [quest!]!
+}
+
+"""
+aggregate fields of "quest"
+"""
+type quest_aggregate_fields {
+  avg: quest_avg_fields
+  count(columns: [quest_select_column!], distinct: Boolean): Int!
+  max: quest_max_fields
+  min: quest_min_fields
+  stddev: quest_stddev_fields
+  stddev_pop: quest_stddev_pop_fields
+  stddev_samp: quest_stddev_samp_fields
+  sum: quest_sum_fields
+  var_pop: quest_var_pop_fields
+  var_samp: quest_var_samp_fields
+  variance: quest_variance_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input quest_append_input {
+  tags: jsonb
+}
+
+"""aggregate avg on columns"""
+type quest_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "quest". All fields are combined with a logical 'AND'.
+"""
+input quest_bool_exp {
+  _and: [quest_bool_exp!]
+  _not: quest_bool_exp
+  _or: [quest_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  description: String_comparison_exp
+  giver: String_comparison_exp
+  id: Int_comparison_exp
+  imageURL: String_comparison_exp
+  tags: jsonb_comparison_exp
+  title: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "quest"
+"""
+enum quest_constraint {
+  """unique or primary key constraint"""
+  quest_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input quest_delete_at_path_input {
+  tags: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input quest_delete_elem_input {
+  tags: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input quest_delete_key_input {
+  tags: String
+}
+
+"""
+input type for incrementing numeric columns in table "quest"
+"""
+input quest_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "quest"
+"""
+input quest_insert_input {
+  created_at: timestamptz
+  description: String
+  giver: String
+  id: Int
+  imageURL: String
+  tags: jsonb
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type quest_max_fields {
+  created_at: timestamptz
+  description: String
+  giver: String
+  id: Int
+  imageURL: String
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type quest_min_fields {
+  created_at: timestamptz
+  description: String
+  giver: String
+  id: Int
+  imageURL: String
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "quest"
+"""
+type quest_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [quest!]!
+}
+
+"""
+on_conflict condition type for table "quest"
+"""
+input quest_on_conflict {
+  constraint: quest_constraint!
+  update_columns: [quest_update_column!]! = []
+  where: quest_bool_exp
+}
+
+"""Ordering options when selecting data from "quest"."""
+input quest_order_by {
+  created_at: order_by
+  description: order_by
+  giver: order_by
+  id: order_by
+  imageURL: order_by
+  tags: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: quest"""
+input quest_pk_columns_input {
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input quest_prepend_input {
+  tags: jsonb
+}
+
+"""
+select columns of table "quest"
+"""
+enum quest_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  description
+
+  """column name"""
+  giver
+
+  """column name"""
+  id
+
+  """column name"""
+  imageURL
+
+  """column name"""
+  tags
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "quest"
+"""
+input quest_set_input {
+  created_at: timestamptz
+  description: String
+  giver: String
+  id: Int
+  imageURL: String
+  tags: jsonb
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type quest_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type quest_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type quest_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type quest_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "quest"
+"""
+enum quest_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  description
+
+  """column name"""
+  giver
+
+  """column name"""
+  id
+
+  """column name"""
+  imageURL
+
+  """column name"""
+  tags
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type quest_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type quest_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type quest_variance_fields {
+  id: Float
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "quest"
+  """
+  quest(
+    """distinct select on columns"""
+    distinct_on: [quest_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_order_by!]
+
+    """filter the rows returned"""
+    where: quest_bool_exp
+  ): [quest!]!
+
+  """
+  fetch aggregated fields from the table: "quest"
+  """
+  quest_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_order_by!]
+
+    """filter the rows returned"""
+    where: quest_bool_exp
+  ): quest_aggregate!
+
+  """fetch data from the table: "quest" using primary key columns"""
+  quest_by_pk(id: Int!): quest
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
