@@ -1,6 +1,12 @@
 table:
   schema: public
   name: quest
+computed_fields:
+  - name: slug
+    definition:
+      function:
+        schema: public
+        name: quest_slug
 select_permissions:
   - role: anon
     permission:
@@ -13,5 +19,7 @@ select_permissions:
         - title
         - created_at
         - updated_at
+      computed_fields:
+        - slug
       filter: {}
       allow_aggregations: true

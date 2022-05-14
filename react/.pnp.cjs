@@ -46,6 +46,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@graphql-codegen/typescript-graphql-files-modules", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.1.1"],\
             ["@graphql-codegen/typescript-operations", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.4.0"],\
             ["@graphql-codegen/typescript-react-apollo", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:3.2.14"],\
+            ["@hypertheme-editor/chakra-ui", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:0.1.5"],\
             ["@testing-library/jest-dom", "npm:5.16.4"],\
             ["@testing-library/react", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:10.4.9"],\
             ["@testing-library/user-event", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:12.8.3"],\
@@ -62,6 +63,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
             ["react-router-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.0"],\
             ["react-timeago", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.2.1"],\
+            ["slugify", "npm:1.6.5"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"],\
             ["vite", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.9.9"]\
           ],\
@@ -4223,6 +4225,239 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@hypertheme-editor/chakra-ui", [\
+        ["npm:0.1.5", {\
+          "packageLocation": "./.yarn/cache/@hypertheme-editor-chakra-ui-npm-0.1.5-dbb1e8ecf7-a6fa2c7250.zip/node_modules/@hypertheme-editor/chakra-ui/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui", "npm:0.1.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:0.1.5", {\
+          "packageLocation": "./.yarn/__virtual__/@hypertheme-editor-chakra-ui-virtual-1e6ef78002/0/cache/@hypertheme-editor-chakra-ui-npm-0.1.5-dbb1e8ecf7-a6fa2c7250.zip/node_modules/@hypertheme-editor/chakra-ui/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:0.1.5"],\
+            ["@chakra-ui/react", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.0.0"],\
+            ["@hypertheme-editor/chakra-ui-colors", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5"],\
+            ["@hypertheme-editor/chakra-ui-core", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5"],\
+            ["@hypertheme-editor/chakra-ui-font-sizes", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5"],\
+            ["@types/chakra-ui__react", null],\
+            ["@types/framer-motion", null],\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/react-dom", "npm:18.0.4"],\
+            ["framer-motion", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.3"],\
+            ["immer", "npm:9.0.14"],\
+            ["react", "npm:18.1.0"],\
+            ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"],\
+            ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
+            ["recoil", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.4.1"],\
+            ["use-debouncy", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:4.3.0"]\
+          ],\
+          "packagePeers": [\
+            "@chakra-ui/react",\
+            "@types/chakra-ui__react",\
+            "@types/framer-motion",\
+            "@types/react-dom",\
+            "@types/react",\
+            "framer-motion",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@hypertheme-editor/chakra-ui-colors", [\
+        ["npm:0.1.5", {\
+          "packageLocation": "./.yarn/cache/@hypertheme-editor-chakra-ui-colors-npm-0.1.5-51fd3cef0a-02685a1b57.zip/node_modules/@hypertheme-editor/chakra-ui-colors/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui-colors", "npm:0.1.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5", {\
+          "packageLocation": "./.yarn/__virtual__/@hypertheme-editor-chakra-ui-colors-virtual-bec9eb852b/0/cache/@hypertheme-editor-chakra-ui-colors-npm-0.1.5-51fd3cef0a-02685a1b57.zip/node_modules/@hypertheme-editor/chakra-ui-colors/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui-colors", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5"],\
+            ["@chakra-ui/react", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.0.0"],\
+            ["@hypertheme-editor/chakra-ui-core", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5"],\
+            ["@types/chakra-ui__react", null],\
+            ["@types/framer-motion", null],\
+            ["@types/hypertheme-editor__chakra-ui-core", null],\
+            ["@types/immer", null],\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/react-dom", "npm:18.0.4"],\
+            ["@types/react-icons", null],\
+            ["@types/recoil", null],\
+            ["@types/use-debouncy", null],\
+            ["colord", "npm:2.9.2"],\
+            ["framer-motion", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.3"],\
+            ["immer", "npm:9.0.14"],\
+            ["react", "npm:18.1.0"],\
+            ["react-colorful", "virtual:bec9eb852b41a933044f0ddc76895a80d0063f7c46d59032d5d62c17102b0aef0160098bc8f0cb3d9989c98b6db7dcbeef1232e2145bbd8a35be034c8e286567#npm:5.5.1"],\
+            ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"],\
+            ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
+            ["recoil", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.4.1"],\
+            ["use-debouncy", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:4.3.0"]\
+          ],\
+          "packagePeers": [\
+            "@chakra-ui/react",\
+            "@hypertheme-editor/chakra-ui-core",\
+            "@types/chakra-ui__react",\
+            "@types/framer-motion",\
+            "@types/hypertheme-editor__chakra-ui-core",\
+            "@types/immer",\
+            "@types/react-dom",\
+            "@types/react-icons",\
+            "@types/react",\
+            "@types/recoil",\
+            "@types/use-debouncy",\
+            "framer-motion",\
+            "immer",\
+            "react-dom",\
+            "react-icons",\
+            "react",\
+            "recoil",\
+            "use-debouncy"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@hypertheme-editor/chakra-ui-core", [\
+        ["npm:0.1.5", {\
+          "packageLocation": "./.yarn/cache/@hypertheme-editor-chakra-ui-core-npm-0.1.5-eb9858a8fc-d949bbd246.zip/node_modules/@hypertheme-editor/chakra-ui-core/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui-core", "npm:0.1.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5", {\
+          "packageLocation": "./.yarn/__virtual__/@hypertheme-editor-chakra-ui-core-virtual-9b6e375f1c/0/cache/@hypertheme-editor-chakra-ui-core-npm-0.1.5-eb9858a8fc-d949bbd246.zip/node_modules/@hypertheme-editor/chakra-ui-core/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui-core", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5"],\
+            ["@chakra-ui/react", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.0.0"],\
+            ["@hypertheme-editor/chakra-ui-theme", "virtual:9b6e375f1c795fb8cb9df8320a0790afc3acfdf6a25543be8e8f19fa5c3213937bd281e804a579a02b745ebaab922ea8d284eb4713f0192b9a5e7e6477d8b3d4#npm:0.1.5"],\
+            ["@types/chakra-ui__react", null],\
+            ["@types/framer-motion", null],\
+            ["@types/immer", null],\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/react-dom", "npm:18.0.4"],\
+            ["@types/react-icons", null],\
+            ["@types/recoil", null],\
+            ["framer-motion", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.3"],\
+            ["immer", "npm:9.0.14"],\
+            ["react", "npm:18.1.0"],\
+            ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"],\
+            ["react-google-font-loader", "virtual:9b6e375f1c795fb8cb9df8320a0790afc3acfdf6a25543be8e8f19fa5c3213937bd281e804a579a02b745ebaab922ea8d284eb4713f0192b9a5e7e6477d8b3d4#npm:1.1.0"],\
+            ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
+            ["recoil", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.4.1"]\
+          ],\
+          "packagePeers": [\
+            "@chakra-ui/react",\
+            "@types/chakra-ui__react",\
+            "@types/framer-motion",\
+            "@types/immer",\
+            "@types/react-dom",\
+            "@types/react-icons",\
+            "@types/react",\
+            "@types/recoil",\
+            "framer-motion",\
+            "immer",\
+            "react-dom",\
+            "react-icons",\
+            "react",\
+            "recoil"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@hypertheme-editor/chakra-ui-font-sizes", [\
+        ["npm:0.1.5", {\
+          "packageLocation": "./.yarn/cache/@hypertheme-editor-chakra-ui-font-sizes-npm-0.1.5-d1c6383945-68597eb681.zip/node_modules/@hypertheme-editor/chakra-ui-font-sizes/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui-font-sizes", "npm:0.1.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5", {\
+          "packageLocation": "./.yarn/__virtual__/@hypertheme-editor-chakra-ui-font-sizes-virtual-e64b7fc2b2/0/cache/@hypertheme-editor-chakra-ui-font-sizes-npm-0.1.5-d1c6383945-68597eb681.zip/node_modules/@hypertheme-editor/chakra-ui-font-sizes/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui-font-sizes", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5"],\
+            ["@chakra-ui/react", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.0.0"],\
+            ["@hypertheme-editor/chakra-ui-core", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.1.5"],\
+            ["@types/chakra-ui__react", null],\
+            ["@types/framer-motion", null],\
+            ["@types/hypertheme-editor__chakra-ui-core", null],\
+            ["@types/immer", null],\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/react-dom", "npm:18.0.4"],\
+            ["@types/react-icons", null],\
+            ["@types/recoil", null],\
+            ["@types/use-debouncy", null],\
+            ["framer-motion", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.3"],\
+            ["immer", "npm:9.0.14"],\
+            ["react", "npm:18.1.0"],\
+            ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"],\
+            ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
+            ["recoil", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.4.1"],\
+            ["use-debouncy", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:4.3.0"]\
+          ],\
+          "packagePeers": [\
+            "@chakra-ui/react",\
+            "@hypertheme-editor/chakra-ui-core",\
+            "@types/chakra-ui__react",\
+            "@types/framer-motion",\
+            "@types/hypertheme-editor__chakra-ui-core",\
+            "@types/immer",\
+            "@types/react-dom",\
+            "@types/react-icons",\
+            "@types/react",\
+            "@types/recoil",\
+            "@types/use-debouncy",\
+            "framer-motion",\
+            "immer",\
+            "react-dom",\
+            "react-icons",\
+            "react",\
+            "recoil",\
+            "use-debouncy"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@hypertheme-editor/chakra-ui-theme", [\
+        ["npm:0.1.5", {\
+          "packageLocation": "./.yarn/cache/@hypertheme-editor-chakra-ui-theme-npm-0.1.5-b14c380ffa-82bd762f5d.zip/node_modules/@hypertheme-editor/chakra-ui-theme/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui-theme", "npm:0.1.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:9b6e375f1c795fb8cb9df8320a0790afc3acfdf6a25543be8e8f19fa5c3213937bd281e804a579a02b745ebaab922ea8d284eb4713f0192b9a5e7e6477d8b3d4#npm:0.1.5", {\
+          "packageLocation": "./.yarn/__virtual__/@hypertheme-editor-chakra-ui-theme-virtual-3e2225b06c/0/cache/@hypertheme-editor-chakra-ui-theme-npm-0.1.5-b14c380ffa-82bd762f5d.zip/node_modules/@hypertheme-editor/chakra-ui-theme/",\
+          "packageDependencies": [\
+            ["@hypertheme-editor/chakra-ui-theme", "virtual:9b6e375f1c795fb8cb9df8320a0790afc3acfdf6a25543be8e8f19fa5c3213937bd281e804a579a02b745ebaab922ea8d284eb4713f0192b9a5e7e6477d8b3d4#npm:0.1.5"],\
+            ["@chakra-ui/react", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.0.0"],\
+            ["@types/chakra-ui__react", null],\
+            ["@types/framer-motion", null],\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/react-dom", "npm:18.0.4"],\
+            ["framer-motion", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.3"],\
+            ["react", "npm:18.1.0"],\
+            ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"]\
+          ],\
+          "packagePeers": [\
+            "@chakra-ui/react",\
+            "@types/chakra-ui__react",\
+            "@types/framer-motion",\
+            "@types/react-dom",\
+            "@types/react",\
+            "framer-motion",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@iarna/toml", [\
         ["npm:2.2.5", {\
           "packageLocation": "./.yarn/cache/@iarna-toml-npm-2.2.5-6da1399e8e-b63b2b2c4f.zip/node_modules/@iarna/toml/",\
@@ -5690,6 +5925,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["colord", [\
+        ["npm:2.9.2", {\
+          "packageLocation": "./.yarn/cache/colord-npm-2.9.2-5b43cbb043-2aa6a9b3ab.zip/node_modules/colord/",\
+          "packageDependencies": [\
+            ["colord", "npm:2.9.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["combined-stream", [\
         ["npm:1.0.8", {\
           "packageLocation": "./.yarn/cache/combined-stream-npm-1.0.8-dc14d4a63a-49fa4aeb49.zip/node_modules/combined-stream/",\
@@ -7052,6 +7296,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["hamt_plus", [\
+        ["npm:1.0.2", {\
+          "packageLocation": "./.yarn/cache/hamt_plus-npm-1.0.2-67a52ee1df-af26ea32db.zip/node_modules/hamt_plus/",\
+          "packageDependencies": [\
+            ["hamt_plus", "npm:1.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["has", [\
         ["npm:1.0.3", {\
           "packageLocation": "./.yarn/cache/has-npm-1.0.3-b7f00631c1-b9ad53d53b.zip/node_modules/has/",\
@@ -7230,6 +7483,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/ignore-npm-5.2.0-fc4b58a4f3-6b1f926792.zip/node_modules/ignore/",\
           "packageDependencies": [\
             ["ignore", "npm:5.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["immer", [\
+        ["npm:9.0.14", {\
+          "packageLocation": "./.yarn/cache/immer-npm-9.0.14-0baed19a8d-17f1365c06.zip/node_modules/immer/",\
+          "packageDependencies": [\
+            ["immer", "npm:9.0.14"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8999,6 +9261,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@graphql-codegen/typescript-graphql-files-modules", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.1.1"],\
             ["@graphql-codegen/typescript-operations", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.4.0"],\
             ["@graphql-codegen/typescript-react-apollo", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:3.2.14"],\
+            ["@hypertheme-editor/chakra-ui", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:0.1.5"],\
             ["@testing-library/jest-dom", "npm:5.16.4"],\
             ["@testing-library/react", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:10.4.9"],\
             ["@testing-library/user-event", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:12.8.3"],\
@@ -9015,6 +9278,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
             ["react-router-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.0"],\
             ["react-timeago", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.2.1"],\
+            ["slugify", "npm:1.6.5"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"],\
             ["vite", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.9.9"]\
           ],\
@@ -9076,6 +9340,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-colorful", [\
+        ["npm:5.5.1", {\
+          "packageLocation": "./.yarn/cache/react-colorful-npm-5.5.1-284c645240-e608117817.zip/node_modules/react-colorful/",\
+          "packageDependencies": [\
+            ["react-colorful", "npm:5.5.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:bec9eb852b41a933044f0ddc76895a80d0063f7c46d59032d5d62c17102b0aef0160098bc8f0cb3d9989c98b6db7dcbeef1232e2145bbd8a35be034c8e286567#npm:5.5.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-colorful-virtual-3927cc4f72/0/cache/react-colorful-npm-5.5.1-284c645240-e608117817.zip/node_modules/react-colorful/",\
+          "packageDependencies": [\
+            ["react-colorful", "virtual:bec9eb852b41a933044f0ddc76895a80d0063f7c46d59032d5d62c17102b0aef0160098bc8f0cb3d9989c98b6db7dcbeef1232e2145bbd8a35be034c8e286567#npm:5.5.1"],\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/react-dom", "npm:18.0.4"],\
+            ["react", "npm:18.1.0"],\
+            ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react-dom", [\
         ["npm:18.1.0", {\
           "packageLocation": "./.yarn/cache/react-dom-npm-18.1.0-bd83695a9a-bb0d48eeb0.zip/node_modules/react-dom/",\
@@ -9132,6 +9422,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "packagePeers": [\
             "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-google-font-loader", [\
+        ["npm:1.1.0", {\
+          "packageLocation": "./.yarn/cache/react-google-font-loader-npm-1.1.0-36ec625b72-279590e09b.zip/node_modules/react-google-font-loader/",\
+          "packageDependencies": [\
+            ["react-google-font-loader", "npm:1.1.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:9b6e375f1c795fb8cb9df8320a0790afc3acfdf6a25543be8e8f19fa5c3213937bd281e804a579a02b745ebaab922ea8d284eb4713f0192b9a5e7e6477d8b3d4#npm:1.1.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-google-font-loader-virtual-1deb18bab7/0/cache/react-google-font-loader-npm-1.1.0-36ec625b72-279590e09b.zip/node_modules/react-google-font-loader/",\
+          "packageDependencies": [\
+            ["react-google-font-loader", "virtual:9b6e375f1c795fb8cb9df8320a0790afc3acfdf6a25543be8e8f19fa5c3213937bd281e804a579a02b745ebaab922ea8d284eb4713f0192b9a5e7e6477d8b3d4#npm:1.1.0"],\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/react-dom", "npm:18.0.4"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.1.0"],\
+            ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
             "react"\
           ],\
           "linkType": "HARD"\
@@ -9351,6 +9668,37 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["readdirp", "npm:3.6.0"],\
             ["picomatch", "npm:2.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["recoil", [\
+        ["npm:0.4.1", {\
+          "packageLocation": "./.yarn/cache/recoil-npm-0.4.1-013a399a25-a11a93e516.zip/node_modules/recoil/",\
+          "packageDependencies": [\
+            ["recoil", "npm:0.4.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.4.1", {\
+          "packageLocation": "./.yarn/__virtual__/recoil-virtual-a9e659036a/0/cache/recoil-npm-0.4.1-013a399a25-a11a93e516.zip/node_modules/recoil/",\
+          "packageDependencies": [\
+            ["recoil", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:0.4.1"],\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/react-dom", "npm:18.0.4"],\
+            ["@types/react-native", null],\
+            ["hamt_plus", "npm:1.0.2"],\
+            ["react", "npm:18.1.0"],\
+            ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"],\
+            ["react-native", null]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react-native",\
+            "@types/react",\
+            "react-dom",\
+            "react-native",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9763,6 +10111,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/slice-ansi-npm-0.0.4-c4208829d1-481d969c6a.zip/node_modules/slice-ansi/",\
           "packageDependencies": [\
             ["slice-ansi", "npm:0.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["slugify", [\
+        ["npm:1.6.5", {\
+          "packageLocation": "./.yarn/cache/slugify-npm-1.6.5-6db25d7016-a955a1b600.zip/node_modules/slugify/",\
+          "packageDependencies": [\
+            ["slugify", "npm:1.6.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -10361,6 +10718,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.9"],\
             ["react", "npm:18.1.0"],\
             ["tslib", "npm:2.4.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["use-debouncy", [\
+        ["npm:4.3.0", {\
+          "packageLocation": "./.yarn/cache/use-debouncy-npm-4.3.0-2c2a287659-68d7cfcbe8.zip/node_modules/use-debouncy/",\
+          "packageDependencies": [\
+            ["use-debouncy", "npm:4.3.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:4.3.0", {\
+          "packageLocation": "./.yarn/__virtual__/use-debouncy-virtual-2d43b042ce/0/cache/use-debouncy-npm-4.3.0-2c2a287659-68d7cfcbe8.zip/node_modules/use-debouncy/",\
+          "packageDependencies": [\
+            ["use-debouncy", "virtual:1e6ef78002d46375adcd5154168deb4f365160a918e9e25458ce300aeed00b817ee83426ced5f672be4489ccf1ab7e1a1a7e0d05101719f6a84a3e88f87a09d7#npm:4.3.0"],\
+            ["@types/react", "npm:18.0.9"],\
+            ["react", "npm:18.1.0"]\
           ],\
           "packagePeers": [\
             "@types/react",\

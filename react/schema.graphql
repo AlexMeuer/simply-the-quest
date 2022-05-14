@@ -293,6 +293,11 @@ type quest {
   giver: String!
   id: Int!
   imageURL: String
+
+  """
+  A computed field, executes function "quest_slug"
+  """
+  slug: String
   tags(
     """JSON select path"""
     path: String
@@ -348,6 +353,7 @@ input quest_bool_exp {
   giver: String_comparison_exp
   id: Int_comparison_exp
   imageURL: String_comparison_exp
+  slug: String_comparison_exp
   tags: jsonb_comparison_exp
   title: String_comparison_exp
   updated_at: timestamptz_comparison_exp
@@ -452,6 +458,7 @@ input quest_order_by {
   giver: order_by
   id: order_by
   imageURL: order_by
+  slug: order_by
   tags: order_by
   title: order_by
   updated_at: order_by

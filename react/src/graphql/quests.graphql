@@ -1,6 +1,7 @@
 query Quests {
   quest {
     title
+    slug
     description
     giver
     imageURL

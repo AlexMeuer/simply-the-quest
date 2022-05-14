@@ -212,6 +212,8 @@ export type Quest = {
   giver: Scalars['String'];
   id: Scalars['Int'];
   imageURL?: Maybe<Scalars['String']>;
+  /** A computed field, executes function "quest_slug" */
+  slug?: Maybe<Scalars['String']>;
   tags: Scalars['jsonb'];
   title: Scalars['String'];
   updated_at: Scalars['timestamptz'];
@@ -274,6 +276,7 @@ export type Quest_Bool_Exp = {
   giver?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
   imageURL?: InputMaybe<String_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
   tags?: InputMaybe<Jsonb_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -364,6 +367,7 @@ export type Quest_Order_By = {
   giver?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   imageURL?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
   tags?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
@@ -522,13 +526,14 @@ export type Timestamptz_Comparison_Exp = {
 export type QuestsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type QuestsQuery = { __typename?: 'query_root', quest: Array<{ __typename?: 'quest', title: string, description: string, giver: string, imageURL?: string | null, tags: any, created_at: any, updated_at: any }> };
+export type QuestsQuery = { __typename?: 'query_root', quest: Array<{ __typename?: 'quest', title: string, slug?: string | null, description: string, giver: string, imageURL?: string | null, tags: any, created_at: any, updated_at: any }> };
 
 
 export const QuestsDocument = gql`
     query Quests {
   quest {
     title
+    slug
     description
     giver
     imageURL
