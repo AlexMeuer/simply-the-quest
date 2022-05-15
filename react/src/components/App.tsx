@@ -1,9 +1,10 @@
 import * as React from "react";
-import { ChakraProvider, Center, Flex } from "@chakra-ui/react";
 import {
-  ThemeEditorProvider,
-  HyperThemeEditor,
-} from "@hypertheme-editor/chakra-ui";
+  ChakraProvider,
+  Center,
+  Flex,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import {
   ApolloProvider,
@@ -19,6 +20,9 @@ import { GithubButton } from "./GithubButton";
 import { QuestList } from "./Quest/QuestList";
 import { QuestDetail } from "./Quest/QuestDetail";
 
+import PillPity, { Pattern } from "pill-pity";
+import _ from "lodash";
+
 const httpLink = createHttpLink({
   uri: "http://localhost:8080/v1/graphql",
 });
@@ -31,28 +35,45 @@ const client = new ApolloClient({
 export const App = () => (
   <ApolloProvider client={client}>
     <ChakraProvider theme={theme}>
-      <ThemeEditorProvider>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<QuestList />} />
-            <Route path="/quest/:slug" element={<QuestDetail />} />
-            <Route path="*" element={<AreYouLost />} />
-          </Route>
-        </Routes>
-      </ThemeEditorProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<QuestList />} />
+          <Route path="/quest/:slug" element={<QuestDetail />} />
+          <Route path="*" element={<AreYouLost />} />
+        </Route>
+      </Routes>
     </ChakraProvider>
   </ApolloProvider>
 );
 
-const Layout: React.FC = () => (
-  <Flex minH="100vh" direction="column">
-    <NavHeader title="Simply the Quest!">
-      <GithubButton />
-      <ColorModeSwitcher />
-      <HyperThemeEditor size="sm" />
-    </NavHeader>
-    <Center flexGrow={1}>
-      <Outlet />
-    </Center>
-  </Flex>
-);
+const Layout: React.FC = () => {
+  const pattern = React.useMemo(() => {
+    const patterns: Pattern[] = [
+      "topography",
+      "jupiter",
+      "hexagons",
+      "houndstooth",
+      "morphing-diamonds",
+      "melt",
+    ];
+    return _.sample(patterns) || patterns[0];
+  }, []);
+  return (
+    <PillPity
+      as={Flex}
+      pattern={pattern}
+      patternFill={useColorModeValue("gray.300", "gray.700")}
+      backgroundColor={useColorModeValue("gray.100", "gray.900")}
+      minH="100vh"
+      direction="column"
+    >
+      <NavHeader title="Simply the Quest!">
+        <GithubButton />
+        <ColorModeSwitcher />
+      </NavHeader>
+      <Center flexGrow={1}>
+        <Outlet />
+      </Center>
+    </PillPity>
+  );
+};

@@ -4,7 +4,9 @@ import {
   Heading,
   HStack,
   Text,
+  Link,
 } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 import React from "react";
 
 export interface NavHeaderProps {
@@ -23,7 +25,11 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ title, children }) => (
     color={useColorModeValue("gray.900", "gray.400")}
     shadow="md"
   >
-    <Heading>{title}</Heading>
+    <Heading>
+      <Link as={RouterLink} to="/">
+        {title}
+      </Link>
+    </Heading>
     <HStack>{children}</HStack>
   </HStack>
 );
