@@ -84,7 +84,7 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
   );
   // TODO: dark/light mode values!
   return (
-    <Stack w="2xl" bg="gray.700" rounded="2xl">
+    <Stack w={["2xl", "80%", "100%"]} bg="gray.700" rounded="2xl">
       <Box
         w="full"
         maxH="12rem"
@@ -102,11 +102,15 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
       </Box>
       <Stack px={4} pb={4}>
         <Flex direction="row" justifyContent="end">
-          {tags.map((tag: any) => (
-            <Badge key={tag} mr={2}>
-              {tag}
-            </Badge>
-          ))}
+          {tags.map(
+            (
+              tag: any // TODO: fix 'any' typing
+            ) => (
+              <Badge key={tag} mr={2}>
+                {tag}
+              </Badge>
+            )
+          )}
           <Badge key={giver} variant="outline">
             {giver}
           </Badge>

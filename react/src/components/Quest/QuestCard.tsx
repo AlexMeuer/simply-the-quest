@@ -36,7 +36,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   return (
     <LinkBox
       as="article"
-      w="2xl"
+      w={["2xl", "80%", "100%"]}
       mx="auto"
       px={8}
       py={4}
