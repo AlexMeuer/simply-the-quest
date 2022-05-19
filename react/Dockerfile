@@ -1,7 +1,7 @@
 FROM node:18-alpine as build-deps
 WORKDIR /usr/src/app
 COPY . ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 RUN yarn build
 
 FROM nginx:stable-alpine

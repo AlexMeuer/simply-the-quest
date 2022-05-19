@@ -31,7 +31,7 @@ services:
   react:
     build: ./react
     ports:
-      - "80:80"
+      - "42069:42069"
     restart: always
 volumes:
   db_data:

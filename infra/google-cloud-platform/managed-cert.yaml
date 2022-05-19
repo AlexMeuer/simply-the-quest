@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: simply-the-quest-cert
+spec:
+  domains:
+    - quest.alexmeuer.com

@@ -1,6 +1,14 @@
 table:
   schema: public
   name: quest
+array_relationships:
+  - name: log_entries
+    using:
+      foreign_key_constraint_on:
+        column: quest_id
+        table:
+          schema: public
+          name: quest_log_entry
 computed_fields:
   - name: slug
     definition:
@@ -21,5 +29,7 @@ select_permissions:
         - updated_at
       computed_fields:
         - slug
-      filter: {}
+      filter:
+        isPublished:
+          _eq: true
       allow_aggregations: true

@@ -69,7 +69,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
             ["react-router-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.0"],\
             ["react-timeago", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.2.1"],\
-            ["slugify", "npm:1.6.5"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"],\
             ["vite", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.9.9"]\
           ],\
@@ -9494,7 +9493,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
             ["react-router-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.0"],\
             ["react-timeago", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.2.1"],\
-            ["slugify", "npm:1.6.5"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"],\
             ["vite", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.9.9"]\
           ],\
@@ -10271,15 +10269,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/slice-ansi-npm-0.0.4-c4208829d1-481d969c6a.zip/node_modules/slice-ansi/",\
           "packageDependencies": [\
             ["slice-ansi", "npm:0.0.4"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["slugify", [\
-        ["npm:1.6.5", {\
-          "packageLocation": "./.yarn/cache/slugify-npm-1.6.5-6db25d7016-a955a1b600.zip/node_modules/slugify/",\
-          "packageDependencies": [\
-            ["slugify", "npm:1.6.5"]\
           ],\
           "linkType": "HARD"\
         }]\

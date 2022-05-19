@@ -6,8 +6,9 @@ import { QuestCard } from "./QuestCard";
 export const QuestList: React.FC = () => {
   const { data } = useQuery<{ quest: Quest[] }>(QuestsDocument);
   return (
-    <VStack>
-      {data && data.quest.map((quest) => <QuestCard {...quest} />)}
+    <VStack my={8}>
+      {data &&
+        data.quest.map((quest) => <QuestCard key={quest.slug} {...quest} />)}
     </VStack>
   );
 };

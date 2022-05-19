@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { Quest } from "../../generated/graphql";
-import slugify from "slugify";
+import { useViewportScroll } from "framer-motion";
 
 type QuestCardProps = Quest;
 
@@ -23,6 +23,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   tags,
   updated_at,
   imageURL,
+  slug,
 }) => {
   const bgOverlayStart = useColorModeValue(
     "rgba(255, 255, 255, 0.4)",
@@ -31,10 +32,6 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   const bgOverlayEnd = useColorModeValue(
     "rgba(255, 255, 255, 0.6)",
     "rgba(0, 0, 0, 0.8)"
-  );
-  const questURL = React.useMemo(
-    () => "/quest/" + slugify(title, { lower: true }),
-    [title]
   );
   return (
     <LinkBox
@@ -52,7 +49,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
       <Flex justifyContent="space-between" alignItems="center">
         <LinkOverlay
           as={RouterLink}
-          to={questURL}
+          to={`/quest/${slug}`}
           fontSize="2xl"
           color={useColorModeValue("gray.700", "white")}
           fontWeight="700"
@@ -66,6 +63,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         <HStack>
           {tags.map((tag: any) => (
             <Link
+              key={tag}
               as={RouterLink}
               to={`/quest/tag/${tag}`}
               px={3}

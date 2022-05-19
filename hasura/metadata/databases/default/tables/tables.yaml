@@ -1,1 +1,3 @@
 - "!include public_quest.yaml"
+- "!include public_quest_log_entry.yaml"
+- "!include public_statuses.yaml"

@@ -4,6 +4,7 @@ import {
   Center,
   Flex,
   useColorModeValue,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import {
@@ -18,13 +19,13 @@ import { NavHeader } from "./NavHeader";
 import { AreYouLost } from "./404";
 import { GithubButton } from "./GithubButton";
 import { QuestList } from "./Quest/QuestList";
-import { QuestDetail } from "./Quest/QuestDetail";
+import { QuestDetailGraphqlWrapper } from "./Quest/QuestDetail";
 
 import PillPity, { Pattern } from "pill-pity";
 import _ from "lodash";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:8080/v1/graphql",
+  uri: import.meta.env.VITE_GRAPHQL_ENDPOINT,
 });
 
 const client = new ApolloClient({
@@ -38,7 +39,7 @@ export const App = () => (
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<QuestList />} />
-          <Route path="/quest/:slug" element={<QuestDetail />} />
+          <Route path="/quest/:slug" element={<QuestDetailGraphqlWrapper />} />
           <Route path="*" element={<AreYouLost />} />
         </Route>
       </Routes>
