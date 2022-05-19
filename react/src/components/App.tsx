@@ -19,7 +19,7 @@ import { NavHeader } from "./NavHeader";
 import { AreYouLost } from "./404";
 import { GithubButton } from "./GithubButton";
 import { QuestList } from "./Quest/QuestList";
-import { QuestDetailGraphqlFoo } from "./Quest/QuestDetail";
+import { QuestDetailGraphqlWrapper } from "./Quest/QuestDetail";
 
 import PillPity, { Pattern } from "pill-pity";
 import _ from "lodash";
@@ -39,7 +39,7 @@ export const App = () => (
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<QuestList />} />
-          <Route path="/quest/:slug" element={<QuestDetailGraphqlFoo />} />
+          <Route path="/quest/:slug" element={<QuestDetailGraphqlWrapper />} />
           <Route path="*" element={<AreYouLost />} />
         </Route>
       </Routes>

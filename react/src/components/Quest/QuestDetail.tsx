@@ -40,8 +40,7 @@ gql`
   }
 `;
 
-// TODO: name this better.
-export const QuestDetailGraphqlFoo: React.FC = () => {
+export const QuestDetailGraphqlWrapper: React.FC = () => {
   const { slug } = useParams();
   const { data, loading } = useQuestWithLogForDetailViewQuery({
     variables: { slug },
@@ -115,27 +114,23 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
         <Text>{description}</Text>
         {log_entries
           .sort((a, b) => b.step - a.step) // TODO: can this sort happen in the gql query??
-          .map(
-            (
-              entry // TODO: sort these properly by step number.
-            ) => (
-              <Stack
-                rounded="xl"
-                p={4}
-                bg={`linear-gradient( ${bgOverlayStart}, ${bgOverlayEnd} ), url('${entry.imageURL}')`}
-                bgSize="cover"
-                bgPosition="center"
-              >
-                <Flex direction="row" justifyContent="space-between">
-                  <Heading as="h3">{entry.title}</Heading>
-                  <Box alignSelf="end">
-                    <Badge colorScheme="green">{entry.status}</Badge>
-                  </Box>
-                </Flex>
-                <Text>{entry.body}</Text>
-              </Stack>
-            )
-          )}
+          .map((entry) => (
+            <Stack
+              rounded="xl"
+              p={4}
+              bg={`linear-gradient( ${bgOverlayStart}, ${bgOverlayEnd} ), url('${entry.imageURL}')`}
+              bgSize="cover"
+              bgPosition="center"
+            >
+              <Flex direction="row" justifyContent="space-between">
+                <Heading as="h3">{entry.title}</Heading>
+                <Box alignSelf="end">
+                  <Badge colorScheme="green">{entry.status}</Badge>
+                </Box>
+              </Flex>
+              <Text>{entry.body}</Text>
+            </Stack>
+          ))}
       </Stack>
     </Stack>
   );
