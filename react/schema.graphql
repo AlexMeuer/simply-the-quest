@@ -14,6 +14,21 @@ directive @cached(
 ) on QUERY
 
 """
+Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
+"""
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"""
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
 input Int_comparison_exp {
@@ -83,10 +98,16 @@ input String_comparison_exp {
 
 scalar jsonb
 
+input jsonb_cast_exp {
+  String: String_comparison_exp
+}
+
 """
 Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'.
 """
 input jsonb_comparison_exp {
+  _cast: jsonb_cast_exp
+
   """is the column contained in the given json value"""
   _contained_in: jsonb
 
@@ -128,6 +149,32 @@ type mutation_root {
   delete_quest_by_pk(id: Int!): quest
 
   """
+  delete data from the table: "quest_log_entry"
+  """
+  delete_quest_log_entry(
+    """filter the rows which have to be deleted"""
+    where: quest_log_entry_bool_exp!
+  ): quest_log_entry_mutation_response
+
+  """
+  delete single row from the table: "quest_log_entry"
+  """
+  delete_quest_log_entry_by_pk(created_at: timestamptz!, quest_id: Int!): quest_log_entry
+
+  """
+  delete data from the table: "statuses"
+  """
+  delete_statuses(
+    """filter the rows which have to be deleted"""
+    where: statuses_bool_exp!
+  ): statuses_mutation_response
+
+  """
+  delete single row from the table: "statuses"
+  """
+  delete_statuses_by_pk(name: String!): statuses
+
+  """
   insert data into the table: "quest"
   """
   insert_quest(
@@ -139,6 +186,28 @@ type mutation_root {
   ): quest_mutation_response
 
   """
+  insert data into the table: "quest_log_entry"
+  """
+  insert_quest_log_entry(
+    """the rows to be inserted"""
+    objects: [quest_log_entry_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: quest_log_entry_on_conflict
+  ): quest_log_entry_mutation_response
+
+  """
+  insert a single row into the table: "quest_log_entry"
+  """
+  insert_quest_log_entry_one(
+    """the row to be inserted"""
+    object: quest_log_entry_insert_input!
+
+    """upsert condition"""
+    on_conflict: quest_log_entry_on_conflict
+  ): quest_log_entry
+
+  """
   insert a single row into the table: "quest"
   """
   insert_quest_one(
@@ -148,6 +217,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: quest_on_conflict
   ): quest
+
+  """
+  insert data into the table: "statuses"
+  """
+  insert_statuses(
+    """the rows to be inserted"""
+    objects: [statuses_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: statuses_on_conflict
+  ): statuses_mutation_response
+
+  """
+  insert a single row into the table: "statuses"
+  """
+  insert_statuses_one(
+    """the row to be inserted"""
+    object: statuses_insert_input!
+
+    """upsert condition"""
+    on_conflict: statuses_on_conflict
+  ): statuses
 
   """
   update data of the table: "quest"
@@ -216,6 +307,52 @@ type mutation_root {
     _set: quest_set_input
     pk_columns: quest_pk_columns_input!
   ): quest
+
+  """
+  update data of the table: "quest_log_entry"
+  """
+  update_quest_log_entry(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: quest_log_entry_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: quest_log_entry_set_input
+
+    """filter the rows which have to be updated"""
+    where: quest_log_entry_bool_exp!
+  ): quest_log_entry_mutation_response
+
+  """
+  update single row of the table: "quest_log_entry"
+  """
+  update_quest_log_entry_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: quest_log_entry_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: quest_log_entry_set_input
+    pk_columns: quest_log_entry_pk_columns_input!
+  ): quest_log_entry
+
+  """
+  update data of the table: "statuses"
+  """
+  update_statuses(
+    """sets the columns of the filtered rows to the given values"""
+    _set: statuses_set_input
+
+    """filter the rows which have to be updated"""
+    where: statuses_bool_exp!
+  ): statuses_mutation_response
+
+  """
+  update single row of the table: "statuses"
+  """
+  update_statuses_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: statuses_set_input
+    pk_columns: statuses_pk_columns_input!
+  ): statuses
 }
 
 """column ordering options"""
@@ -282,6 +419,92 @@ type query_root {
 
   """fetch data from the table: "quest" using primary key columns"""
   quest_by_pk(id: Int!): quest
+
+  """
+  fetch data from the table: "quest_log_entry"
+  """
+  quest_log_entry(
+    """distinct select on columns"""
+    distinct_on: [quest_log_entry_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_log_entry_order_by!]
+
+    """filter the rows returned"""
+    where: quest_log_entry_bool_exp
+  ): [quest_log_entry!]!
+
+  """
+  fetch aggregated fields from the table: "quest_log_entry"
+  """
+  quest_log_entry_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_log_entry_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_log_entry_order_by!]
+
+    """filter the rows returned"""
+    where: quest_log_entry_bool_exp
+  ): quest_log_entry_aggregate!
+
+  """fetch data from the table: "quest_log_entry" using primary key columns"""
+  quest_log_entry_by_pk(created_at: timestamptz!, quest_id: Int!): quest_log_entry
+
+  """
+  fetch data from the table: "statuses"
+  """
+  statuses(
+    """distinct select on columns"""
+    distinct_on: [statuses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [statuses_order_by!]
+
+    """filter the rows returned"""
+    where: statuses_bool_exp
+  ): [statuses!]!
+
+  """
+  fetch aggregated fields from the table: "statuses"
+  """
+  statuses_aggregate(
+    """distinct select on columns"""
+    distinct_on: [statuses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [statuses_order_by!]
+
+    """filter the rows returned"""
+    where: statuses_bool_exp
+  ): statuses_aggregate!
+
+  """fetch data from the table: "statuses" using primary key columns"""
+  statuses_by_pk(name: String!): statuses
 }
 
 """
@@ -293,6 +516,43 @@ type quest {
   giver: String!
   id: Int!
   imageURL: String
+  isPublished: Boolean!
+
+  """An array relationship"""
+  log_entries(
+    """distinct select on columns"""
+    distinct_on: [quest_log_entry_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_log_entry_order_by!]
+
+    """filter the rows returned"""
+    where: quest_log_entry_bool_exp
+  ): [quest_log_entry!]!
+
+  """An aggregate relationship"""
+  log_entries_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_log_entry_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_log_entry_order_by!]
+
+    """filter the rows returned"""
+    where: quest_log_entry_bool_exp
+  ): quest_log_entry_aggregate!
 
   """
   A computed field, executes function "quest_slug"
@@ -353,6 +613,8 @@ input quest_bool_exp {
   giver: String_comparison_exp
   id: Int_comparison_exp
   imageURL: String_comparison_exp
+  isPublished: Boolean_comparison_exp
+  log_entries: quest_log_entry_bool_exp
   slug: String_comparison_exp
   tags: jsonb_comparison_exp
   title: String_comparison_exp
@@ -404,9 +666,400 @@ input quest_insert_input {
   giver: String
   id: Int
   imageURL: String
+  isPublished: Boolean
+  log_entries: quest_log_entry_arr_rel_insert_input
   tags: jsonb
   title: String
   updated_at: timestamptz
+}
+
+"""
+columns and relationships of "quest_log_entry"
+"""
+type quest_log_entry {
+  body: String!
+  created_at: timestamptz!
+  imageURL: String
+
+  """An object relationship"""
+  quest: quest!
+  quest_id: Int!
+  status: statuses_enum!
+  step: Int!
+  title: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "quest_log_entry"
+"""
+type quest_log_entry_aggregate {
+  aggregate: quest_log_entry_aggregate_fields
+  nodes: [quest_log_entry!]!
+}
+
+"""
+aggregate fields of "quest_log_entry"
+"""
+type quest_log_entry_aggregate_fields {
+  avg: quest_log_entry_avg_fields
+  count(columns: [quest_log_entry_select_column!], distinct: Boolean): Int!
+  max: quest_log_entry_max_fields
+  min: quest_log_entry_min_fields
+  stddev: quest_log_entry_stddev_fields
+  stddev_pop: quest_log_entry_stddev_pop_fields
+  stddev_samp: quest_log_entry_stddev_samp_fields
+  sum: quest_log_entry_sum_fields
+  var_pop: quest_log_entry_var_pop_fields
+  var_samp: quest_log_entry_var_samp_fields
+  variance: quest_log_entry_variance_fields
+}
+
+"""
+order by aggregate values of table "quest_log_entry"
+"""
+input quest_log_entry_aggregate_order_by {
+  avg: quest_log_entry_avg_order_by
+  count: order_by
+  max: quest_log_entry_max_order_by
+  min: quest_log_entry_min_order_by
+  stddev: quest_log_entry_stddev_order_by
+  stddev_pop: quest_log_entry_stddev_pop_order_by
+  stddev_samp: quest_log_entry_stddev_samp_order_by
+  sum: quest_log_entry_sum_order_by
+  var_pop: quest_log_entry_var_pop_order_by
+  var_samp: quest_log_entry_var_samp_order_by
+  variance: quest_log_entry_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "quest_log_entry"
+"""
+input quest_log_entry_arr_rel_insert_input {
+  data: [quest_log_entry_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: quest_log_entry_on_conflict
+}
+
+"""aggregate avg on columns"""
+type quest_log_entry_avg_fields {
+  quest_id: Float
+  step: Float
+}
+
+"""
+order by avg() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_avg_order_by {
+  quest_id: order_by
+  step: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "quest_log_entry". All fields are combined with a logical 'AND'.
+"""
+input quest_log_entry_bool_exp {
+  _and: [quest_log_entry_bool_exp!]
+  _not: quest_log_entry_bool_exp
+  _or: [quest_log_entry_bool_exp!]
+  body: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  imageURL: String_comparison_exp
+  quest: quest_bool_exp
+  quest_id: Int_comparison_exp
+  status: statuses_enum_comparison_exp
+  step: Int_comparison_exp
+  title: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "quest_log_entry"
+"""
+enum quest_log_entry_constraint {
+  """unique or primary key constraint"""
+  quest_log_entry_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "quest_log_entry"
+"""
+input quest_log_entry_inc_input {
+  quest_id: Int
+  step: Int
+}
+
+"""
+input type for inserting data into table "quest_log_entry"
+"""
+input quest_log_entry_insert_input {
+  body: String
+  created_at: timestamptz
+  imageURL: String
+  quest: quest_obj_rel_insert_input
+  quest_id: Int
+  status: statuses_enum
+  step: Int
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type quest_log_entry_max_fields {
+  body: String
+  created_at: timestamptz
+  imageURL: String
+  quest_id: Int
+  step: Int
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_max_order_by {
+  body: order_by
+  created_at: order_by
+  imageURL: order_by
+  quest_id: order_by
+  step: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type quest_log_entry_min_fields {
+  body: String
+  created_at: timestamptz
+  imageURL: String
+  quest_id: Int
+  step: Int
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_min_order_by {
+  body: order_by
+  created_at: order_by
+  imageURL: order_by
+  quest_id: order_by
+  step: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "quest_log_entry"
+"""
+type quest_log_entry_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [quest_log_entry!]!
+}
+
+"""
+on_conflict condition type for table "quest_log_entry"
+"""
+input quest_log_entry_on_conflict {
+  constraint: quest_log_entry_constraint!
+  update_columns: [quest_log_entry_update_column!]! = []
+  where: quest_log_entry_bool_exp
+}
+
+"""Ordering options when selecting data from "quest_log_entry"."""
+input quest_log_entry_order_by {
+  body: order_by
+  created_at: order_by
+  imageURL: order_by
+  quest: quest_order_by
+  quest_id: order_by
+  status: order_by
+  step: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: quest_log_entry"""
+input quest_log_entry_pk_columns_input {
+  created_at: timestamptz!
+  quest_id: Int!
+}
+
+"""
+select columns of table "quest_log_entry"
+"""
+enum quest_log_entry_select_column {
+  """column name"""
+  body
+
+  """column name"""
+  created_at
+
+  """column name"""
+  imageURL
+
+  """column name"""
+  quest_id
+
+  """column name"""
+  status
+
+  """column name"""
+  step
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "quest_log_entry"
+"""
+input quest_log_entry_set_input {
+  body: String
+  created_at: timestamptz
+  imageURL: String
+  quest_id: Int
+  status: statuses_enum
+  step: Int
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type quest_log_entry_stddev_fields {
+  quest_id: Float
+  step: Float
+}
+
+"""
+order by stddev() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_stddev_order_by {
+  quest_id: order_by
+  step: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type quest_log_entry_stddev_pop_fields {
+  quest_id: Float
+  step: Float
+}
+
+"""
+order by stddev_pop() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_stddev_pop_order_by {
+  quest_id: order_by
+  step: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type quest_log_entry_stddev_samp_fields {
+  quest_id: Float
+  step: Float
+}
+
+"""
+order by stddev_samp() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_stddev_samp_order_by {
+  quest_id: order_by
+  step: order_by
+}
+
+"""aggregate sum on columns"""
+type quest_log_entry_sum_fields {
+  quest_id: Int
+  step: Int
+}
+
+"""
+order by sum() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_sum_order_by {
+  quest_id: order_by
+  step: order_by
+}
+
+"""
+update columns of table "quest_log_entry"
+"""
+enum quest_log_entry_update_column {
+  """column name"""
+  body
+
+  """column name"""
+  created_at
+
+  """column name"""
+  imageURL
+
+  """column name"""
+  quest_id
+
+  """column name"""
+  status
+
+  """column name"""
+  step
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type quest_log_entry_var_pop_fields {
+  quest_id: Float
+  step: Float
+}
+
+"""
+order by var_pop() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_var_pop_order_by {
+  quest_id: order_by
+  step: order_by
+}
+
+"""aggregate var_samp on columns"""
+type quest_log_entry_var_samp_fields {
+  quest_id: Float
+  step: Float
+}
+
+"""
+order by var_samp() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_var_samp_order_by {
+  quest_id: order_by
+  step: order_by
+}
+
+"""aggregate variance on columns"""
+type quest_log_entry_variance_fields {
+  quest_id: Float
+  step: Float
+}
+
+"""
+order by variance() on columns of table "quest_log_entry"
+"""
+input quest_log_entry_variance_order_by {
+  quest_id: order_by
+  step: order_by
 }
 
 """aggregate max on columns"""
@@ -443,6 +1096,16 @@ type quest_mutation_response {
 }
 
 """
+input type for inserting object relation for remote table "quest"
+"""
+input quest_obj_rel_insert_input {
+  data: quest_insert_input!
+
+  """upsert condition"""
+  on_conflict: quest_on_conflict
+}
+
+"""
 on_conflict condition type for table "quest"
 """
 input quest_on_conflict {
@@ -458,6 +1121,8 @@ input quest_order_by {
   giver: order_by
   id: order_by
   imageURL: order_by
+  isPublished: order_by
+  log_entries_aggregate: quest_log_entry_aggregate_order_by
   slug: order_by
   tags: order_by
   title: order_by
@@ -494,6 +1159,9 @@ enum quest_select_column {
   imageURL
 
   """column name"""
+  isPublished
+
+  """column name"""
   tags
 
   """column name"""
@@ -512,6 +1180,7 @@ input quest_set_input {
   giver: String
   id: Int
   imageURL: String
+  isPublished: Boolean
   tags: jsonb
   title: String
   updated_at: timestamptz
@@ -557,6 +1226,9 @@ enum quest_update_column {
   imageURL
 
   """column name"""
+  isPublished
+
+  """column name"""
   tags
 
   """column name"""
@@ -579,6 +1251,137 @@ type quest_var_samp_fields {
 """aggregate variance on columns"""
 type quest_variance_fields {
   id: Float
+}
+
+"""
+columns and relationships of "statuses"
+"""
+type statuses {
+  name: String!
+}
+
+"""
+aggregated selection of "statuses"
+"""
+type statuses_aggregate {
+  aggregate: statuses_aggregate_fields
+  nodes: [statuses!]!
+}
+
+"""
+aggregate fields of "statuses"
+"""
+type statuses_aggregate_fields {
+  count(columns: [statuses_select_column!], distinct: Boolean): Int!
+  max: statuses_max_fields
+  min: statuses_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "statuses". All fields are combined with a logical 'AND'.
+"""
+input statuses_bool_exp {
+  _and: [statuses_bool_exp!]
+  _not: statuses_bool_exp
+  _or: [statuses_bool_exp!]
+  name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "statuses"
+"""
+enum statuses_constraint {
+  """unique or primary key constraint"""
+  statuses_pkey
+}
+
+enum statuses_enum {
+  active
+  disabled
+  expired
+  fail
+  success
+}
+
+"""
+Boolean expression to compare columns of type "statuses_enum". All fields are combined with logical 'AND'.
+"""
+input statuses_enum_comparison_exp {
+  _eq: statuses_enum
+  _in: [statuses_enum!]
+  _is_null: Boolean
+  _neq: statuses_enum
+  _nin: [statuses_enum!]
+}
+
+"""
+input type for inserting data into table "statuses"
+"""
+input statuses_insert_input {
+  name: String
+}
+
+"""aggregate max on columns"""
+type statuses_max_fields {
+  name: String
+}
+
+"""aggregate min on columns"""
+type statuses_min_fields {
+  name: String
+}
+
+"""
+response of any mutation on the table "statuses"
+"""
+type statuses_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [statuses!]!
+}
+
+"""
+on_conflict condition type for table "statuses"
+"""
+input statuses_on_conflict {
+  constraint: statuses_constraint!
+  update_columns: [statuses_update_column!]! = []
+  where: statuses_bool_exp
+}
+
+"""Ordering options when selecting data from "statuses"."""
+input statuses_order_by {
+  name: order_by
+}
+
+"""primary key columns input for table: statuses"""
+input statuses_pk_columns_input {
+  name: String!
+}
+
+"""
+select columns of table "statuses"
+"""
+enum statuses_select_column {
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "statuses"
+"""
+input statuses_set_input {
+  name: String
+}
+
+"""
+update columns of table "statuses"
+"""
+enum statuses_update_column {
+  """column name"""
+  name
 }
 
 type subscription_root {
@@ -624,6 +1427,92 @@ type subscription_root {
 
   """fetch data from the table: "quest" using primary key columns"""
   quest_by_pk(id: Int!): quest
+
+  """
+  fetch data from the table: "quest_log_entry"
+  """
+  quest_log_entry(
+    """distinct select on columns"""
+    distinct_on: [quest_log_entry_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_log_entry_order_by!]
+
+    """filter the rows returned"""
+    where: quest_log_entry_bool_exp
+  ): [quest_log_entry!]!
+
+  """
+  fetch aggregated fields from the table: "quest_log_entry"
+  """
+  quest_log_entry_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_log_entry_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_log_entry_order_by!]
+
+    """filter the rows returned"""
+    where: quest_log_entry_bool_exp
+  ): quest_log_entry_aggregate!
+
+  """fetch data from the table: "quest_log_entry" using primary key columns"""
+  quest_log_entry_by_pk(created_at: timestamptz!, quest_id: Int!): quest_log_entry
+
+  """
+  fetch data from the table: "statuses"
+  """
+  statuses(
+    """distinct select on columns"""
+    distinct_on: [statuses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [statuses_order_by!]
+
+    """filter the rows returned"""
+    where: statuses_bool_exp
+  ): [statuses!]!
+
+  """
+  fetch aggregated fields from the table: "statuses"
+  """
+  statuses_aggregate(
+    """distinct select on columns"""
+    distinct_on: [statuses_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [statuses_order_by!]
+
+    """filter the rows returned"""
+    where: statuses_bool_exp
+  ): statuses_aggregate!
+
+  """fetch data from the table: "statuses" using primary key columns"""
+  statuses_by_pk(name: String!): statuses
 }
 
 scalar timestamptz

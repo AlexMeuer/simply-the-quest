@@ -10,3 +10,15 @@ query Quests {
     updated_at
   }
 }
+
+query QuestBySlug($slug: String) {
+  quest(limit: 1, where: { slug: { _eq: $slug } }) {
+    title
+    description
+    tags
+    imageURL
+    giver
+    created_at
+    updated_at
+  }
+}

@@ -1,0 +1,24 @@
+table:
+  schema: public
+  name: quest_log_entry
+object_relationships:
+  - name: quest
+    using:
+      foreign_key_constraint_on: quest_id
+select_permissions:
+  - role: anon
+    permission:
+      columns:
+        - body
+        - created_at
+        - imageURL
+        - quest_id
+        - status
+        - step
+        - title
+        - updated_at
+      filter:
+        quest:
+          isPublished:
+            _eq: true
+      allow_aggregations: true

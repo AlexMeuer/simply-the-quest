@@ -1,3 +1,3 @@
 -- Could not auto-generate a down migration.
 -- Please write an appropriate down migration for the SQL below:
--- DROP table "public"."quest_tag";
+-- INSERT INTO statuses (name) VALUES ('success'), ('fail'), ('disabled'), ('expired'), ('active');
