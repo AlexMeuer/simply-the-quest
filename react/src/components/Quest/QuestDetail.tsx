@@ -102,11 +102,15 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
       </Box>
       <Stack px={4} pb={4}>
         <Flex direction="row" justifyContent="end">
-          {tags.map((tag: any) => (
-            <Badge key={tag} mr={2}>
-              {tag}
-            </Badge>
-          ))}
+          {tags.map(
+            (
+              tag: any // TODO: fix 'any' typing
+            ) => (
+              <Badge key={tag} mr={2}>
+                {tag}
+              </Badge>
+            )
+          )}
           <Badge key={giver} variant="outline">
             {giver}
           </Badge>

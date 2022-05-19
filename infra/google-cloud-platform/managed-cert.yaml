@@ -4,4 +4,4 @@ metadata:
   name: simply-the-quest-cert
 spec:
   domains:
-    - quest.alexmeuer.com
+    - gql.quest.alexmeuer.com
