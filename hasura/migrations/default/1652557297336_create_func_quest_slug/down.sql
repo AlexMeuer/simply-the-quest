@@ -1,6 +1,0 @@
--- Could not auto-generate a down migration.
--- Please write an appropriate down migration for the SQL below:
--- CREATE OR REPLACE FUNCTION quest_slug(quest_row quest)
--- RETURNS TEXT AS $$
---   SELECT slugify(quest_row.title)
--- $$ LANGUAGE sql STABLE;

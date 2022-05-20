@@ -1,14 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { VStack } from "@chakra-ui/react";
-import { Quest, QuestsDocument } from "../../generated/graphql";
+import { Quests, QuestsDocument } from "../../generated/graphql";
 import { QuestCard } from "./QuestCard";
 
 export const QuestList: React.FC = () => {
-  const { data } = useQuery<{ quest: Quest[] }>(QuestsDocument);
+  const { data } = useQuery<{ quests: Quests[] }>(QuestsDocument);
   return (
     <VStack my={8}>
       {data &&
-        data.quest.map((quest) => <QuestCard key={quest.slug} {...quest} />)}
+        data.quests.map((quest) => <QuestCard key={quest.slug} {...quest} />)}
     </VStack>
   );
 };

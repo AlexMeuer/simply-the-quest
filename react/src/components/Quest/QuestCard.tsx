@@ -11,10 +11,9 @@ import {
   LinkBox,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { Quest } from "../../generated/graphql";
-import { useViewportScroll } from "framer-motion";
+import { Quests } from "../../generated/graphql";
 
-type QuestCardProps = Quest;
+type QuestCardProps = Quests;
 
 export const QuestCard: React.FC<QuestCardProps> = ({
   title,

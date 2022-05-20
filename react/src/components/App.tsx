@@ -4,15 +4,13 @@ import {
   Center,
   Flex,
   useColorModeValue,
-  CircularProgress,
 } from "@chakra-ui/react";
 import { Routes, Route, Outlet } from "react-router-dom";
-import {
-  ApolloProvider,
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache,
-} from "@apollo/client";
+import { NhostClient } from "@nhost/nhost-js";
+import { NhostAuthProvider } from "@nhost/react-auth";
+import { NhostApolloProvider } from "@nhost/react-apollo";
+import PillPity, { Pattern } from "pill-pity";
+import { sample } from "lodash";
 import theme from "../Theme";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { NavHeader } from "./NavHeader";
@@ -21,30 +19,27 @@ import { GithubButton } from "./GithubButton";
 import { QuestList } from "./Quest/QuestList";
 import { QuestDetailGraphqlWrapper } from "./Quest/QuestDetail";
 
-import PillPity, { Pattern } from "pill-pity";
-import _ from "lodash";
-
-const httpLink = createHttpLink({
-  uri: import.meta.env.VITE_GRAPHQL_ENDPOINT,
-});
-
-const client = new ApolloClient({
-  link: httpLink,
-  cache: new InMemoryCache(),
+const nhost = new NhostClient({
+  backendUrl: import.meta.env.VITE_GRAPHQL_ENDPOINT,
 });
 
 export const App = () => (
-  <ApolloProvider client={client}>
-    <ChakraProvider theme={theme}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<QuestList />} />
-          <Route path="/quest/:slug" element={<QuestDetailGraphqlWrapper />} />
-          <Route path="*" element={<AreYouLost />} />
-        </Route>
-      </Routes>
-    </ChakraProvider>
-  </ApolloProvider>
+  <NhostAuthProvider nhost={nhost}>
+    <NhostApolloProvider nhost={nhost}>
+      <ChakraProvider theme={theme}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<QuestList />} />
+            <Route
+              path="/quest/:slug"
+              element={<QuestDetailGraphqlWrapper />}
+            />
+            <Route path="*" element={<AreYouLost />} />
+          </Route>
+        </Routes>
+      </ChakraProvider>
+    </NhostApolloProvider>
+  </NhostAuthProvider>
 );
 
 const Layout: React.FC = () => {
@@ -57,7 +52,7 @@ const Layout: React.FC = () => {
       "morphing-diamonds",
       "melt",
     ];
-    return _.sample(patterns) || patterns[0];
+    return sample(patterns) || patterns[0];
   }, []);
   return (
     <PillPity

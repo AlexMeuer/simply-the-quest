@@ -1,0 +1,35 @@
+table:
+  schema: public
+  name: quests
+array_relationships:
+  - name: log_entries
+    using:
+      foreign_key_constraint_on:
+        column: quest_id
+        table:
+          schema: public
+          name: quest_log_entries
+computed_fields:
+  - name: slug
+    definition:
+      function:
+        schema: public
+        name: quest_slug
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - created_at
+        - description
+        - giver
+        - id
+        - imageURL
+        - tags
+        - title
+        - updated_at
+      computed_fields:
+        - slug
+      filter:
+        isPublished:
+          _eq: true
+      allow_aggregations: true
