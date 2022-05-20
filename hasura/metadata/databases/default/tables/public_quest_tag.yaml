@@ -1,4 +1,0 @@
-table:
-  schema: public
-  name: quest_tag
-is_enum: true

@@ -9,6 +9,6 @@
       pool_settings:
         connection_lifetime: 600
         retries: 1
-        idle_timeout: 180
-        max_connections: 50
+        idle_timeout: 60
+        max_connections: 10
   tables: "!include default/tables/tables.yaml"

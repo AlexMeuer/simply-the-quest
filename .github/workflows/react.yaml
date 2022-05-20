@@ -1,17 +1,11 @@
-name: Build & Deploy Static Site
-on:
-  push:
-    branches:
-      - main
+name: Build
+on: push
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./react
-    concurrency:
-      group: ci-${{ github.ref }}
-      cancel-in-progress: true
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -25,8 +19,3 @@ jobs:
         # run: yarn install --immutable --immutable-cache --check-cache
       - name: Build ⚒️
         run: yarn build
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
-        with:
-          branch: gh-pages
-          folder: react/dist

@@ -1,23 +1,11 @@
 query Quests {
-  quest {
+  quests {
     title
     slug
     description
     giver
     imageURL
     tags
-    created_at
-    updated_at
-  }
-}
-
-query QuestBySlug($slug: String) {
-  quest(limit: 1, where: { slug: { _eq: $slug } }) {
-    title
-    description
-    tags
-    imageURL
-    giver
     created_at
     updated_at
   }

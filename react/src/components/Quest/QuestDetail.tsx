@@ -22,7 +22,7 @@ import { gql } from "@apollo/client";
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
-    quest(limit: 1, where: { slug: { _eq: $slug } }) {
+    quests(limit: 1, where: { slug: { _eq: $slug } }) {
       title
       description
       giver
@@ -50,7 +50,7 @@ export const QuestDetailGraphqlWrapper: React.FC = () => {
     return <QuestDetailLoadingState />;
   }
 
-  return <QuestDetail {...data!.quest[0]} />;
+  return <QuestDetail {...data!.quests[0]} />;
 };
 
 const QuestDetailLoadingState: React.FC = () => (
@@ -64,7 +64,7 @@ const QuestDetailLoadingState: React.FC = () => (
   </Center>
 );
 
-export type QuestDetailProps = QuestWithLogForDetailViewQuery["quest"][0];
+export type QuestDetailProps = QuestWithLogForDetailViewQuery["quests"][0];
 
 export const QuestDetail: React.FC<QuestDetailProps> = ({
   title,
