@@ -2,23 +2,22 @@ import React from "react";
 import {
   Badge,
   Box,
-  Center,
-  CircularProgress,
   Flex,
   Heading,
-  HStack,
   Stack,
   Text,
   useColorModeValue,
-  VStack,
 } from "@chakra-ui/react";
-import TimeAgo from "react-timeago";
 import { useParams } from "react-router-dom";
 import {
   QuestWithLogForDetailViewQuery,
   useQuestWithLogForDetailViewQuery,
 } from "../../generated/graphql";
 import { gql } from "@apollo/client";
+import { IndeterminateProgress } from "../common/IndeterminateProgress";
+import { ErrorState } from "../common/ErrorState";
+import { StatusBadge } from "../common/StatusBadge";
+import { QuestLogEntryDetail } from "./QuestLogEntryDetail";
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
@@ -28,7 +27,7 @@ gql`
       giver
       imageURL
       tags
-      log_entries {
+      log_entries(order_by: { step: desc }) {
         title
         body
         status
@@ -47,22 +46,15 @@ export const QuestDetailGraphqlWrapper: React.FC = () => {
   });
 
   if (loading) {
-    return <QuestDetailLoadingState />;
+    return <IndeterminateProgress />;
   }
 
-  return <QuestDetail {...data!.quests[0]} />;
-};
+  if (!data || !data.quests || data.quests.length < 1) {
+    return <ErrorState />;
+  }
 
-const QuestDetailLoadingState: React.FC = () => (
-  <Center>
-    <CircularProgress
-      isIndeterminate
-      capIsRound
-      color={useColorModeValue("cyan.900", "cyan.300")}
-      trackColor={useColorModeValue("cyan.300", "cyan.900")}
-    />
-  </Center>
-);
+  return <QuestDetail {...data.quests[0]} />;
+};
 
 export type QuestDetailProps = QuestWithLogForDetailViewQuery["quests"][0];
 
@@ -74,19 +66,25 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
   tags,
   log_entries,
 }) => {
-  const bgOverlayStart = useColorModeValue(
-    "rgba(255, 255, 255, 0.4)",
-    "rgba(0, 0, 0, 0.6)"
+  const bgHeaderTintStart = useColorModeValue(
+    "rgba(255, 255, 255, 0.0)",
+    "rgba(20, 10, 0, 0.0)"
   );
-  const bgOverlayEnd = useColorModeValue(
+  const bgHeaderTintCenter = useColorModeValue(
+    "rgba(255, 255, 255, 0.5)",
+    "rgba(20, 10, 0, 0.4)"
+  );
+  const bgHeaderTintEnd = useColorModeValue(
     "rgba(255, 255, 255, 0.6)",
-    "rgba(0, 0, 0, 0.8)"
+    "rgba(20, 10, 0, 0.5)"
   );
-  // TODO: dark/light mode values!
   return (
-    <Stack w={["2xl", "80%", "100%"]} bg="gray.700" rounded="2xl">
+    <Stack
+      w="full"
+      bg={useColorModeValue("gray.300", "gray.700")}
+      rounded="2xl"
+    >
       <Box
-        w="full"
         maxH="12rem"
         roundedTop="2xl"
         p={8}
@@ -94,7 +92,7 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
           WebkitMaskImage:
             "-webkit-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))",
         }}
-        bg={`url('${imageURL}')`}
+        bg={`linear-gradient( ${bgHeaderTintStart}, ${bgHeaderTintCenter}, ${bgHeaderTintEnd} ), url('${imageURL}')`}
         bgSize="cover"
         bgPosition="top"
       >
@@ -102,39 +100,19 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
       </Box>
       <Stack px={4} pb={4}>
         <Flex direction="row" justifyContent="end">
-          {tags.map(
-            (
-              tag: any // TODO: fix 'any' typing
-            ) => (
-              <Badge key={tag} mr={2}>
-                {tag}
-              </Badge>
-            )
-          )}
+          {tags.map((tag: string) => (
+            <Badge key={tag} mr={2}>
+              {tag}
+            </Badge>
+          ))}
           <Badge key={giver} variant="outline">
             {giver}
           </Badge>
         </Flex>
         <Text>{description}</Text>
-        {log_entries
-          .sort((a, b) => b.step - a.step) // TODO: can this sort happen in the gql query??
-          .map((entry) => (
-            <Stack
-              rounded="xl"
-              p={4}
-              bg={`linear-gradient( ${bgOverlayStart}, ${bgOverlayEnd} ), url('${entry.imageURL}')`}
-              bgSize="cover"
-              bgPosition="center"
-            >
-              <Flex direction="row" justifyContent="space-between">
-                <Heading as="h3">{entry.title}</Heading>
-                <Box alignSelf="end">
-                  <Badge colorScheme="green">{entry.status}</Badge>
-                </Box>
-              </Flex>
-              <Text>{entry.body}</Text>
-            </Stack>
-          ))}
+        {log_entries.map((entry) => (
+          <QuestLogEntryDetail key={entry.step} {...entry} />
+        ))}
       </Stack>
     </Stack>
   );

@@ -4551,7 +4551,7 @@ export const QuestWithLogForDetailViewDocument = gql`
     giver
     imageURL
     tags
-    log_entries {
+    log_entries(order_by: {step: desc}) {
       title
       body
       status

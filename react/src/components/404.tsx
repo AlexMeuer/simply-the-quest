@@ -1,13 +1,10 @@
-import { Heading, Link, Text, VStack } from "@chakra-ui/react";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { BadState } from "./common/BadState";
 
 export const AreYouLost: React.FC = () => (
-  <VStack>
-    <Heading>404</Heading>
-    <Text>This is not the quest you are looking for.</Text>
-    <Link as={RouterLink} to="/">
-      Take me home.
-    </Link>
-  </VStack>
+  <BadState
+    title="404"
+    subtitle="This is not the quest you are looking for."
+    imageURL={`https://source.unsplash.com/collection/1443572/400x400?dummy=${new Date().getTime()}`}
+  />
 );

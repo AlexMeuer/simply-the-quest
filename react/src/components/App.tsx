@@ -4,6 +4,7 @@ import {
   Center,
   Flex,
   useColorModeValue,
+  Container,
 } from "@chakra-ui/react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { NhostClient } from "@nhost/nhost-js";
@@ -11,7 +12,7 @@ import { NhostAuthProvider } from "@nhost/react-auth";
 import { NhostApolloProvider } from "@nhost/react-apollo";
 import PillPity, { Pattern } from "pill-pity";
 import { sample } from "lodash";
-import theme from "../Theme";
+import theme from "../theme";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { NavHeader } from "./NavHeader";
 import { AreYouLost } from "./404";
@@ -61,6 +62,7 @@ const Layout: React.FC = () => {
       patternFill={useColorModeValue("gray.300", "gray.700")}
       backgroundColor={useColorModeValue("gray.100", "gray.900")}
       minH="100vh"
+      minW="100vw"
       direction="column"
     >
       <NavHeader title="Simply the Quest!">
@@ -68,7 +70,9 @@ const Layout: React.FC = () => {
         <ColorModeSwitcher />
       </NavHeader>
       <Center flexGrow={1}>
-        <Outlet />
+        <Container w={["90%", "2xl"]}>
+          <Outlet />
+        </Container>
       </Center>
     </PillPity>
   );
