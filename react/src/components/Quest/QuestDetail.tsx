@@ -9,6 +9,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import {
   QuestWithLogForDetailViewQuery,
   useQuestWithLogForDetailViewQuery,
@@ -16,7 +17,6 @@ import {
 import { gql } from "@apollo/client";
 import { IndeterminateProgress } from "../common/IndeterminateProgress";
 import { ErrorState } from "../common/ErrorState";
-import { StatusBadge } from "../common/StatusBadge";
 import { QuestLogEntryDetail } from "./QuestLogEntryDetail";
 
 gql`
@@ -79,41 +79,47 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
     "rgba(20, 10, 0, 0.5)"
   );
   return (
-    <Stack
-      w="full"
-      bg={useColorModeValue("gray.300", "gray.700")}
-      rounded="2xl"
-    >
-      <Box
-        maxH="12rem"
-        roundedTop="2xl"
-        p={8}
-        style={{
-          WebkitMaskImage:
-            "-webkit-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))",
-        }}
-        bg={`linear-gradient( ${bgHeaderTintStart}, ${bgHeaderTintCenter}, ${bgHeaderTintEnd} ), url('${imageURL}')`}
-        bgSize="cover"
-        bgPosition="top"
+    <>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+      </Helmet>
+      <Stack
+        w="full"
+        bg={useColorModeValue("gray.300", "gray.700")}
+        rounded="2xl"
       >
-        <Heading fontSize="2rem">{title}</Heading>
-      </Box>
-      <Stack px={4} pb={4}>
-        <Flex direction="row" justifyContent="end">
-          {tags.map((tag: string) => (
-            <Badge key={tag} mr={2}>
-              {tag}
+        <Box
+          maxH="12rem"
+          roundedTop="2xl"
+          p={8}
+          style={{
+            WebkitMaskImage:
+              "-webkit-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))",
+          }}
+          bg={`linear-gradient( ${bgHeaderTintStart}, ${bgHeaderTintCenter}, ${bgHeaderTintEnd} ), url('${imageURL}')`}
+          bgSize="cover"
+          bgPosition="top"
+        >
+          <Heading fontSize="2rem">{title}</Heading>
+        </Box>
+        <Stack px={4} pb={4}>
+          <Flex direction="row" justifyContent="end">
+            {tags.map((tag: string) => (
+              <Badge key={tag} mr={2}>
+                {tag}
+              </Badge>
+            ))}
+            <Badge key={giver} variant="outline">
+              {giver}
             </Badge>
+          </Flex>
+          <Text>{description}</Text>
+          {log_entries.map((entry) => (
+            <QuestLogEntryDetail key={entry.step} {...entry} />
           ))}
-          <Badge key={giver} variant="outline">
-            {giver}
-          </Badge>
-        </Flex>
-        <Text>{description}</Text>
-        {log_entries.map((entry) => (
-          <QuestLogEntryDetail key={entry.step} {...entry} />
-        ))}
+        </Stack>
       </Stack>
-    </Stack>
+    </>
   );
 };
