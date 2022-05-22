@@ -9,6 +9,13 @@ array_relationships:
         table:
           schema: public
           name: quest_log_entries
+  - name: rewards
+    using:
+      foreign_key_constraint_on:
+        column: quest_id
+        table:
+          schema: public
+          name: rewards
 computed_fields:
   - name: slug
     definition:

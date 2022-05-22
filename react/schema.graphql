@@ -2244,6 +2244,19 @@ type mutation_root {
   delete_quests_by_pk(id: Int!): quests
 
   """
+  delete data from the table: "rewards"
+  """
+  delete_rewards(
+    """filter the rows which have to be deleted"""
+    where: rewards_bool_exp!
+  ): rewards_mutation_response
+
+  """
+  delete single row from the table: "rewards"
+  """
+  delete_rewards_by_pk(id: Int!): rewards
+
+  """
   delete data from the table: "statuses"
   """
   delete_statuses(
@@ -2497,6 +2510,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: quests_on_conflict
   ): quests
+
+  """
+  insert data into the table: "rewards"
+  """
+  insert_rewards(
+    """the rows to be inserted"""
+    objects: [rewards_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: rewards_on_conflict
+  ): rewards_mutation_response
+
+  """
+  insert a single row into the table: "rewards"
+  """
+  insert_rewards_one(
+    """the row to be inserted"""
+    object: rewards_insert_input!
+
+    """upsert condition"""
+    on_conflict: rewards_on_conflict
+  ): rewards
 
   """
   insert data into the table: "statuses"
@@ -2889,6 +2924,32 @@ type mutation_root {
     _set: quests_set_input
     pk_columns: quests_pk_columns_input!
   ): quests
+
+  """
+  update data of the table: "rewards"
+  """
+  update_rewards(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: rewards_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: rewards_set_input
+
+    """filter the rows which have to be updated"""
+    where: rewards_bool_exp!
+  ): rewards_mutation_response
+
+  """
+  update single row of the table: "rewards"
+  """
+  update_rewards_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: rewards_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: rewards_set_input
+    pk_columns: rewards_pk_columns_input!
+  ): rewards
 
   """
   update data of the table: "statuses"
@@ -3369,6 +3430,45 @@ type query_root {
   """fetch data from the table: "quests" using primary key columns"""
   quests_by_pk(id: Int!): quests
 
+  """An array relationship"""
+  rewards(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): [rewards!]!
+
+  """An aggregate relationship"""
+  rewards_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): rewards_aggregate!
+
+  """fetch data from the table: "rewards" using primary key columns"""
+  rewards_by_pk(id: Int!): rewards
+
   """
   fetch data from the table: "statuses"
   """
@@ -3467,6 +3567,42 @@ type quest_log_entries {
   """An object relationship"""
   quest: quests!
   quest_id: Int!
+
+  """An array relationship"""
+  rewards(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): [rewards!]!
+
+  """An aggregate relationship"""
+  rewards_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): rewards_aggregate!
   status: statuses_enum!
   step: Int!
   title: String!
@@ -3551,6 +3687,7 @@ input quest_log_entries_bool_exp {
   imageURL: String_comparison_exp
   quest: quests_bool_exp
   quest_id: Int_comparison_exp
+  rewards: rewards_bool_exp
   status: statuses_enum_comparison_exp
   step: Int_comparison_exp
   title: String_comparison_exp
@@ -3582,6 +3719,7 @@ input quest_log_entries_insert_input {
   imageURL: String
   quest: quests_obj_rel_insert_input
   quest_id: Int
+  rewards: rewards_arr_rel_insert_input
   status: statuses_enum
   step: Int
   title: String
@@ -3648,6 +3786,16 @@ type quest_log_entries_mutation_response {
 }
 
 """
+input type for inserting object relation for remote table "quest_log_entries"
+"""
+input quest_log_entries_obj_rel_insert_input {
+  data: quest_log_entries_insert_input!
+
+  """upsert condition"""
+  on_conflict: quest_log_entries_on_conflict
+}
+
+"""
 on_conflict condition type for table "quest_log_entries"
 """
 input quest_log_entries_on_conflict {
@@ -3663,6 +3811,7 @@ input quest_log_entries_order_by {
   imageURL: order_by
   quest: quests_order_by
   quest_id: order_by
+  rewards_aggregate: rewards_aggregate_order_by
   status: order_by
   step: order_by
   title: order_by
@@ -3892,6 +4041,42 @@ type quests {
     where: quest_log_entries_bool_exp
   ): quest_log_entries_aggregate!
 
+  """An array relationship"""
+  rewards(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): [rewards!]!
+
+  """An aggregate relationship"""
+  rewards_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): rewards_aggregate!
+
   """
   A computed field, executes function "quest_slug"
   """
@@ -3953,6 +4138,7 @@ input quests_bool_exp {
   imageURL: String_comparison_exp
   isPublished: Boolean_comparison_exp
   log_entries: quest_log_entries_bool_exp
+  rewards: rewards_bool_exp
   slug: String_comparison_exp
   tags: jsonb_comparison_exp
   title: String_comparison_exp
@@ -4006,6 +4192,7 @@ input quests_insert_input {
   imageURL: String
   isPublished: Boolean
   log_entries: quest_log_entries_arr_rel_insert_input
+  rewards: rewards_arr_rel_insert_input
   tags: jsonb
   title: String
   updated_at: timestamptz
@@ -4072,6 +4259,7 @@ input quests_order_by {
   imageURL: order_by
   isPublished: order_by
   log_entries_aggregate: quest_log_entries_aggregate_order_by
+  rewards_aggregate: rewards_aggregate_order_by
   slug: order_by
   tags: order_by
   title: order_by
@@ -4200,6 +4388,500 @@ type quests_var_samp_fields {
 """aggregate variance on columns"""
 type quests_variance_fields {
   id: Float
+}
+
+"""
+columns and relationships of "rewards"
+"""
+type rewards {
+  count: Int
+  description: String
+  id: Int!
+  imageURL: String
+
+  """An object relationship"""
+  log_entry: quest_log_entries
+  name: String!
+
+  """An object relationship"""
+  quest: quests!
+  quest_id: Int!
+  rarity: String!
+  sourceURL: String
+  step_id: Int
+  type: String!
+  value: Int
+}
+
+"""
+aggregated selection of "rewards"
+"""
+type rewards_aggregate {
+  aggregate: rewards_aggregate_fields
+  nodes: [rewards!]!
+}
+
+"""
+aggregate fields of "rewards"
+"""
+type rewards_aggregate_fields {
+  avg: rewards_avg_fields
+  count(columns: [rewards_select_column!], distinct: Boolean): Int!
+  max: rewards_max_fields
+  min: rewards_min_fields
+  stddev: rewards_stddev_fields
+  stddev_pop: rewards_stddev_pop_fields
+  stddev_samp: rewards_stddev_samp_fields
+  sum: rewards_sum_fields
+  var_pop: rewards_var_pop_fields
+  var_samp: rewards_var_samp_fields
+  variance: rewards_variance_fields
+}
+
+"""
+order by aggregate values of table "rewards"
+"""
+input rewards_aggregate_order_by {
+  avg: rewards_avg_order_by
+  count: order_by
+  max: rewards_max_order_by
+  min: rewards_min_order_by
+  stddev: rewards_stddev_order_by
+  stddev_pop: rewards_stddev_pop_order_by
+  stddev_samp: rewards_stddev_samp_order_by
+  sum: rewards_sum_order_by
+  var_pop: rewards_var_pop_order_by
+  var_samp: rewards_var_samp_order_by
+  variance: rewards_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "rewards"
+"""
+input rewards_arr_rel_insert_input {
+  data: [rewards_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: rewards_on_conflict
+}
+
+"""aggregate avg on columns"""
+type rewards_avg_fields {
+  count: Float
+  id: Float
+  quest_id: Float
+  step_id: Float
+  value: Float
+}
+
+"""
+order by avg() on columns of table "rewards"
+"""
+input rewards_avg_order_by {
+  count: order_by
+  id: order_by
+  quest_id: order_by
+  step_id: order_by
+  value: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "rewards". All fields are combined with a logical 'AND'.
+"""
+input rewards_bool_exp {
+  _and: [rewards_bool_exp!]
+  _not: rewards_bool_exp
+  _or: [rewards_bool_exp!]
+  count: Int_comparison_exp
+  description: String_comparison_exp
+  id: Int_comparison_exp
+  imageURL: String_comparison_exp
+  log_entry: quest_log_entries_bool_exp
+  name: String_comparison_exp
+  quest: quests_bool_exp
+  quest_id: Int_comparison_exp
+  rarity: String_comparison_exp
+  sourceURL: String_comparison_exp
+  step_id: Int_comparison_exp
+  type: String_comparison_exp
+  value: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "rewards"
+"""
+enum rewards_constraint {
+  """unique or primary key constraint"""
+  rewards_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "rewards"
+"""
+input rewards_inc_input {
+  count: Int
+  id: Int
+  quest_id: Int
+  step_id: Int
+  value: Int
+}
+
+"""
+input type for inserting data into table "rewards"
+"""
+input rewards_insert_input {
+  count: Int
+  description: String
+  id: Int
+  imageURL: String
+  log_entry: quest_log_entries_obj_rel_insert_input
+  name: String
+  quest: quests_obj_rel_insert_input
+  quest_id: Int
+  rarity: String
+  sourceURL: String
+  step_id: Int
+  type: String
+  value: Int
+}
+
+"""aggregate max on columns"""
+type rewards_max_fields {
+  count: Int
+  description: String
+  id: Int
+  imageURL: String
+  name: String
+  quest_id: Int
+  rarity: String
+  sourceURL: String
+  step_id: Int
+  type: String
+  value: Int
+}
+
+"""
+order by max() on columns of table "rewards"
+"""
+input rewards_max_order_by {
+  count: order_by
+  description: order_by
+  id: order_by
+  imageURL: order_by
+  name: order_by
+  quest_id: order_by
+  rarity: order_by
+  sourceURL: order_by
+  step_id: order_by
+  type: order_by
+  value: order_by
+}
+
+"""aggregate min on columns"""
+type rewards_min_fields {
+  count: Int
+  description: String
+  id: Int
+  imageURL: String
+  name: String
+  quest_id: Int
+  rarity: String
+  sourceURL: String
+  step_id: Int
+  type: String
+  value: Int
+}
+
+"""
+order by min() on columns of table "rewards"
+"""
+input rewards_min_order_by {
+  count: order_by
+  description: order_by
+  id: order_by
+  imageURL: order_by
+  name: order_by
+  quest_id: order_by
+  rarity: order_by
+  sourceURL: order_by
+  step_id: order_by
+  type: order_by
+  value: order_by
+}
+
+"""
+response of any mutation on the table "rewards"
+"""
+type rewards_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [rewards!]!
+}
+
+"""
+on_conflict condition type for table "rewards"
+"""
+input rewards_on_conflict {
+  constraint: rewards_constraint!
+  update_columns: [rewards_update_column!]! = []
+  where: rewards_bool_exp
+}
+
+"""Ordering options when selecting data from "rewards"."""
+input rewards_order_by {
+  count: order_by
+  description: order_by
+  id: order_by
+  imageURL: order_by
+  log_entry: quest_log_entries_order_by
+  name: order_by
+  quest: quests_order_by
+  quest_id: order_by
+  rarity: order_by
+  sourceURL: order_by
+  step_id: order_by
+  type: order_by
+  value: order_by
+}
+
+"""primary key columns input for table: rewards"""
+input rewards_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "rewards"
+"""
+enum rewards_select_column {
+  """column name"""
+  count
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  imageURL
+
+  """column name"""
+  name
+
+  """column name"""
+  quest_id
+
+  """column name"""
+  rarity
+
+  """column name"""
+  sourceURL
+
+  """column name"""
+  step_id
+
+  """column name"""
+  type
+
+  """column name"""
+  value
+}
+
+"""
+input type for updating data in table "rewards"
+"""
+input rewards_set_input {
+  count: Int
+  description: String
+  id: Int
+  imageURL: String
+  name: String
+  quest_id: Int
+  rarity: String
+  sourceURL: String
+  step_id: Int
+  type: String
+  value: Int
+}
+
+"""aggregate stddev on columns"""
+type rewards_stddev_fields {
+  count: Float
+  id: Float
+  quest_id: Float
+  step_id: Float
+  value: Float
+}
+
+"""
+order by stddev() on columns of table "rewards"
+"""
+input rewards_stddev_order_by {
+  count: order_by
+  id: order_by
+  quest_id: order_by
+  step_id: order_by
+  value: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type rewards_stddev_pop_fields {
+  count: Float
+  id: Float
+  quest_id: Float
+  step_id: Float
+  value: Float
+}
+
+"""
+order by stddev_pop() on columns of table "rewards"
+"""
+input rewards_stddev_pop_order_by {
+  count: order_by
+  id: order_by
+  quest_id: order_by
+  step_id: order_by
+  value: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type rewards_stddev_samp_fields {
+  count: Float
+  id: Float
+  quest_id: Float
+  step_id: Float
+  value: Float
+}
+
+"""
+order by stddev_samp() on columns of table "rewards"
+"""
+input rewards_stddev_samp_order_by {
+  count: order_by
+  id: order_by
+  quest_id: order_by
+  step_id: order_by
+  value: order_by
+}
+
+"""aggregate sum on columns"""
+type rewards_sum_fields {
+  count: Int
+  id: Int
+  quest_id: Int
+  step_id: Int
+  value: Int
+}
+
+"""
+order by sum() on columns of table "rewards"
+"""
+input rewards_sum_order_by {
+  count: order_by
+  id: order_by
+  quest_id: order_by
+  step_id: order_by
+  value: order_by
+}
+
+"""
+update columns of table "rewards"
+"""
+enum rewards_update_column {
+  """column name"""
+  count
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  imageURL
+
+  """column name"""
+  name
+
+  """column name"""
+  quest_id
+
+  """column name"""
+  rarity
+
+  """column name"""
+  sourceURL
+
+  """column name"""
+  step_id
+
+  """column name"""
+  type
+
+  """column name"""
+  value
+}
+
+"""aggregate var_pop on columns"""
+type rewards_var_pop_fields {
+  count: Float
+  id: Float
+  quest_id: Float
+  step_id: Float
+  value: Float
+}
+
+"""
+order by var_pop() on columns of table "rewards"
+"""
+input rewards_var_pop_order_by {
+  count: order_by
+  id: order_by
+  quest_id: order_by
+  step_id: order_by
+  value: order_by
+}
+
+"""aggregate var_samp on columns"""
+type rewards_var_samp_fields {
+  count: Float
+  id: Float
+  quest_id: Float
+  step_id: Float
+  value: Float
+}
+
+"""
+order by var_samp() on columns of table "rewards"
+"""
+input rewards_var_samp_order_by {
+  count: order_by
+  id: order_by
+  quest_id: order_by
+  step_id: order_by
+  value: order_by
+}
+
+"""aggregate variance on columns"""
+type rewards_variance_fields {
+  count: Float
+  id: Float
+  quest_id: Float
+  step_id: Float
+  value: Float
+}
+
+"""
+order by variance() on columns of table "rewards"
+"""
+input rewards_variance_order_by {
+  count: order_by
+  id: order_by
+  quest_id: order_by
+  step_id: order_by
+  value: order_by
 }
 
 """
@@ -4769,6 +5451,45 @@ type subscription_root {
 
   """fetch data from the table: "quests" using primary key columns"""
   quests_by_pk(id: Int!): quests
+
+  """An array relationship"""
+  rewards(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): [rewards!]!
+
+  """An aggregate relationship"""
+  rewards_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): rewards_aggregate!
+
+  """fetch data from the table: "rewards" using primary key columns"""
+  rewards_by_pk(id: Int!): rewards
 
   """
   fetch data from the table: "statuses"

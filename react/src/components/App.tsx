@@ -70,7 +70,7 @@ const Layout: React.FC = () => {
         <ColorModeSwitcher />
       </NavHeader>
       <Center flexGrow={1}>
-        <Container w={["90%", "2xl"]}>
+        <Container maxW={["100%", "2xl"]} px={[0, 0, 4]}>
           <Outlet />
         </Container>
       </Center>

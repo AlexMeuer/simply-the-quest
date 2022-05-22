@@ -63,6 +63,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-helmet", "npm:6.1.5"],\
             ["@types/react-timeago", "npm:4.1.3"],\
             ["@vitejs/plugin-react", "npm:1.3.2"],\
+            ["change-case", "npm:4.1.2"],\
             ["eslint", "npm:8.15.0"],\
             ["framer-motion", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.3"],\
             ["graphql", "npm:16.5.0"],\
@@ -9773,6 +9774,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-helmet", "npm:6.1.5"],\
             ["@types/react-timeago", "npm:4.1.3"],\
             ["@vitejs/plugin-react", "npm:1.3.2"],\
+            ["change-case", "npm:4.1.2"],\
             ["eslint", "npm:8.15.0"],\
             ["framer-motion", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.3"],\
             ["graphql", "npm:16.5.0"],\
