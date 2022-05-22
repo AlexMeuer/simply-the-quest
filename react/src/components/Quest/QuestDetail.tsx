@@ -2,11 +2,22 @@ import React from "react";
 import {
   Badge,
   Box,
+  Button,
   Flex,
   Heading,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  SimpleGrid,
   Stack,
+  Tag,
   Text,
   useColorModeValue,
+  Wrap,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -15,9 +26,9 @@ import {
   useQuestWithLogForDetailViewQuery,
 } from "../../generated/graphql";
 import { gql } from "@apollo/client";
-import { IndeterminateProgress } from "../common/IndeterminateProgress";
-import { ErrorState } from "../common/ErrorState";
+import { ErrorState, IndeterminateProgress } from "../common";
 import { QuestLogEntryDetail } from "./QuestLogEntryDetail";
+import { RewardAccordion } from "./RewardAccordion";
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
@@ -27,6 +38,9 @@ gql`
       giver
       imageURL
       tags
+      rewards {
+        ...reward
+      }
       log_entries(order_by: { step: desc }) {
         title
         body
@@ -34,8 +48,21 @@ gql`
         step
         created_at
         imageURL
+        rewards {
+          ...reward
+        }
       }
     }
+  }
+  fragment reward on rewards {
+    name
+    description
+    type
+    rarity
+    count
+    value
+    imageURL
+    sourceURL
   }
 `;
 
@@ -64,6 +91,7 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
   imageURL,
   giver,
   tags,
+  rewards,
   log_entries,
 }) => {
   const bgHeaderTintStart = useColorModeValue(
@@ -85,13 +113,12 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
         <meta name="description" content={description} />
       </Helmet>
       <Stack
-        w="full"
         bg={useColorModeValue("gray.300", "gray.700")}
-        rounded="2xl"
+        rounded={["none", "none", "2xl"]}
       >
         <Box
           maxH="12rem"
-          roundedTop="2xl"
+          roundedTop={["none", "none", "2xl"]}
           p={8}
           style={{
             WebkitMaskImage:
@@ -104,16 +131,22 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
           <Heading fontSize="2rem">{title}</Heading>
         </Box>
         <Stack px={4} pb={4}>
-          <Flex direction="row" justifyContent="end">
+          <Wrap direction="row" justify="end">
             {tags.map((tag: string) => (
-              <Badge key={tag} mr={2}>
-                {tag}
-              </Badge>
+              <Tag key={tag}>{tag}</Tag>
             ))}
-            <Badge key={giver} variant="outline">
+            <Tag key={giver} variant="outline">
               {giver}
-            </Badge>
-          </Flex>
+            </Tag>
+          </Wrap>
+          {rewards.length && (
+            <Stack rounded="lg" border="1px" borderColor="gray.500">
+              <Heading fontSize="md" as="h2" mx="auto" mt={1}>
+                Possible Rewards
+              </Heading>
+              <RewardAccordion rewards={rewards} />
+            </Stack>
+          )}
           <Text>{description}</Text>
           {log_entries.map((entry) => (
             <QuestLogEntryDetail key={entry.step} {...entry} />

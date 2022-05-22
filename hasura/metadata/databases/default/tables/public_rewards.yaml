@@ -1,0 +1,42 @@
+table:
+  schema: public
+  name: rewards
+object_relationships:
+  - name: log_entry
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: quest_log_entries
+        insertion_order: null
+        column_mapping:
+          quest_id: quest_id
+          step_id: step
+  - name: quest
+    using:
+      foreign_key_constraint_on: quest_id
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - count
+        - description
+        - id
+        - imageURL
+        - name
+        - quest_id
+        - rarity
+        - sourceURL
+        - step_id
+        - type
+        - value
+      filter:
+        _or:
+          - quest:
+              isPublished:
+                _eq: true
+          - log_entry:
+              quest:
+                isPublished:
+                  _eq: true
+      allow_aggregations: true

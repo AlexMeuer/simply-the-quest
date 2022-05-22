@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { VStack } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import { Quests, QuestsDocument } from "../../generated/graphql";
 import { ErrorState } from "../common/ErrorState";
 import { IndeterminateProgress } from "../common/IndeterminateProgress";
@@ -16,10 +16,10 @@ export const QuestList: React.FC = () => {
   }
 
   return (
-    <VStack my={8}>
+    <Stack my={8} px={[1, 4, 0]}>
       {data.quests.map((quest) => (
         <QuestCard key={quest.slug} {...quest} />
       ))}
-    </VStack>
+    </Stack>
   );
 };

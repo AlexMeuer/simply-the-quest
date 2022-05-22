@@ -52,7 +52,6 @@ export const QuestLogEntryDetail: React.FC<QuestLogEntryDetailProps> = ({
   body,
   imageURL,
 }) => {
-  console.warn(buildBg(status, imageURL));
   return (
     <Stack
       rounded="xl"

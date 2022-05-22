@@ -7,6 +7,7 @@
 - "!include auth_users.yaml"
 - "!include public_quest_log_entries.yaml"
 - "!include public_quests.yaml"
+- "!include public_rewards.yaml"
 - "!include public_statuses.yaml"
 - "!include storage_buckets.yaml"
 - "!include storage_files.yaml"

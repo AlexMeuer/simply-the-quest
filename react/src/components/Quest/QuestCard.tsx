@@ -3,12 +3,13 @@ import TimeAgo from "react-timeago";
 import {
   Box,
   Flex,
-  HStack,
   Link,
   Text,
   useColorModeValue,
   LinkOverlay,
   LinkBox,
+  Wrap,
+  Heading,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { Quests } from "../../generated/graphql";
@@ -35,8 +36,6 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   return (
     <LinkBox
       as="article"
-      w={["2xl", "80%", "100%"]}
-      mx="auto"
       px={8}
       py={4}
       rounded="lg"
@@ -46,20 +45,20 @@ export const QuestCard: React.FC<QuestCardProps> = ({
       bgPosition="center"
     >
       <Flex justifyContent="space-between" alignItems="center">
-        <LinkOverlay
-          as={RouterLink}
-          to={`/quest/${slug}`}
-          fontSize="2xl"
-          color={useColorModeValue("gray.700", "white")}
-          fontWeight="700"
-          _hover={{
-            color: useColorModeValue("gray.600", "gray.200"),
-            textDecor: "underline",
-          }}
-        >
-          {title}
-        </LinkOverlay>
-        <HStack>
+        <Heading fontSize={["xl", "2xl", "2xl"]}>
+          <LinkOverlay
+            as={RouterLink}
+            to={`/quest/${slug}`}
+            color={useColorModeValue("gray.700", "white")}
+            _hover={{
+              color: useColorModeValue("gray.600", "gray.200"),
+              textDecor: "underline",
+            }}
+          >
+            {title}
+          </LinkOverlay>
+        </Heading>
+        <Wrap justify="end">
           {tags.map((tag: any) => (
             <Link
               key={tag}
@@ -77,7 +76,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
               {tag}
             </Link>
           ))}
-        </HStack>
+        </Wrap>
       </Flex>
 
       <Box mt={2}>
