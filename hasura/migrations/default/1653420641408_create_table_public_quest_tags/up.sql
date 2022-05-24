@@ -1,0 +1,1 @@
+CREATE TABLE "public"."quest_tags" ("tag_name" text NOT NULL, "quest_id" integer NOT NULL, PRIMARY KEY ("tag_name","quest_id") , FOREIGN KEY ("tag_name") REFERENCES "public"."tags"("name") ON UPDATE cascade ON DELETE cascade, FOREIGN KEY ("quest_id") REFERENCES "public"."quests"("id") ON UPDATE cascade ON DELETE cascade);

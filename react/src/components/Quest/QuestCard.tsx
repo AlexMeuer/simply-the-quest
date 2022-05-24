@@ -11,20 +11,11 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { Quests } from "../../generated/graphql";
 import { ToggleTag } from "../ToggleTag";
+import { Quest } from "../types/Quest";
+import { capitalCase } from "change-case";
 
-export interface QuestCardProps
-  extends Pick<
-    Quests,
-    | "title"
-    | "description"
-    | "giver"
-    | "tags"
-    | "updated_at"
-    | "imageURL"
-    | "slug"
-  > {
+export interface QuestCardProps extends Quest {
   selectedTags: string[];
   onTagClick: (tag: string) => void;
 }
@@ -74,15 +65,17 @@ export const QuestCard: React.FC<QuestCardProps> = ({
           </LinkOverlay>
         </Heading>
         <Wrap justify="end" zIndex={1}>
-          {tags.map((tag: any) => (
-            <ToggleTag
-              key={tag}
-              isSelected={selectedTags.includes(tag)}
-              onClick={() => onTagClick(tag)}
-            >
-              {tag}
-            </ToggleTag>
-          ))}
+          {tags.map((tag: any) => {
+            return (
+              <ToggleTag
+                key={tag}
+                isSelected={selectedTags.includes(tag)}
+                onClick={() => onTagClick(tag)}
+              >
+                {capitalCase(tag)}
+              </ToggleTag>
+            );
+          })}
         </Wrap>
       </Flex>
 
