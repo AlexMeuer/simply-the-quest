@@ -5155,10 +5155,13 @@ export type QuestWithLogForDetailViewQuery = { __typename?: 'query_root', quests
 
 export type RewardFragment = { __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null };
 
-export type QuestsQueryVariables = Exact<{ [key: string]: never; }>;
+export type QuestListQueryVariables = Exact<{
+  tags?: InputMaybe<Scalars['jsonb']>;
+  giver?: InputMaybe<Scalars['String']>;
+}>;
 
 
-export type QuestsQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, slug?: string | null, description: string, giver: string, imageURL?: string | null, tags: any, created_at: any, updated_at: any }> };
+export type QuestListQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, slug?: string | null, description: string, giver: string, imageURL?: string | null, tags: any, created_at: any, updated_at: any }> };
 
 export const RewardFragmentDoc = gql`
     fragment reward on rewards {
@@ -5225,9 +5228,9 @@ export function useQuestWithLogForDetailViewLazyQuery(baseOptions?: Apollo.LazyQ
 export type QuestWithLogForDetailViewQueryHookResult = ReturnType<typeof useQuestWithLogForDetailViewQuery>;
 export type QuestWithLogForDetailViewLazyQueryHookResult = ReturnType<typeof useQuestWithLogForDetailViewLazyQuery>;
 export type QuestWithLogForDetailViewQueryResult = Apollo.QueryResult<QuestWithLogForDetailViewQuery, QuestWithLogForDetailViewQueryVariables>;
-export const QuestsDocument = gql`
-    query Quests {
-  quests {
+export const QuestListDocument = gql`
+    query QuestList($tags: jsonb = [], $giver: String = "%") {
+  quests(where: {tags: {_contains: $tags}, giver: {_ilike: $giver}}) {
     title
     slug
     description
@@ -5241,28 +5244,30 @@ export const QuestsDocument = gql`
     `;
 
 /**
- * __useQuestsQuery__
+ * __useQuestListQuery__
  *
- * To run a query within a React component, call `useQuestsQuery` and pass it any options that fit your needs.
- * When your component renders, `useQuestsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useQuestListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuestListQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useQuestsQuery({
+ * const { data, loading, error } = useQuestListQuery({
  *   variables: {
+ *      tags: // value for 'tags'
+ *      giver: // value for 'giver'
  *   },
  * });
  */
-export function useQuestsQuery(baseOptions?: Apollo.QueryHookOptions<QuestsQuery, QuestsQueryVariables>) {
+export function useQuestListQuery(baseOptions?: Apollo.QueryHookOptions<QuestListQuery, QuestListQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<QuestsQuery, QuestsQueryVariables>(QuestsDocument, options);
+        return Apollo.useQuery<QuestListQuery, QuestListQueryVariables>(QuestListDocument, options);
       }
-export function useQuestsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuestsQuery, QuestsQueryVariables>) {
+export function useQuestListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuestListQuery, QuestListQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<QuestsQuery, QuestsQueryVariables>(QuestsDocument, options);
+          return Apollo.useLazyQuery<QuestListQuery, QuestListQueryVariables>(QuestListDocument, options);
         }
-export type QuestsQueryHookResult = ReturnType<typeof useQuestsQuery>;
-export type QuestsLazyQueryHookResult = ReturnType<typeof useQuestsLazyQuery>;
-export type QuestsQueryResult = Apollo.QueryResult<QuestsQuery, QuestsQueryVariables>;
+export type QuestListQueryHookResult = ReturnType<typeof useQuestListQuery>;
+export type QuestListLazyQueryHookResult = ReturnType<typeof useQuestListLazyQuery>;
+export type QuestListQueryResult = Apollo.QueryResult<QuestListQuery, QuestListQueryVariables>;

@@ -3,7 +3,6 @@ import TimeAgo from "react-timeago";
 import {
   Box,
   Flex,
-  Link,
   Text,
   useColorModeValue,
   LinkOverlay,
@@ -13,8 +12,22 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { Quests } from "../../generated/graphql";
+import { ToggleTag } from "../ToggleTag";
 
-type QuestCardProps = Quests;
+export interface QuestCardProps
+  extends Pick<
+    Quests,
+    | "title"
+    | "description"
+    | "giver"
+    | "tags"
+    | "updated_at"
+    | "imageURL"
+    | "slug"
+  > {
+  selectedTags: string[];
+  onTagClick: (tag: string) => void;
+}
 
 export const QuestCard: React.FC<QuestCardProps> = ({
   title,
@@ -24,6 +37,8 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   updated_at,
   imageURL,
   slug,
+  selectedTags,
+  onTagClick,
 }) => {
   const bgOverlayStart = useColorModeValue(
     "rgba(255, 255, 255, 0.4)",
@@ -58,23 +73,15 @@ export const QuestCard: React.FC<QuestCardProps> = ({
             {title}
           </LinkOverlay>
         </Heading>
-        <Wrap justify="end">
+        <Wrap justify="end" zIndex={1}>
           {tags.map((tag: any) => (
-            <Link
+            <ToggleTag
               key={tag}
-              as={RouterLink}
-              to={`/quest/tag/${tag}`}
-              px={3}
-              py={1}
-              bg="gray.600"
-              color="gray.100"
-              fontSize="sm"
-              fontWeight="700"
-              rounded="md"
-              _hover={{ bg: "gray.500" }}
+              isSelected={selectedTags.includes(tag)}
+              onClick={() => onTagClick(tag)}
             >
               {tag}
-            </Link>
+            </ToggleTag>
           ))}
         </Wrap>
       </Flex>

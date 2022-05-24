@@ -74,6 +74,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"],\
             ["react-helmet", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.1.0"],\
             ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
+            ["react-nanny", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.14.0"],\
             ["react-router-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.0"],\
             ["react-timeago", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.2.1"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"],\
@@ -9785,6 +9786,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:18.1.0"],\
             ["react-helmet", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.1.0"],\
             ["react-icons", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:4.3.1"],\
+            ["react-nanny", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.14.0"],\
             ["react-router-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.0"],\
             ["react-timeago", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.2.1"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"],\
@@ -9969,6 +9971,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-is-npm-17.0.2-091bbb8db6-9d6d111d89.zip/node_modules/react-is/",\
           "packageDependencies": [\
             ["react-is", "npm:17.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-nanny", [\
+        ["npm:2.14.0", {\
+          "packageLocation": "./.yarn/cache/react-nanny-npm-2.14.0-51f6d33572-6d8535aabe.zip/node_modules/react-nanny/",\
+          "packageDependencies": [\
+            ["react-nanny", "npm:2.14.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.14.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-nanny-virtual-b7d6d00d74/0/cache/react-nanny-npm-2.14.0-51f6d33572-6d8535aabe.zip/node_modules/react-nanny/",\
+          "packageDependencies": [\
+            ["react-nanny", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.14.0"],\
+            ["@types/react", "npm:18.0.9"],\
+            ["react", "npm:18.1.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
