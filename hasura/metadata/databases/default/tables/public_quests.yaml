@@ -16,6 +16,13 @@ array_relationships:
         table:
           schema: public
           name: rewards
+  - name: tags
+    using:
+      foreign_key_constraint_on:
+        column: quest_id
+        table:
+          schema: public
+          name: quest_tags
 computed_fields:
   - name: slug
     definition:
@@ -31,7 +38,6 @@ select_permissions:
         - giver
         - id
         - imageURL
-        - tags
         - title
         - updated_at
       computed_fields:

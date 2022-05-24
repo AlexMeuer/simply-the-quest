@@ -2231,6 +2231,19 @@ type mutation_root {
   delete_quest_log_entries_by_pk(quest_id: Int!, step: Int!): quest_log_entries
 
   """
+  delete data from the table: "quest_tags"
+  """
+  delete_quest_tags(
+    """filter the rows which have to be deleted"""
+    where: quest_tags_bool_exp!
+  ): quest_tags_mutation_response
+
+  """
+  delete single row from the table: "quest_tags"
+  """
+  delete_quest_tags_by_pk(quest_id: Int!, tag_name: String!): quest_tags
+
+  """
   delete data from the table: "quests"
   """
   delete_quests(
@@ -2268,6 +2281,19 @@ type mutation_root {
   delete single row from the table: "statuses"
   """
   delete_statuses_by_pk(name: String!): statuses
+
+  """
+  delete data from the table: "tags"
+  """
+  delete_tags(
+    """filter the rows which have to be deleted"""
+    where: tags_bool_exp!
+  ): tags_mutation_response
+
+  """
+  delete single row from the table: "tags"
+  """
+  delete_tags_by_pk(name: String!): tags
 
   """
   insert a single row into the table: "auth.providers"
@@ -2490,6 +2516,28 @@ type mutation_root {
   ): quest_log_entries
 
   """
+  insert data into the table: "quest_tags"
+  """
+  insert_quest_tags(
+    """the rows to be inserted"""
+    objects: [quest_tags_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: quest_tags_on_conflict
+  ): quest_tags_mutation_response
+
+  """
+  insert a single row into the table: "quest_tags"
+  """
+  insert_quest_tags_one(
+    """the row to be inserted"""
+    object: quest_tags_insert_input!
+
+    """upsert condition"""
+    on_conflict: quest_tags_on_conflict
+  ): quest_tags
+
+  """
   insert data into the table: "quests"
   """
   insert_quests(
@@ -2554,6 +2602,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: statuses_on_conflict
   ): statuses
+
+  """
+  insert data into the table: "tags"
+  """
+  insert_tags(
+    """the rows to be inserted"""
+    objects: [tags_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: tags_on_conflict
+  ): tags_mutation_response
+
+  """
+  insert a single row into the table: "tags"
+  """
+  insert_tags_one(
+    """the row to be inserted"""
+    object: tags_insert_input!
+
+    """upsert condition"""
+    on_conflict: tags_on_conflict
+  ): tags
 
   """
   update single row of the table: "auth.providers"
@@ -2858,6 +2928,32 @@ type mutation_root {
   ): quest_log_entries
 
   """
+  update data of the table: "quest_tags"
+  """
+  update_quest_tags(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: quest_tags_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: quest_tags_set_input
+
+    """filter the rows which have to be updated"""
+    where: quest_tags_bool_exp!
+  ): quest_tags_mutation_response
+
+  """
+  update single row of the table: "quest_tags"
+  """
+  update_quest_tags_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: quest_tags_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: quest_tags_set_input
+    pk_columns: quest_tags_pk_columns_input!
+  ): quest_tags
+
+  """
   update data of the table: "quests"
   """
   update_quests(
@@ -2970,6 +3066,26 @@ type mutation_root {
     _set: statuses_set_input
     pk_columns: statuses_pk_columns_input!
   ): statuses
+
+  """
+  update data of the table: "tags"
+  """
+  update_tags(
+    """sets the columns of the filtered rows to the given values"""
+    _set: tags_set_input
+
+    """filter the rows which have to be updated"""
+    where: tags_bool_exp!
+  ): tags_mutation_response
+
+  """
+  update single row of the table: "tags"
+  """
+  update_tags_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: tags_set_input
+    pk_columns: tags_pk_columns_input!
+  ): tags
 }
 
 """column ordering options"""
@@ -3387,6 +3503,45 @@ type query_root {
   """
   quest_log_entries_by_pk(quest_id: Int!, step: Int!): quest_log_entries
 
+  """An array relationship"""
+  quest_tags(
+    """distinct select on columns"""
+    distinct_on: [quest_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_tags_order_by!]
+
+    """filter the rows returned"""
+    where: quest_tags_bool_exp
+  ): [quest_tags!]!
+
+  """An aggregate relationship"""
+  quest_tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_tags_order_by!]
+
+    """filter the rows returned"""
+    where: quest_tags_bool_exp
+  ): quest_tags_aggregate!
+
+  """fetch data from the table: "quest_tags" using primary key columns"""
+  quest_tags_by_pk(quest_id: Int!, tag_name: String!): quest_tags
+
   """
   fetch data from the table: "quests"
   """
@@ -3511,6 +3666,49 @@ type query_root {
 
   """fetch data from the table: "statuses" using primary key columns"""
   statuses_by_pk(name: String!): statuses
+
+  """
+  fetch data from the table: "tags"
+  """
+  tags(
+    """distinct select on columns"""
+    distinct_on: [tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tags_order_by!]
+
+    """filter the rows returned"""
+    where: tags_bool_exp
+  ): [tags!]!
+
+  """
+  fetch aggregated fields from the table: "tags"
+  """
+  tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tags_order_by!]
+
+    """filter the rows returned"""
+    where: tags_bool_exp
+  ): tags_aggregate!
+
+  """fetch data from the table: "tags" using primary key columns"""
+  tags_by_pk(name: String!): tags
 
   """fetch data from the table: "auth.users" using primary key columns"""
   user(id: uuid!): users
@@ -3995,6 +4193,297 @@ input quest_log_entries_variance_order_by {
 }
 
 """
+columns and relationships of "quest_tags"
+"""
+type quest_tags {
+  """An object relationship"""
+  quest: quests!
+  quest_id: Int!
+
+  """An object relationship"""
+  tag: tags!
+  tag_name: String!
+}
+
+"""
+aggregated selection of "quest_tags"
+"""
+type quest_tags_aggregate {
+  aggregate: quest_tags_aggregate_fields
+  nodes: [quest_tags!]!
+}
+
+"""
+aggregate fields of "quest_tags"
+"""
+type quest_tags_aggregate_fields {
+  avg: quest_tags_avg_fields
+  count(columns: [quest_tags_select_column!], distinct: Boolean): Int!
+  max: quest_tags_max_fields
+  min: quest_tags_min_fields
+  stddev: quest_tags_stddev_fields
+  stddev_pop: quest_tags_stddev_pop_fields
+  stddev_samp: quest_tags_stddev_samp_fields
+  sum: quest_tags_sum_fields
+  var_pop: quest_tags_var_pop_fields
+  var_samp: quest_tags_var_samp_fields
+  variance: quest_tags_variance_fields
+}
+
+"""
+order by aggregate values of table "quest_tags"
+"""
+input quest_tags_aggregate_order_by {
+  avg: quest_tags_avg_order_by
+  count: order_by
+  max: quest_tags_max_order_by
+  min: quest_tags_min_order_by
+  stddev: quest_tags_stddev_order_by
+  stddev_pop: quest_tags_stddev_pop_order_by
+  stddev_samp: quest_tags_stddev_samp_order_by
+  sum: quest_tags_sum_order_by
+  var_pop: quest_tags_var_pop_order_by
+  var_samp: quest_tags_var_samp_order_by
+  variance: quest_tags_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "quest_tags"
+"""
+input quest_tags_arr_rel_insert_input {
+  data: [quest_tags_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: quest_tags_on_conflict
+}
+
+"""aggregate avg on columns"""
+type quest_tags_avg_fields {
+  quest_id: Float
+}
+
+"""
+order by avg() on columns of table "quest_tags"
+"""
+input quest_tags_avg_order_by {
+  quest_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "quest_tags". All fields are combined with a logical 'AND'.
+"""
+input quest_tags_bool_exp {
+  _and: [quest_tags_bool_exp!]
+  _not: quest_tags_bool_exp
+  _or: [quest_tags_bool_exp!]
+  quest: quests_bool_exp
+  quest_id: Int_comparison_exp
+  tag: tags_bool_exp
+  tag_name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "quest_tags"
+"""
+enum quest_tags_constraint {
+  """unique or primary key constraint"""
+  quest_tags_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "quest_tags"
+"""
+input quest_tags_inc_input {
+  quest_id: Int
+}
+
+"""
+input type for inserting data into table "quest_tags"
+"""
+input quest_tags_insert_input {
+  quest: quests_obj_rel_insert_input
+  quest_id: Int
+  tag: tags_obj_rel_insert_input
+  tag_name: String
+}
+
+"""aggregate max on columns"""
+type quest_tags_max_fields {
+  quest_id: Int
+  tag_name: String
+}
+
+"""
+order by max() on columns of table "quest_tags"
+"""
+input quest_tags_max_order_by {
+  quest_id: order_by
+  tag_name: order_by
+}
+
+"""aggregate min on columns"""
+type quest_tags_min_fields {
+  quest_id: Int
+  tag_name: String
+}
+
+"""
+order by min() on columns of table "quest_tags"
+"""
+input quest_tags_min_order_by {
+  quest_id: order_by
+  tag_name: order_by
+}
+
+"""
+response of any mutation on the table "quest_tags"
+"""
+type quest_tags_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [quest_tags!]!
+}
+
+"""
+on_conflict condition type for table "quest_tags"
+"""
+input quest_tags_on_conflict {
+  constraint: quest_tags_constraint!
+  update_columns: [quest_tags_update_column!]! = []
+  where: quest_tags_bool_exp
+}
+
+"""Ordering options when selecting data from "quest_tags"."""
+input quest_tags_order_by {
+  quest: quests_order_by
+  quest_id: order_by
+  tag: tags_order_by
+  tag_name: order_by
+}
+
+"""primary key columns input for table: quest_tags"""
+input quest_tags_pk_columns_input {
+  quest_id: Int!
+  tag_name: String!
+}
+
+"""
+select columns of table "quest_tags"
+"""
+enum quest_tags_select_column {
+  """column name"""
+  quest_id
+
+  """column name"""
+  tag_name
+}
+
+"""
+input type for updating data in table "quest_tags"
+"""
+input quest_tags_set_input {
+  quest_id: Int
+  tag_name: String
+}
+
+"""aggregate stddev on columns"""
+type quest_tags_stddev_fields {
+  quest_id: Float
+}
+
+"""
+order by stddev() on columns of table "quest_tags"
+"""
+input quest_tags_stddev_order_by {
+  quest_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type quest_tags_stddev_pop_fields {
+  quest_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "quest_tags"
+"""
+input quest_tags_stddev_pop_order_by {
+  quest_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type quest_tags_stddev_samp_fields {
+  quest_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "quest_tags"
+"""
+input quest_tags_stddev_samp_order_by {
+  quest_id: order_by
+}
+
+"""aggregate sum on columns"""
+type quest_tags_sum_fields {
+  quest_id: Int
+}
+
+"""
+order by sum() on columns of table "quest_tags"
+"""
+input quest_tags_sum_order_by {
+  quest_id: order_by
+}
+
+"""
+update columns of table "quest_tags"
+"""
+enum quest_tags_update_column {
+  """column name"""
+  quest_id
+
+  """column name"""
+  tag_name
+}
+
+"""aggregate var_pop on columns"""
+type quest_tags_var_pop_fields {
+  quest_id: Float
+}
+
+"""
+order by var_pop() on columns of table "quest_tags"
+"""
+input quest_tags_var_pop_order_by {
+  quest_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type quest_tags_var_samp_fields {
+  quest_id: Float
+}
+
+"""
+order by var_samp() on columns of table "quest_tags"
+"""
+input quest_tags_var_samp_order_by {
+  quest_id: order_by
+}
+
+"""aggregate variance on columns"""
+type quest_tags_variance_fields {
+  quest_id: Float
+}
+
+"""
+order by variance() on columns of table "quest_tags"
+"""
+input quest_tags_variance_order_by {
+  quest_id: order_by
+}
+
+"""
 columns and relationships of "quests"
 """
 type quests {
@@ -4081,7 +4570,43 @@ type quests {
   A computed field, executes function "quest_slug"
   """
   slug: String
+
+  """An array relationship"""
   tags(
+    """distinct select on columns"""
+    distinct_on: [quest_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_tags_order_by!]
+
+    """filter the rows returned"""
+    where: quest_tags_bool_exp
+  ): [quest_tags!]!
+
+  """An aggregate relationship"""
+  tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_tags_order_by!]
+
+    """filter the rows returned"""
+    where: quest_tags_bool_exp
+  ): quest_tags_aggregate!
+  tags_legacy(
     """JSON select path"""
     path: String
   ): jsonb!
@@ -4116,7 +4641,7 @@ type quests_aggregate_fields {
 
 """append existing jsonb value of filtered columns with new jsonb value"""
 input quests_append_input {
-  tags: jsonb
+  tags_legacy: jsonb
 }
 
 """aggregate avg on columns"""
@@ -4140,7 +4665,8 @@ input quests_bool_exp {
   log_entries: quest_log_entries_bool_exp
   rewards: rewards_bool_exp
   slug: String_comparison_exp
-  tags: jsonb_comparison_exp
+  tags: quest_tags_bool_exp
+  tags_legacy: jsonb_comparison_exp
   title: String_comparison_exp
   updated_at: timestamptz_comparison_exp
 }
@@ -4157,21 +4683,21 @@ enum quests_constraint {
 delete the field or element with specified path (for JSON arrays, negative integers count from the end)
 """
 input quests_delete_at_path_input {
-  tags: [String!]
+  tags_legacy: [String!]
 }
 
 """
 delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
 """
 input quests_delete_elem_input {
-  tags: Int
+  tags_legacy: Int
 }
 
 """
 delete key/value pair or string element. key/value pairs are matched based on their key value
 """
 input quests_delete_key_input {
-  tags: String
+  tags_legacy: String
 }
 
 """
@@ -4193,7 +4719,8 @@ input quests_insert_input {
   isPublished: Boolean
   log_entries: quest_log_entries_arr_rel_insert_input
   rewards: rewards_arr_rel_insert_input
-  tags: jsonb
+  tags: quest_tags_arr_rel_insert_input
+  tags_legacy: jsonb
   title: String
   updated_at: timestamptz
 }
@@ -4261,7 +4788,8 @@ input quests_order_by {
   log_entries_aggregate: quest_log_entries_aggregate_order_by
   rewards_aggregate: rewards_aggregate_order_by
   slug: order_by
-  tags: order_by
+  tags_aggregate: quest_tags_aggregate_order_by
+  tags_legacy: order_by
   title: order_by
   updated_at: order_by
 }
@@ -4273,7 +4801,7 @@ input quests_pk_columns_input {
 
 """prepend existing jsonb value of filtered columns with new jsonb value"""
 input quests_prepend_input {
-  tags: jsonb
+  tags_legacy: jsonb
 }
 
 """
@@ -4299,7 +4827,7 @@ enum quests_select_column {
   isPublished
 
   """column name"""
-  tags
+  tags_legacy
 
   """column name"""
   title
@@ -4318,7 +4846,7 @@ input quests_set_input {
   id: Int
   imageURL: String
   isPublished: Boolean
-  tags: jsonb
+  tags_legacy: jsonb
   title: String
   updated_at: timestamptz
 }
@@ -4366,7 +4894,7 @@ enum quests_update_column {
   isPublished
 
   """column name"""
-  tags
+  tags_legacy
 
   """column name"""
   title
@@ -5409,6 +5937,45 @@ type subscription_root {
   """
   quest_log_entries_by_pk(quest_id: Int!, step: Int!): quest_log_entries
 
+  """An array relationship"""
+  quest_tags(
+    """distinct select on columns"""
+    distinct_on: [quest_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_tags_order_by!]
+
+    """filter the rows returned"""
+    where: quest_tags_bool_exp
+  ): [quest_tags!]!
+
+  """An aggregate relationship"""
+  quest_tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_tags_order_by!]
+
+    """filter the rows returned"""
+    where: quest_tags_bool_exp
+  ): quest_tags_aggregate!
+
+  """fetch data from the table: "quest_tags" using primary key columns"""
+  quest_tags_by_pk(quest_id: Int!, tag_name: String!): quest_tags
+
   """
   fetch data from the table: "quests"
   """
@@ -5534,6 +6101,49 @@ type subscription_root {
   """fetch data from the table: "statuses" using primary key columns"""
   statuses_by_pk(name: String!): statuses
 
+  """
+  fetch data from the table: "tags"
+  """
+  tags(
+    """distinct select on columns"""
+    distinct_on: [tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tags_order_by!]
+
+    """filter the rows returned"""
+    where: tags_bool_exp
+  ): [tags!]!
+
+  """
+  fetch aggregated fields from the table: "tags"
+  """
+  tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tags_order_by!]
+
+    """filter the rows returned"""
+    where: tags_bool_exp
+  ): tags_aggregate!
+
+  """fetch data from the table: "tags" using primary key columns"""
+  tags_by_pk(name: String!): tags
+
   """fetch data from the table: "auth.users" using primary key columns"""
   user(id: uuid!): users
 
@@ -5576,6 +6186,167 @@ type subscription_root {
     """filter the rows returned"""
     where: users_bool_exp
   ): users_aggregate!
+}
+
+"""
+columns and relationships of "tags"
+"""
+type tags {
+  name: String!
+
+  """An array relationship"""
+  quest_tags(
+    """distinct select on columns"""
+    distinct_on: [quest_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_tags_order_by!]
+
+    """filter the rows returned"""
+    where: quest_tags_bool_exp
+  ): [quest_tags!]!
+
+  """An aggregate relationship"""
+  quest_tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_tags_order_by!]
+
+    """filter the rows returned"""
+    where: quest_tags_bool_exp
+  ): quest_tags_aggregate!
+}
+
+"""
+aggregated selection of "tags"
+"""
+type tags_aggregate {
+  aggregate: tags_aggregate_fields
+  nodes: [tags!]!
+}
+
+"""
+aggregate fields of "tags"
+"""
+type tags_aggregate_fields {
+  count(columns: [tags_select_column!], distinct: Boolean): Int!
+  max: tags_max_fields
+  min: tags_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "tags". All fields are combined with a logical 'AND'.
+"""
+input tags_bool_exp {
+  _and: [tags_bool_exp!]
+  _not: tags_bool_exp
+  _or: [tags_bool_exp!]
+  name: String_comparison_exp
+  quest_tags: quest_tags_bool_exp
+}
+
+"""
+unique or primary key constraints on table "tags"
+"""
+enum tags_constraint {
+  """unique or primary key constraint"""
+  tags_pkey
+}
+
+"""
+input type for inserting data into table "tags"
+"""
+input tags_insert_input {
+  name: String
+  quest_tags: quest_tags_arr_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type tags_max_fields {
+  name: String
+}
+
+"""aggregate min on columns"""
+type tags_min_fields {
+  name: String
+}
+
+"""
+response of any mutation on the table "tags"
+"""
+type tags_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [tags!]!
+}
+
+"""
+input type for inserting object relation for remote table "tags"
+"""
+input tags_obj_rel_insert_input {
+  data: tags_insert_input!
+
+  """upsert condition"""
+  on_conflict: tags_on_conflict
+}
+
+"""
+on_conflict condition type for table "tags"
+"""
+input tags_on_conflict {
+  constraint: tags_constraint!
+  update_columns: [tags_update_column!]! = []
+  where: tags_bool_exp
+}
+
+"""Ordering options when selecting data from "tags"."""
+input tags_order_by {
+  name: order_by
+  quest_tags_aggregate: quest_tags_aggregate_order_by
+}
+
+"""primary key columns input for table: tags"""
+input tags_pk_columns_input {
+  name: String!
+}
+
+"""
+select columns of table "tags"
+"""
+enum tags_select_column {
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "tags"
+"""
+input tags_set_input {
+  name: String
+}
+
+"""
+update columns of table "tags"
+"""
+enum tags_update_column {
+  """column name"""
+  name
 }
 
 scalar timestamptz

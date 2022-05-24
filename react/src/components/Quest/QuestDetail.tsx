@@ -3,6 +3,7 @@ import {
   Badge,
   Box,
   Button,
+  Center,
   Flex,
   Heading,
   Popover,
@@ -37,7 +38,7 @@ gql`
       description
       giver
       imageURL
-      tags
+      tags: tags_legacy
       rewards {
         ...reward
       }
@@ -112,47 +113,50 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
         <title>{title}</title>
         <meta name="description" content={description} />
       </Helmet>
-      <Stack
-        bg={useColorModeValue("gray.300", "gray.700")}
-        rounded={["none", "none", "2xl"]}
-      >
-        <Box
-          maxH="12rem"
-          roundedTop={["none", "none", "2xl"]}
-          p={8}
-          style={{
-            WebkitMaskImage:
-              "-webkit-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))",
-          }}
-          bg={`linear-gradient( ${bgHeaderTintStart}, ${bgHeaderTintCenter}, ${bgHeaderTintEnd} ), url('${imageURL}')`}
-          bgSize="cover"
-          bgPosition="top"
+      <Center flexGrow={1}>
+        <Stack
+          my={4}
+          bg={useColorModeValue("gray.300", "gray.700")}
+          rounded={["none", "none", "2xl"]}
         >
-          <Heading fontSize="2rem">{title}</Heading>
-        </Box>
-        <Stack px={4} pb={4}>
-          <Wrap direction="row" justify="end">
-            {tags.map((tag: string) => (
-              <Tag key={tag}>{tag}</Tag>
+          <Box
+            maxH="12rem"
+            roundedTop={["none", "none", "2xl"]}
+            p={8}
+            style={{
+              WebkitMaskImage:
+                "-webkit-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))",
+            }}
+            bg={`linear-gradient( ${bgHeaderTintStart}, ${bgHeaderTintCenter}, ${bgHeaderTintEnd} ), url('${imageURL}')`}
+            bgSize="cover"
+            bgPosition="top"
+          >
+            <Heading fontSize="2rem">{title}</Heading>
+          </Box>
+          <Stack px={4} pb={4}>
+            <Wrap direction="row" justify="end">
+              {tags.map((tag: string) => (
+                <Tag key={tag}>{tag}</Tag>
+              ))}
+              <Tag key={giver} variant="outline">
+                {giver}
+              </Tag>
+            </Wrap>
+            {rewards.length && (
+              <Stack rounded="lg" border="1px" borderColor="gray.500">
+                <Heading fontSize="md" as="h2" mx="auto" mt={1}>
+                  Possible Rewards
+                </Heading>
+                <RewardAccordion rewards={rewards} />
+              </Stack>
+            )}
+            <Text>{description}</Text>
+            {log_entries.map((entry) => (
+              <QuestLogEntryDetail key={entry.step} {...entry} />
             ))}
-            <Tag key={giver} variant="outline">
-              {giver}
-            </Tag>
-          </Wrap>
-          {rewards.length && (
-            <Stack rounded="lg" border="1px" borderColor="gray.500">
-              <Heading fontSize="md" as="h2" mx="auto" mt={1}>
-                Possible Rewards
-              </Heading>
-              <RewardAccordion rewards={rewards} />
-            </Stack>
-          )}
-          <Text>{description}</Text>
-          {log_entries.map((entry) => (
-            <QuestLogEntryDetail key={entry.step} {...entry} />
-          ))}
+          </Stack>
         </Stack>
-      </Stack>
+      </Center>
     </>
   );
 };

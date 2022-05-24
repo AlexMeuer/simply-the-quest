@@ -7,6 +7,8 @@ export interface BadStateProps {
   title: string;
   subtitle: string;
   imageURL: string;
+  disableButton?: boolean;
+  children?: React.ReactNode;
 }
 
 export const BadState: React.FC<BadStateProps> = ({
@@ -14,6 +16,8 @@ export const BadState: React.FC<BadStateProps> = ({
   title,
   subtitle,
   imageURL,
+  disableButton,
+  children,
 }) => (
   <Stack
     direction="column"
@@ -26,8 +30,11 @@ export const BadState: React.FC<BadStateProps> = ({
     <Box h="400">
       <Image rounded="2xl" src={imageURL} />
     </Box>
-    <Button as={RouterLink} to="/">
-      Take me home.
-    </Button>
+    {disableButton || (
+      <Button as={RouterLink} to="/">
+        Take me home.
+      </Button>
+    )}
+    {children}
   </Stack>
 );

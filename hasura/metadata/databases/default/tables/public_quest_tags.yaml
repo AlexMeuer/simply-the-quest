@@ -1,0 +1,20 @@
+table:
+  schema: public
+  name: quest_tags
+object_relationships:
+  - name: quest
+    using:
+      foreign_key_constraint_on: quest_id
+  - name: tag
+    using:
+      foreign_key_constraint_on: tag_name
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - quest_id
+        - tag_name
+      filter:
+        quest:
+          isPublished:
+            _eq: true

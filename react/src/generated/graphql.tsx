@@ -1844,6 +1844,10 @@ export type Mutation_Root = {
   delete_quest_log_entries?: Maybe<Quest_Log_Entries_Mutation_Response>;
   /** delete single row from the table: "quest_log_entries" */
   delete_quest_log_entries_by_pk?: Maybe<Quest_Log_Entries>;
+  /** delete data from the table: "quest_tags" */
+  delete_quest_tags?: Maybe<Quest_Tags_Mutation_Response>;
+  /** delete single row from the table: "quest_tags" */
+  delete_quest_tags_by_pk?: Maybe<Quest_Tags>;
   /** delete data from the table: "quests" */
   delete_quests?: Maybe<Quests_Mutation_Response>;
   /** delete single row from the table: "quests" */
@@ -1856,6 +1860,10 @@ export type Mutation_Root = {
   delete_statuses?: Maybe<Statuses_Mutation_Response>;
   /** delete single row from the table: "statuses" */
   delete_statuses_by_pk?: Maybe<Statuses>;
+  /** delete data from the table: "tags" */
+  delete_tags?: Maybe<Tags_Mutation_Response>;
+  /** delete single row from the table: "tags" */
+  delete_tags_by_pk?: Maybe<Tags>;
   /** insert a single row into the table: "auth.providers" */
   insertAuthProvider?: Maybe<AuthProviders>;
   /** insert a single row into the table: "auth.provider_requests" */
@@ -1896,6 +1904,10 @@ export type Mutation_Root = {
   insert_quest_log_entries?: Maybe<Quest_Log_Entries_Mutation_Response>;
   /** insert a single row into the table: "quest_log_entries" */
   insert_quest_log_entries_one?: Maybe<Quest_Log_Entries>;
+  /** insert data into the table: "quest_tags" */
+  insert_quest_tags?: Maybe<Quest_Tags_Mutation_Response>;
+  /** insert a single row into the table: "quest_tags" */
+  insert_quest_tags_one?: Maybe<Quest_Tags>;
   /** insert data into the table: "quests" */
   insert_quests?: Maybe<Quests_Mutation_Response>;
   /** insert a single row into the table: "quests" */
@@ -1908,6 +1920,10 @@ export type Mutation_Root = {
   insert_statuses?: Maybe<Statuses_Mutation_Response>;
   /** insert a single row into the table: "statuses" */
   insert_statuses_one?: Maybe<Statuses>;
+  /** insert data into the table: "tags" */
+  insert_tags?: Maybe<Tags_Mutation_Response>;
+  /** insert a single row into the table: "tags" */
+  insert_tags_one?: Maybe<Tags>;
   /** update single row of the table: "auth.providers" */
   updateAuthProvider?: Maybe<AuthProviders>;
   /** update single row of the table: "auth.provider_requests" */
@@ -1948,6 +1964,10 @@ export type Mutation_Root = {
   update_quest_log_entries?: Maybe<Quest_Log_Entries_Mutation_Response>;
   /** update single row of the table: "quest_log_entries" */
   update_quest_log_entries_by_pk?: Maybe<Quest_Log_Entries>;
+  /** update data of the table: "quest_tags" */
+  update_quest_tags?: Maybe<Quest_Tags_Mutation_Response>;
+  /** update single row of the table: "quest_tags" */
+  update_quest_tags_by_pk?: Maybe<Quest_Tags>;
   /** update data of the table: "quests" */
   update_quests?: Maybe<Quests_Mutation_Response>;
   /** update single row of the table: "quests" */
@@ -1960,6 +1980,10 @@ export type Mutation_Root = {
   update_statuses?: Maybe<Statuses_Mutation_Response>;
   /** update single row of the table: "statuses" */
   update_statuses_by_pk?: Maybe<Statuses>;
+  /** update data of the table: "tags" */
+  update_tags?: Maybe<Tags_Mutation_Response>;
+  /** update single row of the table: "tags" */
+  update_tags_by_pk?: Maybe<Tags>;
 };
 
 
@@ -2085,6 +2109,19 @@ export type Mutation_RootDelete_Quest_Log_Entries_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootDelete_Quest_TagsArgs = {
+  where: Quest_Tags_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Quest_Tags_By_PkArgs = {
+  quest_id: Scalars['Int'];
+  tag_name: Scalars['String'];
+};
+
+
+/** mutation root */
 export type Mutation_RootDelete_QuestsArgs = {
   where: Quests_Bool_Exp;
 };
@@ -2116,6 +2153,18 @@ export type Mutation_RootDelete_StatusesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Statuses_By_PkArgs = {
+  name: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_TagsArgs = {
+  where: Tags_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Tags_By_PkArgs = {
   name: Scalars['String'];
 };
 
@@ -2261,6 +2310,20 @@ export type Mutation_RootInsert_Quest_Log_Entries_OneArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_Quest_TagsArgs = {
+  objects: Array<Quest_Tags_Insert_Input>;
+  on_conflict?: InputMaybe<Quest_Tags_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Quest_Tags_OneArgs = {
+  object: Quest_Tags_Insert_Input;
+  on_conflict?: InputMaybe<Quest_Tags_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_QuestsArgs = {
   objects: Array<Quests_Insert_Input>;
   on_conflict?: InputMaybe<Quests_On_Conflict>;
@@ -2299,6 +2362,20 @@ export type Mutation_RootInsert_StatusesArgs = {
 export type Mutation_RootInsert_Statuses_OneArgs = {
   object: Statuses_Insert_Input;
   on_conflict?: InputMaybe<Statuses_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_TagsArgs = {
+  objects: Array<Tags_Insert_Input>;
+  on_conflict?: InputMaybe<Tags_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Tags_OneArgs = {
+  object: Tags_Insert_Input;
+  on_conflict?: InputMaybe<Tags_On_Conflict>;
 };
 
 
@@ -2469,6 +2546,22 @@ export type Mutation_RootUpdate_Quest_Log_Entries_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Quest_TagsArgs = {
+  _inc?: InputMaybe<Quest_Tags_Inc_Input>;
+  _set?: InputMaybe<Quest_Tags_Set_Input>;
+  where: Quest_Tags_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Quest_Tags_By_PkArgs = {
+  _inc?: InputMaybe<Quest_Tags_Inc_Input>;
+  _set?: InputMaybe<Quest_Tags_Set_Input>;
+  pk_columns: Quest_Tags_Pk_Columns_Input;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_QuestsArgs = {
   _append?: InputMaybe<Quests_Append_Input>;
   _delete_at_path?: InputMaybe<Quests_Delete_At_Path_Input>;
@@ -2521,6 +2614,20 @@ export type Mutation_RootUpdate_StatusesArgs = {
 export type Mutation_RootUpdate_Statuses_By_PkArgs = {
   _set?: InputMaybe<Statuses_Set_Input>;
   pk_columns: Statuses_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_TagsArgs = {
+  _set?: InputMaybe<Tags_Set_Input>;
+  where: Tags_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Tags_By_PkArgs = {
+  _set?: InputMaybe<Tags_Set_Input>;
+  pk_columns: Tags_Pk_Columns_Input;
 };
 
 /** column ordering options */
@@ -2595,6 +2702,12 @@ export type Query_Root = {
   quest_log_entries_aggregate: Quest_Log_Entries_Aggregate;
   /** fetch data from the table: "quest_log_entries" using primary key columns */
   quest_log_entries_by_pk?: Maybe<Quest_Log_Entries>;
+  /** An array relationship */
+  quest_tags: Array<Quest_Tags>;
+  /** An aggregate relationship */
+  quest_tags_aggregate: Quest_Tags_Aggregate;
+  /** fetch data from the table: "quest_tags" using primary key columns */
+  quest_tags_by_pk?: Maybe<Quest_Tags>;
   /** fetch data from the table: "quests" */
   quests: Array<Quests>;
   /** fetch aggregated fields from the table: "quests" */
@@ -2613,6 +2726,12 @@ export type Query_Root = {
   statuses_aggregate: Statuses_Aggregate;
   /** fetch data from the table: "statuses" using primary key columns */
   statuses_by_pk?: Maybe<Statuses>;
+  /** fetch data from the table: "tags" */
+  tags: Array<Tags>;
+  /** fetch aggregated fields from the table: "tags" */
+  tags_aggregate: Tags_Aggregate;
+  /** fetch data from the table: "tags" using primary key columns */
+  tags_by_pk?: Maybe<Tags>;
   /** fetch data from the table: "auth.users" using primary key columns */
   user?: Maybe<Users>;
   /** fetch data from the table: "auth.users" */
@@ -2830,6 +2949,30 @@ export type Query_RootQuest_Log_Entries_By_PkArgs = {
 };
 
 
+export type Query_RootQuest_TagsArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Tags_Order_By>>;
+  where?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+
+export type Query_RootQuest_Tags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Tags_Order_By>>;
+  where?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+
+export type Query_RootQuest_Tags_By_PkArgs = {
+  quest_id: Scalars['Int'];
+  tag_name: Scalars['String'];
+};
+
+
 export type Query_RootQuestsArgs = {
   distinct_on?: InputMaybe<Array<Quests_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -2895,6 +3038,29 @@ export type Query_RootStatuses_AggregateArgs = {
 
 
 export type Query_RootStatuses_By_PkArgs = {
+  name: Scalars['String'];
+};
+
+
+export type Query_RootTagsArgs = {
+  distinct_on?: InputMaybe<Array<Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Tags_Order_By>>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+
+export type Query_RootTags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Tags_Order_By>>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+
+export type Query_RootTags_By_PkArgs = {
   name: Scalars['String'];
 };
 
@@ -3300,6 +3466,265 @@ export type Quest_Log_Entries_Variance_Order_By = {
   step?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "quest_tags" */
+export type Quest_Tags = {
+  __typename?: 'quest_tags';
+  /** An object relationship */
+  quest: Quests;
+  quest_id: Scalars['Int'];
+  /** An object relationship */
+  tag: Tags;
+  tag_name: Scalars['String'];
+};
+
+/** aggregated selection of "quest_tags" */
+export type Quest_Tags_Aggregate = {
+  __typename?: 'quest_tags_aggregate';
+  aggregate?: Maybe<Quest_Tags_Aggregate_Fields>;
+  nodes: Array<Quest_Tags>;
+};
+
+/** aggregate fields of "quest_tags" */
+export type Quest_Tags_Aggregate_Fields = {
+  __typename?: 'quest_tags_aggregate_fields';
+  avg?: Maybe<Quest_Tags_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Quest_Tags_Max_Fields>;
+  min?: Maybe<Quest_Tags_Min_Fields>;
+  stddev?: Maybe<Quest_Tags_Stddev_Fields>;
+  stddev_pop?: Maybe<Quest_Tags_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Quest_Tags_Stddev_Samp_Fields>;
+  sum?: Maybe<Quest_Tags_Sum_Fields>;
+  var_pop?: Maybe<Quest_Tags_Var_Pop_Fields>;
+  var_samp?: Maybe<Quest_Tags_Var_Samp_Fields>;
+  variance?: Maybe<Quest_Tags_Variance_Fields>;
+};
+
+
+/** aggregate fields of "quest_tags" */
+export type Quest_Tags_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Quest_Tags_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "quest_tags" */
+export type Quest_Tags_Aggregate_Order_By = {
+  avg?: InputMaybe<Quest_Tags_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Quest_Tags_Max_Order_By>;
+  min?: InputMaybe<Quest_Tags_Min_Order_By>;
+  stddev?: InputMaybe<Quest_Tags_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Quest_Tags_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Quest_Tags_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Quest_Tags_Sum_Order_By>;
+  var_pop?: InputMaybe<Quest_Tags_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Quest_Tags_Var_Samp_Order_By>;
+  variance?: InputMaybe<Quest_Tags_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "quest_tags" */
+export type Quest_Tags_Arr_Rel_Insert_Input = {
+  data: Array<Quest_Tags_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Quest_Tags_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Quest_Tags_Avg_Fields = {
+  __typename?: 'quest_tags_avg_fields';
+  quest_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "quest_tags" */
+export type Quest_Tags_Avg_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "quest_tags". All fields are combined with a logical 'AND'. */
+export type Quest_Tags_Bool_Exp = {
+  _and?: InputMaybe<Array<Quest_Tags_Bool_Exp>>;
+  _not?: InputMaybe<Quest_Tags_Bool_Exp>;
+  _or?: InputMaybe<Array<Quest_Tags_Bool_Exp>>;
+  quest?: InputMaybe<Quests_Bool_Exp>;
+  quest_id?: InputMaybe<Int_Comparison_Exp>;
+  tag?: InputMaybe<Tags_Bool_Exp>;
+  tag_name?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "quest_tags" */
+export enum Quest_Tags_Constraint {
+  /** unique or primary key constraint */
+  QuestTagsPkey = 'quest_tags_pkey'
+}
+
+/** input type for incrementing numeric columns in table "quest_tags" */
+export type Quest_Tags_Inc_Input = {
+  quest_id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "quest_tags" */
+export type Quest_Tags_Insert_Input = {
+  quest?: InputMaybe<Quests_Obj_Rel_Insert_Input>;
+  quest_id?: InputMaybe<Scalars['Int']>;
+  tag?: InputMaybe<Tags_Obj_Rel_Insert_Input>;
+  tag_name?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Quest_Tags_Max_Fields = {
+  __typename?: 'quest_tags_max_fields';
+  quest_id?: Maybe<Scalars['Int']>;
+  tag_name?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "quest_tags" */
+export type Quest_Tags_Max_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+  tag_name?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Quest_Tags_Min_Fields = {
+  __typename?: 'quest_tags_min_fields';
+  quest_id?: Maybe<Scalars['Int']>;
+  tag_name?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "quest_tags" */
+export type Quest_Tags_Min_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+  tag_name?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "quest_tags" */
+export type Quest_Tags_Mutation_Response = {
+  __typename?: 'quest_tags_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Quest_Tags>;
+};
+
+/** on_conflict condition type for table "quest_tags" */
+export type Quest_Tags_On_Conflict = {
+  constraint: Quest_Tags_Constraint;
+  update_columns?: Array<Quest_Tags_Update_Column>;
+  where?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "quest_tags". */
+export type Quest_Tags_Order_By = {
+  quest?: InputMaybe<Quests_Order_By>;
+  quest_id?: InputMaybe<Order_By>;
+  tag?: InputMaybe<Tags_Order_By>;
+  tag_name?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: quest_tags */
+export type Quest_Tags_Pk_Columns_Input = {
+  quest_id: Scalars['Int'];
+  tag_name: Scalars['String'];
+};
+
+/** select columns of table "quest_tags" */
+export enum Quest_Tags_Select_Column {
+  /** column name */
+  QuestId = 'quest_id',
+  /** column name */
+  TagName = 'tag_name'
+}
+
+/** input type for updating data in table "quest_tags" */
+export type Quest_Tags_Set_Input = {
+  quest_id?: InputMaybe<Scalars['Int']>;
+  tag_name?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Quest_Tags_Stddev_Fields = {
+  __typename?: 'quest_tags_stddev_fields';
+  quest_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "quest_tags" */
+export type Quest_Tags_Stddev_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Quest_Tags_Stddev_Pop_Fields = {
+  __typename?: 'quest_tags_stddev_pop_fields';
+  quest_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "quest_tags" */
+export type Quest_Tags_Stddev_Pop_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Quest_Tags_Stddev_Samp_Fields = {
+  __typename?: 'quest_tags_stddev_samp_fields';
+  quest_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "quest_tags" */
+export type Quest_Tags_Stddev_Samp_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Quest_Tags_Sum_Fields = {
+  __typename?: 'quest_tags_sum_fields';
+  quest_id?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "quest_tags" */
+export type Quest_Tags_Sum_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "quest_tags" */
+export enum Quest_Tags_Update_Column {
+  /** column name */
+  QuestId = 'quest_id',
+  /** column name */
+  TagName = 'tag_name'
+}
+
+/** aggregate var_pop on columns */
+export type Quest_Tags_Var_Pop_Fields = {
+  __typename?: 'quest_tags_var_pop_fields';
+  quest_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "quest_tags" */
+export type Quest_Tags_Var_Pop_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Quest_Tags_Var_Samp_Fields = {
+  __typename?: 'quest_tags_var_samp_fields';
+  quest_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "quest_tags" */
+export type Quest_Tags_Var_Samp_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Quest_Tags_Variance_Fields = {
+  __typename?: 'quest_tags_variance_fields';
+  quest_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "quest_tags" */
+export type Quest_Tags_Variance_Order_By = {
+  quest_id?: InputMaybe<Order_By>;
+};
+
 /** columns and relationships of "quests" */
 export type Quests = {
   __typename?: 'quests';
@@ -3319,7 +3744,11 @@ export type Quests = {
   rewards_aggregate: Rewards_Aggregate;
   /** A computed field, executes function "quest_slug" */
   slug?: Maybe<Scalars['String']>;
-  tags: Scalars['jsonb'];
+  /** An array relationship */
+  tags: Array<Quest_Tags>;
+  /** An aggregate relationship */
+  tags_aggregate: Quest_Tags_Aggregate;
+  tags_legacy: Scalars['jsonb'];
   title: Scalars['String'];
   updated_at: Scalars['timestamptz'];
 };
@@ -3367,6 +3796,26 @@ export type QuestsRewards_AggregateArgs = {
 
 /** columns and relationships of "quests" */
 export type QuestsTagsArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Tags_Order_By>>;
+  where?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+
+/** columns and relationships of "quests" */
+export type QuestsTags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Tags_Order_By>>;
+  where?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+
+/** columns and relationships of "quests" */
+export type QuestsTags_LegacyArgs = {
   path?: InputMaybe<Scalars['String']>;
 };
 
@@ -3402,7 +3851,7 @@ export type Quests_Aggregate_FieldsCountArgs = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type Quests_Append_Input = {
-  tags?: InputMaybe<Scalars['jsonb']>;
+  tags_legacy?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** aggregate avg on columns */
@@ -3425,7 +3874,8 @@ export type Quests_Bool_Exp = {
   log_entries?: InputMaybe<Quest_Log_Entries_Bool_Exp>;
   rewards?: InputMaybe<Rewards_Bool_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
-  tags?: InputMaybe<Jsonb_Comparison_Exp>;
+  tags?: InputMaybe<Quest_Tags_Bool_Exp>;
+  tags_legacy?: InputMaybe<Jsonb_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
@@ -3438,17 +3888,17 @@ export enum Quests_Constraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type Quests_Delete_At_Path_Input = {
-  tags?: InputMaybe<Array<Scalars['String']>>;
+  tags_legacy?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type Quests_Delete_Elem_Input = {
-  tags?: InputMaybe<Scalars['Int']>;
+  tags_legacy?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type Quests_Delete_Key_Input = {
-  tags?: InputMaybe<Scalars['String']>;
+  tags_legacy?: InputMaybe<Scalars['String']>;
 };
 
 /** input type for incrementing numeric columns in table "quests" */
@@ -3466,7 +3916,8 @@ export type Quests_Insert_Input = {
   isPublished?: InputMaybe<Scalars['Boolean']>;
   log_entries?: InputMaybe<Quest_Log_Entries_Arr_Rel_Insert_Input>;
   rewards?: InputMaybe<Rewards_Arr_Rel_Insert_Input>;
-  tags?: InputMaybe<Scalars['jsonb']>;
+  tags?: InputMaybe<Quest_Tags_Arr_Rel_Insert_Input>;
+  tags_legacy?: InputMaybe<Scalars['jsonb']>;
   title?: InputMaybe<Scalars['String']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
@@ -3529,7 +3980,8 @@ export type Quests_Order_By = {
   log_entries_aggregate?: InputMaybe<Quest_Log_Entries_Aggregate_Order_By>;
   rewards_aggregate?: InputMaybe<Rewards_Aggregate_Order_By>;
   slug?: InputMaybe<Order_By>;
-  tags?: InputMaybe<Order_By>;
+  tags_aggregate?: InputMaybe<Quest_Tags_Aggregate_Order_By>;
+  tags_legacy?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
@@ -3541,7 +3993,7 @@ export type Quests_Pk_Columns_Input = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type Quests_Prepend_Input = {
-  tags?: InputMaybe<Scalars['jsonb']>;
+  tags_legacy?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "quests" */
@@ -3559,7 +4011,7 @@ export enum Quests_Select_Column {
   /** column name */
   IsPublished = 'isPublished',
   /** column name */
-  Tags = 'tags',
+  TagsLegacy = 'tags_legacy',
   /** column name */
   Title = 'title',
   /** column name */
@@ -3574,7 +4026,7 @@ export type Quests_Set_Input = {
   id?: InputMaybe<Scalars['Int']>;
   imageURL?: InputMaybe<Scalars['String']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
-  tags?: InputMaybe<Scalars['jsonb']>;
+  tags_legacy?: InputMaybe<Scalars['jsonb']>;
   title?: InputMaybe<Scalars['String']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
@@ -3618,7 +4070,7 @@ export enum Quests_Update_Column {
   /** column name */
   IsPublished = 'isPublished',
   /** column name */
-  Tags = 'tags',
+  TagsLegacy = 'tags_legacy',
   /** column name */
   Title = 'title',
   /** column name */
@@ -4261,6 +4713,12 @@ export type Subscription_Root = {
   quest_log_entries_aggregate: Quest_Log_Entries_Aggregate;
   /** fetch data from the table: "quest_log_entries" using primary key columns */
   quest_log_entries_by_pk?: Maybe<Quest_Log_Entries>;
+  /** An array relationship */
+  quest_tags: Array<Quest_Tags>;
+  /** An aggregate relationship */
+  quest_tags_aggregate: Quest_Tags_Aggregate;
+  /** fetch data from the table: "quest_tags" using primary key columns */
+  quest_tags_by_pk?: Maybe<Quest_Tags>;
   /** fetch data from the table: "quests" */
   quests: Array<Quests>;
   /** fetch aggregated fields from the table: "quests" */
@@ -4279,6 +4737,12 @@ export type Subscription_Root = {
   statuses_aggregate: Statuses_Aggregate;
   /** fetch data from the table: "statuses" using primary key columns */
   statuses_by_pk?: Maybe<Statuses>;
+  /** fetch data from the table: "tags" */
+  tags: Array<Tags>;
+  /** fetch aggregated fields from the table: "tags" */
+  tags_aggregate: Tags_Aggregate;
+  /** fetch data from the table: "tags" using primary key columns */
+  tags_by_pk?: Maybe<Tags>;
   /** fetch data from the table: "auth.users" using primary key columns */
   user?: Maybe<Users>;
   /** fetch data from the table: "auth.users" */
@@ -4496,6 +4960,30 @@ export type Subscription_RootQuest_Log_Entries_By_PkArgs = {
 };
 
 
+export type Subscription_RootQuest_TagsArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Tags_Order_By>>;
+  where?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+
+export type Subscription_RootQuest_Tags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Tags_Order_By>>;
+  where?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+
+export type Subscription_RootQuest_Tags_By_PkArgs = {
+  quest_id: Scalars['Int'];
+  tag_name: Scalars['String'];
+};
+
+
 export type Subscription_RootQuestsArgs = {
   distinct_on?: InputMaybe<Array<Quests_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -4565,6 +5053,29 @@ export type Subscription_RootStatuses_By_PkArgs = {
 };
 
 
+export type Subscription_RootTagsArgs = {
+  distinct_on?: InputMaybe<Array<Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Tags_Order_By>>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+
+export type Subscription_RootTags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Tags_Order_By>>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+
+export type Subscription_RootTags_By_PkArgs = {
+  name: Scalars['String'];
+};
+
+
 export type Subscription_RootUserArgs = {
   id: Scalars['uuid'];
 };
@@ -4586,6 +5097,142 @@ export type Subscription_RootUsersAggregateArgs = {
   order_by?: InputMaybe<Array<Users_Order_By>>;
   where?: InputMaybe<Users_Bool_Exp>;
 };
+
+/** columns and relationships of "tags" */
+export type Tags = {
+  __typename?: 'tags';
+  name: Scalars['String'];
+  /** An array relationship */
+  quest_tags: Array<Quest_Tags>;
+  /** An aggregate relationship */
+  quest_tags_aggregate: Quest_Tags_Aggregate;
+};
+
+
+/** columns and relationships of "tags" */
+export type TagsQuest_TagsArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Tags_Order_By>>;
+  where?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+
+/** columns and relationships of "tags" */
+export type TagsQuest_Tags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Tags_Order_By>>;
+  where?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+/** aggregated selection of "tags" */
+export type Tags_Aggregate = {
+  __typename?: 'tags_aggregate';
+  aggregate?: Maybe<Tags_Aggregate_Fields>;
+  nodes: Array<Tags>;
+};
+
+/** aggregate fields of "tags" */
+export type Tags_Aggregate_Fields = {
+  __typename?: 'tags_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Tags_Max_Fields>;
+  min?: Maybe<Tags_Min_Fields>;
+};
+
+
+/** aggregate fields of "tags" */
+export type Tags_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Tags_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "tags". All fields are combined with a logical 'AND'. */
+export type Tags_Bool_Exp = {
+  _and?: InputMaybe<Array<Tags_Bool_Exp>>;
+  _not?: InputMaybe<Tags_Bool_Exp>;
+  _or?: InputMaybe<Array<Tags_Bool_Exp>>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  quest_tags?: InputMaybe<Quest_Tags_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "tags" */
+export enum Tags_Constraint {
+  /** unique or primary key constraint */
+  TagsPkey = 'tags_pkey'
+}
+
+/** input type for inserting data into table "tags" */
+export type Tags_Insert_Input = {
+  name?: InputMaybe<Scalars['String']>;
+  quest_tags?: InputMaybe<Quest_Tags_Arr_Rel_Insert_Input>;
+};
+
+/** aggregate max on columns */
+export type Tags_Max_Fields = {
+  __typename?: 'tags_max_fields';
+  name?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Tags_Min_Fields = {
+  __typename?: 'tags_min_fields';
+  name?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "tags" */
+export type Tags_Mutation_Response = {
+  __typename?: 'tags_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Tags>;
+};
+
+/** input type for inserting object relation for remote table "tags" */
+export type Tags_Obj_Rel_Insert_Input = {
+  data: Tags_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Tags_On_Conflict>;
+};
+
+/** on_conflict condition type for table "tags" */
+export type Tags_On_Conflict = {
+  constraint: Tags_Constraint;
+  update_columns?: Array<Tags_Update_Column>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "tags". */
+export type Tags_Order_By = {
+  name?: InputMaybe<Order_By>;
+  quest_tags_aggregate?: InputMaybe<Quest_Tags_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: tags */
+export type Tags_Pk_Columns_Input = {
+  name: Scalars['String'];
+};
+
+/** select columns of table "tags" */
+export enum Tags_Select_Column {
+  /** column name */
+  Name = 'name'
+}
+
+/** input type for updating data in table "tags" */
+export type Tags_Set_Input = {
+  name?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "tags" */
+export enum Tags_Update_Column {
+  /** column name */
+  Name = 'name'
+}
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
@@ -5156,12 +5803,11 @@ export type QuestWithLogForDetailViewQuery = { __typename?: 'query_root', quests
 export type RewardFragment = { __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null };
 
 export type QuestListQueryVariables = Exact<{
-  tags?: InputMaybe<Scalars['jsonb']>;
-  giver?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<Quests_Bool_Exp>;
 }>;
 
 
-export type QuestListQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, slug?: string | null, description: string, giver: string, imageURL?: string | null, tags: any, created_at: any, updated_at: any }> };
+export type QuestListQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, slug?: string | null, description: string, giver: string, imageURL?: string | null, created_at: any, updated_at: any, tags: Array<{ __typename?: 'quest_tags', tag_name: string }> }> };
 
 export const RewardFragmentDoc = gql`
     fragment reward on rewards {
@@ -5182,7 +5828,7 @@ export const QuestWithLogForDetailViewDocument = gql`
     description
     giver
     imageURL
-    tags
+    tags: tags_legacy
     rewards {
       ...reward
     }
@@ -5229,14 +5875,16 @@ export type QuestWithLogForDetailViewQueryHookResult = ReturnType<typeof useQues
 export type QuestWithLogForDetailViewLazyQueryHookResult = ReturnType<typeof useQuestWithLogForDetailViewLazyQuery>;
 export type QuestWithLogForDetailViewQueryResult = Apollo.QueryResult<QuestWithLogForDetailViewQuery, QuestWithLogForDetailViewQueryVariables>;
 export const QuestListDocument = gql`
-    query QuestList($tags: jsonb = [], $giver: String = "%") {
-  quests(where: {tags: {_contains: $tags}, giver: {_ilike: $giver}}) {
+    query QuestList($filter: quests_bool_exp) {
+  quests(where: $filter) {
     title
     slug
     description
     giver
     imageURL
-    tags
+    tags {
+      tag_name
+    }
     created_at
     updated_at
   }
@@ -5255,8 +5903,7 @@ export const QuestListDocument = gql`
  * @example
  * const { data, loading, error } = useQuestListQuery({
  *   variables: {
- *      tags: // value for 'tags'
- *      giver: // value for 'giver'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
