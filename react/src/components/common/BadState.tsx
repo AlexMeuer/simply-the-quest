@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Heading,
-  Text,
-  VStack,
-  Image,
-  Button,
-  Container,
-  Box,
-} from "@chakra-ui/react";
+import { Heading, Text, Image, Button, Box, Stack } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 
 export interface BadStateProps {
@@ -23,7 +15,12 @@ export const BadState: React.FC<BadStateProps> = ({
   subtitle,
   imageURL,
 }) => (
-  <VStack>
+  <Stack
+    direction="column"
+    justifyContent="center"
+    alignItems="center"
+    flexGrow={1}
+  >
     <Heading color={isError ? "red.500" : undefined}>{title}</Heading>
     <Text>{subtitle}</Text>
     <Box h="400">
@@ -32,5 +29,5 @@ export const BadState: React.FC<BadStateProps> = ({
     <Button as={RouterLink} to="/">
       Take me home.
     </Button>
-  </VStack>
+  </Stack>
 );

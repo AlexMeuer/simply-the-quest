@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  ChakraProvider,
-  Center,
-  Flex,
-  useColorModeValue,
-  Container,
-} from "@chakra-ui/react";
+import { ChakraProvider, Flex, useColorModeValue } from "@chakra-ui/react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { NhostClient } from "@nhost/nhost-js";
 import { NhostAuthProvider } from "@nhost/react-auth";
@@ -64,16 +58,15 @@ const Layout: React.FC = () => {
       minH="100vh"
       minW="100vw"
       direction="column"
+      alignItems="center"
     >
       <NavHeader title="Simply the Quest!">
         <GithubButton />
         <ColorModeSwitcher />
       </NavHeader>
-      <Center flexGrow={1}>
-        <Container maxW={["100%", "2xl"]} px={[0, 0, 4]}>
-          <Outlet />
-        </Container>
-      </Center>
+      <Flex direction="column" w={["100%", "2xl"]} px={[0, 0, 4]} flexGrow={1}>
+        <Outlet />
+      </Flex>
     </PillPity>
   );
 };
