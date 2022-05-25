@@ -1,19 +1,8 @@
 import React from "react";
 import {
-  Badge,
   Box,
-  Button,
   Center,
-  Flex,
   Heading,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-  SimpleGrid,
   Stack,
   Tag,
   Text,
@@ -22,14 +11,16 @@ import {
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import {
-  QuestWithLogForDetailViewQuery,
-  useQuestWithLogForDetailViewQuery,
-} from "../../generated/graphql";
 import { gql } from "@apollo/client";
-import { ErrorState, IndeterminateProgress } from "../common";
+import { BadState, ErrorState, IndeterminateProgress } from "../common";
 import { QuestLogEntryDetail } from "./QuestLogEntryDetail";
 import { RewardAccordion } from "./RewardAccordion";
+import { QuestDetail as QuestDetailDomainType } from "../../types/Quest";
+import { flattenNestedTags } from "../../util/Tags";
+import { useQuestWithLogForDetailViewQuery } from "../../generated/graphql";
+import { AreYouLost } from "../404";
+import { SafeParseError, z } from "zod";
+import { updateWith } from "lodash";
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
@@ -38,8 +29,10 @@ gql`
       description
       giver
       imageURL
-      tags: tags_legacy
-      rewards {
+      tags {
+        tag_name
+      }
+      rewards(where: { step_id: { _is_null: true } }) {
         ...reward
       }
       log_entries(order_by: { step: desc }) {
@@ -73,18 +66,51 @@ export const QuestDetailGraphqlWrapper: React.FC = () => {
     variables: { slug },
   });
 
+  const result = React.useMemo(
+    () =>
+      data
+        ? QuestDetailProps.safeParse(flattenNestedTags(data.quests[0]))
+        : ({ success: false, error: {} } as SafeParseError<QuestDetailProps>),
+    [data]
+  );
+
   if (loading) {
     return <IndeterminateProgress />;
   }
 
-  if (!data || !data.quests || data.quests.length < 1) {
+  if (!data || !data.quests) {
     return <ErrorState />;
   }
 
-  return <QuestDetail {...data.quests[0]} />;
+  if (data.quests.length === 0) {
+    return <AreYouLost />;
+  }
+
+  if (!result.success) {
+    return (
+      <BadState
+        isError
+        title="Failed to parse Quest data!"
+        subtitle={result.error.toString()}
+        imageURL="https://source.unsplash.com/collection/9036356/400x400"
+      />
+    );
+  }
+
+  return <QuestDetail {...result.data} />;
 };
 
-export type QuestDetailProps = QuestWithLogForDetailViewQuery["quests"][0];
+export const QuestDetailProps = QuestDetailDomainType.pick({
+  title: true,
+  description: true,
+  imageURL: true,
+  giver: true,
+  tags: true,
+  rewards: true,
+  log_entries: true,
+});
+
+export type QuestDetailProps = z.infer<typeof QuestDetailProps>;
 
 export const QuestDetail: React.FC<QuestDetailProps> = ({
   title,

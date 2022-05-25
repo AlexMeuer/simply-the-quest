@@ -11,11 +11,12 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { ToggleTag } from "../ToggleTag";
-import { Quest } from "../types/Quest";
 import { capitalCase } from "change-case";
+import { ToggleTag } from "../ToggleTag";
+import { QuestBase } from "../../types/Quest";
+import { WithFlatTags } from "../../util/Tags";
 
-export interface QuestCardProps extends Quest {
+export interface QuestCardProps extends QuestBase, WithFlatTags {
   selectedTags: string[];
   onTagClick: (tag: string) => void;
 }

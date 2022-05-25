@@ -14,11 +14,12 @@ import { capitalCase } from "change-case";
 import React from "react";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { QuestListQuery, useQuestListQuery } from "../../generated/graphql";
+import { QuestBase } from "../../types/Quest";
+import { flattenNestedTagsForEach, WithFlatTags } from "../../util/Tags";
 import { BadState } from "../common";
 import { ErrorState } from "../common/ErrorState";
 import { IndeterminateProgress } from "../common/IndeterminateProgress";
 import { ToggleTag } from "../ToggleTag";
-import { flattenQueriedQuests, Quest } from "../types/Quest";
 import { QuestCard } from "./QuestCard";
 
 gql`
@@ -44,7 +45,7 @@ const ifTruthy = <T, R>(value: T, result: R): R | undefined =>
 export const QuestList: React.FC = () => {
   const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
   const [searchTerm, setSearchTerm] = React.useState<string>("");
-  const [quests, setQuests] = React.useState<Quest[]>([]);
+  const [quests, setQuests] = React.useState<(QuestBase & WithFlatTags)[]>([]);
   const { data, loading } = useQuestListQuery({
     variables: {
       filter: {
@@ -91,7 +92,11 @@ export const QuestList: React.FC = () => {
 
   React.useEffect(() => {
     if (data?.quests) {
-      setQuests(flattenQueriedQuests(data.quests));
+      setQuests(
+        flattenNestedTagsForEach(data.quests).map((q) =>
+          QuestBase.merge(WithFlatTags).parse(q)
+        )
+      );
     }
   }, [data]);
 
@@ -149,6 +154,7 @@ export const QuestList: React.FC = () => {
       <Wrap justify="end">
         {tags.map((tag) => (
           <ToggleTag
+            key={tag}
             isSelected={selectedTags.includes(tag)}
             onClick={() => toggleTag(tag)}
             children={capitalCase(tag)}

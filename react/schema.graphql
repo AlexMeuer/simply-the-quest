@@ -2957,29 +2957,8 @@ type mutation_root {
   update data of the table: "quests"
   """
   update_quests(
-    """append existing jsonb value of filtered columns with new jsonb value"""
-    _append: quests_append_input
-
-    """
-    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-    """
-    _delete_at_path: quests_delete_at_path_input
-
-    """
-    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-    """
-    _delete_elem: quests_delete_elem_input
-
-    """
-    delete key/value pair or string element. key/value pairs are matched based on their key value
-    """
-    _delete_key: quests_delete_key_input
-
     """increments the numeric columns with given value of the filtered values"""
     _inc: quests_inc_input
-
-    """prepend existing jsonb value of filtered columns with new jsonb value"""
-    _prepend: quests_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: quests_set_input
@@ -2992,29 +2971,8 @@ type mutation_root {
   update single row of the table: "quests"
   """
   update_quests_by_pk(
-    """append existing jsonb value of filtered columns with new jsonb value"""
-    _append: quests_append_input
-
-    """
-    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-    """
-    _delete_at_path: quests_delete_at_path_input
-
-    """
-    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-    """
-    _delete_elem: quests_delete_elem_input
-
-    """
-    delete key/value pair or string element. key/value pairs are matched based on their key value
-    """
-    _delete_key: quests_delete_key_input
-
     """increments the numeric columns with given value of the filtered values"""
     _inc: quests_inc_input
-
-    """prepend existing jsonb value of filtered columns with new jsonb value"""
-    _prepend: quests_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: quests_set_input
@@ -4606,10 +4564,6 @@ type quests {
     """filter the rows returned"""
     where: quest_tags_bool_exp
   ): quest_tags_aggregate!
-  tags_legacy(
-    """JSON select path"""
-    path: String
-  ): jsonb!
   title: String!
   updated_at: timestamptz!
 }
@@ -4639,11 +4593,6 @@ type quests_aggregate_fields {
   variance: quests_variance_fields
 }
 
-"""append existing jsonb value of filtered columns with new jsonb value"""
-input quests_append_input {
-  tags_legacy: jsonb
-}
-
 """aggregate avg on columns"""
 type quests_avg_fields {
   id: Float
@@ -4666,7 +4615,6 @@ input quests_bool_exp {
   rewards: rewards_bool_exp
   slug: String_comparison_exp
   tags: quest_tags_bool_exp
-  tags_legacy: jsonb_comparison_exp
   title: String_comparison_exp
   updated_at: timestamptz_comparison_exp
 }
@@ -4677,27 +4625,6 @@ unique or primary key constraints on table "quests"
 enum quests_constraint {
   """unique or primary key constraint"""
   quests_pkey
-}
-
-"""
-delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-"""
-input quests_delete_at_path_input {
-  tags_legacy: [String!]
-}
-
-"""
-delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-"""
-input quests_delete_elem_input {
-  tags_legacy: Int
-}
-
-"""
-delete key/value pair or string element. key/value pairs are matched based on their key value
-"""
-input quests_delete_key_input {
-  tags_legacy: String
 }
 
 """
@@ -4720,7 +4647,6 @@ input quests_insert_input {
   log_entries: quest_log_entries_arr_rel_insert_input
   rewards: rewards_arr_rel_insert_input
   tags: quest_tags_arr_rel_insert_input
-  tags_legacy: jsonb
   title: String
   updated_at: timestamptz
 }
@@ -4789,7 +4715,6 @@ input quests_order_by {
   rewards_aggregate: rewards_aggregate_order_by
   slug: order_by
   tags_aggregate: quest_tags_aggregate_order_by
-  tags_legacy: order_by
   title: order_by
   updated_at: order_by
 }
@@ -4797,11 +4722,6 @@ input quests_order_by {
 """primary key columns input for table: quests"""
 input quests_pk_columns_input {
   id: Int!
-}
-
-"""prepend existing jsonb value of filtered columns with new jsonb value"""
-input quests_prepend_input {
-  tags_legacy: jsonb
 }
 
 """
@@ -4827,9 +4747,6 @@ enum quests_select_column {
   isPublished
 
   """column name"""
-  tags_legacy
-
-  """column name"""
   title
 
   """column name"""
@@ -4846,7 +4763,6 @@ input quests_set_input {
   id: Int
   imageURL: String
   isPublished: Boolean
-  tags_legacy: jsonb
   title: String
   updated_at: timestamptz
 }
@@ -4892,9 +4808,6 @@ enum quests_update_column {
 
   """column name"""
   isPublished
-
-  """column name"""
-  tags_legacy
 
   """column name"""
   title

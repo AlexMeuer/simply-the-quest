@@ -78,7 +78,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.0"],\
             ["react-timeago", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.2.1"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"],\
-            ["vite", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.9.9"]\
+            ["vite", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.9.9"],\
+            ["zod", "npm:3.17.3"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -9790,7 +9791,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.0"],\
             ["react-timeago", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.2.1"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"],\
-            ["vite", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.9.9"]\
+            ["vite", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.9.9"],\
+            ["zod", "npm:3.17.3"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -11737,6 +11739,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["zen-observable-ts", "npm:1.2.5"],\
             ["zen-observable", "npm:0.8.15"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["zod", [\
+        ["npm:3.17.3", {\
+          "packageLocation": "./.yarn/cache/zod-npm-3.17.3-2f3f0c3086-f74b5d8a30.zip/node_modules/zod/",\
+          "packageDependencies": [\
+            ["zod", "npm:3.17.3"]\
           ],\
           "linkType": "HARD"\
         }]\

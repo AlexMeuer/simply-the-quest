@@ -1,14 +1,12 @@
 import React from "react";
 import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
-import { Quest_Log_Entries } from "../../generated/graphql";
 import { StatusBadge } from "../common/StatusBadge";
 import colors from "../../theme/colors";
 import tinycolor, { TinyColor } from "@ctrl/tinycolor";
+import { QuestLogEntry } from "../../types/QuestLogEntry";
+import { RewardAccordion } from "./RewardAccordion";
 
-export type QuestLogEntryDetailProps = Pick<
-  Quest_Log_Entries,
-  "title" | "status" | "body" | "imageURL"
->;
+export type QuestLogEntryDetailProps = QuestLogEntry;
 
 const tints: Record<string, TinyColor[]> = {
   success: [
@@ -51,6 +49,7 @@ export const QuestLogEntryDetail: React.FC<QuestLogEntryDetailProps> = ({
   status,
   body,
   imageURL,
+  rewards,
 }) => {
   return (
     <Stack
@@ -69,6 +68,7 @@ export const QuestLogEntryDetail: React.FC<QuestLogEntryDetailProps> = ({
         </Box>
       </Flex>
       <Text>{body}</Text>
+      {rewards.length && <RewardAccordion rewards={rewards} />}
     </Stack>
   );
 };

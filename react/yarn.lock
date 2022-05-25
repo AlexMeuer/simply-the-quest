@@ -6892,6 +6892,7 @@ __metadata:
     react-timeago: ^6.2.1
     typescript: ^4.6.3
     vite: ^2.9.9
+    zod: ^3.17.3
   languageName: unknown
   linkType: soft
 
@@ -8476,5 +8477,12 @@ __metadata:
   version: 0.8.15
   resolution: "zen-observable@npm:0.8.15"
   checksum: b7289084bc1fc74a559b7259faa23d3214b14b538a8843d2b001a35e27147833f4107590b1b44bf5bc7f6dfe6f488660d3a3725f268e09b3925b3476153b7821
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.17.3":
+  version: 3.17.3
+  resolution: "zod@npm:3.17.3"
+  checksum: f74b5d8a307cbed734e7a4a7f57a0c6b0a2d5062adee25e86eceaa1bec606621d6861804130f53342dec2d6e77fe9365f3a5118d55c81688f69f3de5fd3e59af
   languageName: node
   linkType: hard
