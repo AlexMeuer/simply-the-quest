@@ -5743,6 +5743,15 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
+export type QuestForEditQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type QuestForEditQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', id: number, title: string, description: string, giver: string, imageURL?: string | null, isPublished: boolean, rewards: Array<{ __typename?: 'rewards', id: number, name: string, description?: string | null, rarity: string, count?: number | null, value?: number | null, type: string, imageURL?: string | null, sourceURL?: string | null }>, log_entries: Array<{ __typename?: 'quest_log_entries', step: number, title: string, body: string, status: Statuses_Enum, imageURL?: string | null, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }> }> }> };
+
+export type RewardWithIdFragment = { __typename?: 'rewards', id: number, name: string, description?: string | null, rarity: string, count?: number | null, value?: number | null, type: string, imageURL?: string | null, sourceURL?: string | null };
+
 export type QuestWithLogForDetailViewQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
@@ -5759,6 +5768,19 @@ export type QuestListQueryVariables = Exact<{
 
 export type QuestListQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, slug?: string | null, description: string, giver: string, imageURL?: string | null, created_at: any, updated_at: any, tags: Array<{ __typename?: 'quest_tags', tag_name: string }> }> };
 
+export const RewardWithIdFragmentDoc = gql`
+    fragment rewardWithId on rewards {
+  id
+  name
+  description
+  rarity
+  count
+  value
+  type
+  imageURL
+  sourceURL
+}
+    `;
 export const RewardFragmentDoc = gql`
     fragment reward on rewards {
   name
@@ -5771,6 +5793,60 @@ export const RewardFragmentDoc = gql`
   sourceURL
 }
     `;
+export const QuestForEditDocument = gql`
+    query QuestForEdit($slug: String!) {
+  quests(where: {slug: {_eq: $slug}}, limit: 1) {
+    id
+    title
+    description
+    giver
+    imageURL
+    isPublished
+    rewards {
+      ...rewardWithId
+    }
+    log_entries {
+      step
+      title
+      body
+      status
+      imageURL
+      rewards {
+        ...reward
+      }
+    }
+  }
+}
+    ${RewardWithIdFragmentDoc}
+${RewardFragmentDoc}`;
+
+/**
+ * __useQuestForEditQuery__
+ *
+ * To run a query within a React component, call `useQuestForEditQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuestForEditQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuestForEditQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useQuestForEditQuery(baseOptions: Apollo.QueryHookOptions<QuestForEditQuery, QuestForEditQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QuestForEditQuery, QuestForEditQueryVariables>(QuestForEditDocument, options);
+      }
+export function useQuestForEditLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QuestForEditQuery, QuestForEditQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QuestForEditQuery, QuestForEditQueryVariables>(QuestForEditDocument, options);
+        }
+export type QuestForEditQueryHookResult = ReturnType<typeof useQuestForEditQuery>;
+export type QuestForEditLazyQueryHookResult = ReturnType<typeof useQuestForEditLazyQuery>;
+export type QuestForEditQueryResult = Apollo.QueryResult<QuestForEditQuery, QuestForEditQueryVariables>;
 export const QuestWithLogForDetailViewDocument = gql`
     query QuestWithLogForDetailView($slug: String) {
   quests(limit: 1, where: {slug: {_eq: $slug}}) {

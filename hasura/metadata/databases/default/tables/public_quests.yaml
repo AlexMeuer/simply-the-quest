@@ -38,6 +38,7 @@ select_permissions:
         - giver
         - id
         - imageURL
+        - isPublished
         - title
         - updated_at
       computed_fields:

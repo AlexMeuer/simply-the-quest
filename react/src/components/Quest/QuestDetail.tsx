@@ -20,7 +20,6 @@ import { flattenNestedTags } from "../../util/Tags";
 import { useQuestWithLogForDetailViewQuery } from "../../generated/graphql";
 import { AreYouLost } from "../404";
 import { SafeParseError, z } from "zod";
-import { updateWith } from "lodash";
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
