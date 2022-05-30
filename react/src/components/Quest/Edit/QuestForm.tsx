@@ -3,22 +3,18 @@ import {
   Button,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Heading,
   Input,
-  Stack,
   Switch,
-  Tooltip,
   Text,
   useColorModeValue,
   useToast,
   VStack,
+  Flex,
 } from "@chakra-ui/react";
 import React from "react";
-import { Formik, useFormik } from "formik";
-import { QuestBase } from "../../../types/Quest";
-import { QuestCard } from "../QuestCard";
+import { useFormik } from "formik";
 
 export interface QuestFormProps {
   initialValues?: {
@@ -71,7 +67,14 @@ export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
       });
     },
   });
-
+  const bgOverlayStart = useColorModeValue(
+    "rgba(255, 255, 255, 0.4)",
+    "rgba(0, 0, 0, 0.6)"
+  );
+  const bgOverlayEnd = useColorModeValue(
+    "rgba(255, 255, 255, 0.6)",
+    "rgba(0, 0, 0, 0.8)"
+  );
   return (
     <Box
       w="full"
@@ -164,19 +167,62 @@ export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
           <Button type="submit" disabled={isSubmitting}>
             Submit
           </Button>
-          <QuestCard
-            selectedTags={[]}
-            onTagClick={function (tag: string): void {
-              throw new Error("Function not implemented.");
-            }}
-            title={values.title}
-            slug={""}
-            description={values.description}
-            giver={values.giver}
-            created_at={new Date()}
-            updated_at={new Date()}
-            tags={[]}
-          />
+          <Box
+            w="full"
+            px={8}
+            py={4}
+            rounded="lg"
+            shadow="lg"
+            bg={`linear-gradient( ${bgOverlayStart}, ${bgOverlayEnd} ), url('${values.imageURL}')`}
+            bgSize="cover"
+            bgPosition="center"
+          >
+            <Flex justifyContent="space-between" alignItems="center">
+              <Heading
+                fontSize={["xl", "2xl", "2xl"]}
+                color={useColorModeValue("gray.700", "white")}
+                _hover={{
+                  color: useColorModeValue("gray.600", "gray.200"),
+                  textDecor: "underline",
+                }}
+              >
+                {values.title}
+              </Heading>
+              {/* <Wrap justify="end" zIndex={1}>
+          {tags.map((tag: any) => {
+            return (
+              <ToggleTag
+                key={tag}
+                isSelected={selectedTags.includes(tag)}
+                onClick={() => onTagClick(tag)}
+              >
+                {capitalCase(tag)}
+              </ToggleTag>
+            );
+          })}
+        </Wrap> */}
+            </Flex>
+
+            <Box mt={2}>
+              <Text
+                noOfLines={4}
+                mt={2}
+                color={useColorModeValue("gray.600", "gray.300")}
+              >
+                {values.description}
+              </Text>
+            </Box>
+
+            <Flex justifyContent="space-between" alignItems="end" mt={4}>
+              <Text
+                fontSize="sm"
+                color={useColorModeValue("gray.600", "gray.400")}
+              >
+                Live Preview
+              </Text>
+              <Text>{values.giver}</Text>
+            </Flex>
+          </Box>
         </VStack>
       </form>
     </Box>
