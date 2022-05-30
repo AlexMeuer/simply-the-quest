@@ -5,15 +5,11 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Heading,
   Input,
   Switch,
   Text,
   useColorModeValue,
-  useToast,
   VStack,
-  Flex,
-  FormHelperText,
 } from "@chakra-ui/react";
 import {
   AutoComplete,
@@ -25,32 +21,28 @@ import {
 } from "@choc-ui/chakra-autocomplete";
 import { useFormik } from "formik";
 import { QuestCardPreview } from "./QuestCardPreview";
-import { gql } from "@apollo/client";
-import { useAllTagsQuery } from "../../../generated/graphql";
-import { IndeterminateProgress } from "../../common";
+import { snakeCase } from "lodash";
 
-gql`
-  query AllTags {
-    tags {
-      name
-    }
-  }
-`;
-
-export interface QuestFormProps {
-  initialValues?: {
-    title: string;
-    description: string;
-    giver: string;
-    imageURL: string;
-    tags: string[];
-    isPublished: boolean;
-  };
+export interface FormValues {
+  title: string;
+  description: string;
+  giver: string;
+  imageURL: string;
+  tags: string[];
+  isPublished: boolean;
 }
 
-export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
-  const toast = useToast();
-  const { data } = useAllTagsQuery();
+export interface QuestFormProps {
+  possibleTags: string[];
+  onSubmit: (values: FormValues) => Promise<any>;
+  initialValues?: FormValues;
+}
+
+export const QuestForm: React.FC<QuestFormProps> = ({
+  initialValues,
+  possibleTags,
+  onSubmit,
+}) => {
   const {
     values,
     errors,
@@ -60,7 +52,7 @@ export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
     handleSubmit,
     isSubmitting,
     setFieldValue,
-  } = useFormik({
+  } = useFormik<FormValues>({
     initialValues: initialValues || {
       title: "",
       description: "",
@@ -81,16 +73,8 @@ export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
         errors.giver = "Who is the quest giver?";
       }
     },
-    onSubmit: (values, helpers): void | Promise<any> => {
-      console.log(values);
-      toast({
-        title: "Not Implemented!",
-        description: "The form is not implemented yet.",
-        status: "warning",
-        isClosable: true,
-        onCloseComplete: () => helpers.setSubmitting(false),
-      });
-    },
+    onSubmit: (values, { setSubmitting }): Promise<any> =>
+      onSubmit(values).finally(() => setSubmitting(false)),
   });
   return (
     <Box
@@ -165,46 +149,45 @@ export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
             <FormErrorMessage>{errors.imageURL}</FormErrorMessage>
           </FormControl>
           <FormLabel>Tags</FormLabel>
-          {data ? (
-            <AutoComplete
-              openOnFocus
-              multiple
-              creatable
-              suggestWhenEmpty
-              listAllValuesOnFocus
-              onChange={(tags) => setFieldValue("tags", tags)}
-            >
-              <AutoCompleteInput>
-                {({ tags }) =>
-                  tags.map((tag, tid) => (
-                    <AutoCompleteTag
-                      key={tid}
-                      label={tag.label}
-                      onRemove={tag.onRemove}
-                    />
-                  ))
-                }
-              </AutoCompleteInput>
-              <AutoCompleteList>
-                {(data?.tags ?? []).map(({ name }) => (
-                  <AutoCompleteItem
-                    key={`option-${name}`}
-                    value={name}
-                    textTransform="capitalize"
-                    _selected={{ bg: "whiteAlpha.50" }}
-                    _focus={{ bg: "whiteAlpha.100" }}
-                  >
-                    {name}
-                  </AutoCompleteItem>
-                ))}
-                <AutoCompleteCreatable>
-                  {({ value }) => <span>Create tag: {value}</span>}
-                </AutoCompleteCreatable>
-              </AutoCompleteList>
-            </AutoComplete>
-          ) : (
-            <IndeterminateProgress />
-          )}
+
+          <AutoComplete
+            openOnFocus
+            multiple
+            creatable
+            suggestWhenEmpty
+            listAllValuesOnFocus
+            values={values.tags}
+            onChange={(tags) => setFieldValue("tags", tags.map(snakeCase))}
+          >
+            <AutoCompleteInput>
+              {({ tags }) =>
+                tags.map((tag, tid) => (
+                  <AutoCompleteTag
+                    key={tid}
+                    label={tag.label}
+                    onRemove={tag.onRemove}
+                  />
+                ))
+              }
+            </AutoCompleteInput>
+            <AutoCompleteList>
+              {possibleTags.map((tag) => (
+                <AutoCompleteItem
+                  key={`option-${tag}`}
+                  value={tag}
+                  textTransform="capitalize"
+                  _selected={{ bg: "whiteAlpha.50" }}
+                  _focus={{ bg: "whiteAlpha.100" }}
+                >
+                  {tag}
+                </AutoCompleteItem>
+              ))}
+              <AutoCompleteCreatable>
+                {({ value }) => <span>Create tag: {value}</span>}
+              </AutoCompleteCreatable>
+            </AutoCompleteList>
+          </AutoComplete>
+
           <FormControl display="flex" alignItems="center">
             <FormLabel htmlFor="isPublished" mb="0">
               Publish?

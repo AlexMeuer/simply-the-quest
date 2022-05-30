@@ -8,6 +8,14 @@ object_relationships:
   - name: tag
     using:
       foreign_key_constraint_on: tag_name
+insert_permissions:
+  - role: quest_admin
+    permission:
+      check: {}
+      columns:
+        - quest_id
+        - tag_name
+      backend_only: false
 select_permissions:
   - role: public
     permission:
@@ -18,3 +26,18 @@ select_permissions:
         quest:
           isPublished:
             _eq: true
+  - role: quest_admin
+    permission:
+      columns:
+        - quest_id
+        - tag_name
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: quest_admin
+    permission:
+      columns:
+        - quest_id
+        - tag_name
+      filter: {}
+      check: null
