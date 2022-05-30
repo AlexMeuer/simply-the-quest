@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import { useQuestForEditQuery } from "../../../generated/graphql";
-import { IndeterminateProgress } from "../../common";
+import { ErrorState, IndeterminateProgress } from "../../common";
 import { QuestForm } from "./QuestForm";
 
 gql`
@@ -52,11 +52,14 @@ export const QuestFormEditWrapper: React.FC<QuestFormEditWrapperProps> = ({
   const { data, error, loading } = useQuestForEditQuery({
     variables: { slug },
   });
-  return (
-    <Stack>
-      <Text>{JSON.stringify(data)}</Text>
-      <Text>{error?.message}</Text>
-      {loading ? <IndeterminateProgress /> : <QuestForm />}
-    </Stack>
-  );
+
+  if (loading) {
+    return <IndeterminateProgress />;
+  }
+
+  if (error) {
+    return <ErrorState />;
+  }
+
+  return <QuestForm />;
 };

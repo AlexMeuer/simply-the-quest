@@ -10,13 +10,7 @@ export const EditQuestView: React.FC = () => {
   return (
     <AuthGuard>
       <Center flexGrow={1}>
-        <Heading>
-          {slug ? (
-            <QuestFormEditWrapper slug={slug} />
-          ) : (
-            <QuestFormNewWrapper />
-          )}
-        </Heading>
+        {slug ? <QuestFormEditWrapper slug={slug} /> : <QuestFormNewWrapper />}
       </Center>
     </AuthGuard>
   );

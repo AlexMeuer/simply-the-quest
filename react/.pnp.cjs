@@ -65,6 +65,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-react", "npm:1.3.2"],\
             ["change-case", "npm:4.1.2"],\
             ["eslint", "npm:8.15.0"],\
+            ["formik", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.2.9"],\
             ["framer-motion", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.3"],\
             ["graphql", "npm:16.5.0"],\
             ["lodash", "npm:4.17.21"],\
@@ -6305,6 +6306,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["deepmerge", [\
+        ["npm:2.2.1", {\
+          "packageLocation": "./.yarn/cache/deepmerge-npm-2.2.1-44c00cbffa-284b710650.zip/node_modules/deepmerge/",\
+          "packageDependencies": [\
+            ["deepmerge", "npm:2.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["defaults", [\
         ["npm:1.0.3", {\
           "packageLocation": "./.yarn/cache/defaults-npm-1.0.3-e829107b9e-96e2112da6.zip/node_modules/defaults/",\
@@ -7242,6 +7252,35 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["formdata-node", "npm:4.3.2"],\
             ["node-domexception", "npm:1.0.0"],\
             ["web-streams-polyfill", "npm:4.0.0-beta.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["formik", [\
+        ["npm:2.2.9", {\
+          "packageLocation": "./.yarn/cache/formik-npm-2.2.9-0e8cb516ca-f07f80eee8.zip/node_modules/formik/",\
+          "packageDependencies": [\
+            ["formik", "npm:2.2.9"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.2.9", {\
+          "packageLocation": "./.yarn/__virtual__/formik-virtual-cf6d3a8b3f/0/cache/formik-npm-2.2.9-0e8cb516ca-f07f80eee8.zip/node_modules/formik/",\
+          "packageDependencies": [\
+            ["formik", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.2.9"],\
+            ["@types/react", "npm:18.0.9"],\
+            ["deepmerge", "npm:2.2.1"],\
+            ["hoist-non-react-statics", "npm:3.3.2"],\
+            ["lodash", "npm:4.17.21"],\
+            ["lodash-es", "npm:4.17.21"],\
+            ["react", "npm:18.1.0"],\
+            ["react-fast-compare", "npm:2.0.4"],\
+            ["tiny-warning", "npm:1.0.3"],\
+            ["tslib", "npm:1.14.1"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8568,6 +8607,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["lodash-es", [\
+        ["npm:4.17.21", {\
+          "packageLocation": "./.yarn/cache/lodash-es-npm-4.17.21-b45832dfce-05cbffad6e.zip/node_modules/lodash-es/",\
+          "packageDependencies": [\
+            ["lodash-es", "npm:4.17.21"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["lodash.get", [\
         ["npm:4.4.2", {\
           "packageLocation": "./.yarn/cache/lodash.get-npm-4.4.2-7bda64ed87-e403047ddb.zip/node_modules/lodash.get/",\
@@ -9778,6 +9826,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-react", "npm:1.3.2"],\
             ["change-case", "npm:4.1.2"],\
             ["eslint", "npm:8.15.0"],\
+            ["formik", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:2.2.9"],\
             ["framer-motion", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:6.3.3"],\
             ["graphql", "npm:16.5.0"],\
             ["lodash", "npm:4.17.21"],\
@@ -9877,6 +9926,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["react-fast-compare", [\
+        ["npm:2.0.4", {\
+          "packageLocation": "./.yarn/cache/react-fast-compare-npm-2.0.4-ab3f6356e2-06046595f9.zip/node_modules/react-fast-compare/",\
+          "packageDependencies": [\
+            ["react-fast-compare", "npm:2.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:3.2.0", {\
           "packageLocation": "./.yarn/cache/react-fast-compare-npm-3.2.0-fbfa6627d9-8ef272c825.zip/node_modules/react-fast-compare/",\
           "packageDependencies": [\
@@ -11009,6 +11065,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/tiny-invariant-npm-1.2.0-024338c59c-e09a718a7c.zip/node_modules/tiny-invariant/",\
           "packageDependencies": [\
             ["tiny-invariant", "npm:1.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["tiny-warning", [\
+        ["npm:1.0.3", {\
+          "packageLocation": "./.yarn/cache/tiny-warning-npm-1.0.3-750b7a07c4-da62c4acac.zip/node_modules/tiny-warning/",\
+          "packageDependencies": [\
+            ["tiny-warning", "npm:1.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\
