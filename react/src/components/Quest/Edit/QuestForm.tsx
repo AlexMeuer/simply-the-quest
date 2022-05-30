@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Button,
@@ -12,9 +13,29 @@ import {
   useToast,
   VStack,
   Flex,
+  FormHelperText,
 } from "@chakra-ui/react";
-import React from "react";
+import {
+  AutoComplete,
+  AutoCompleteCreatable,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteList,
+  AutoCompleteTag,
+} from "@choc-ui/chakra-autocomplete";
 import { useFormik } from "formik";
+import { QuestCardPreview } from "./QuestCardPreview";
+import { gql } from "@apollo/client";
+import { useAllTagsQuery } from "../../../generated/graphql";
+import { IndeterminateProgress } from "../../common";
+
+gql`
+  query AllTags {
+    tags {
+      name
+    }
+  }
+`;
 
 export interface QuestFormProps {
   initialValues?: {
@@ -22,12 +43,14 @@ export interface QuestFormProps {
     description: string;
     giver: string;
     imageURL: string;
+    tags: string[];
     isPublished: boolean;
   };
 }
 
 export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
   const toast = useToast();
+  const { data } = useAllTagsQuery();
   const {
     values,
     errors,
@@ -36,12 +59,14 @@ export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
     handleBlur,
     handleSubmit,
     isSubmitting,
+    setFieldValue,
   } = useFormik({
     initialValues: initialValues || {
       title: "",
       description: "",
       giver: "",
       imageURL: "",
+      tags: [],
       isPublished: false,
     },
     validate: (values) => {
@@ -67,14 +92,6 @@ export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
       });
     },
   });
-  const bgOverlayStart = useColorModeValue(
-    "rgba(255, 255, 255, 0.4)",
-    "rgba(0, 0, 0, 0.6)"
-  );
-  const bgOverlayEnd = useColorModeValue(
-    "rgba(255, 255, 255, 0.6)",
-    "rgba(0, 0, 0, 0.8)"
-  );
   return (
     <Box
       w="full"
@@ -147,6 +164,47 @@ export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
             />
             <FormErrorMessage>{errors.imageURL}</FormErrorMessage>
           </FormControl>
+          <FormLabel>Tags</FormLabel>
+          {data ? (
+            <AutoComplete
+              openOnFocus
+              multiple
+              creatable
+              suggestWhenEmpty
+              listAllValuesOnFocus
+              onChange={(tags) => setFieldValue("tags", tags)}
+            >
+              <AutoCompleteInput>
+                {({ tags }) =>
+                  tags.map((tag, tid) => (
+                    <AutoCompleteTag
+                      key={tid}
+                      label={tag.label}
+                      onRemove={tag.onRemove}
+                    />
+                  ))
+                }
+              </AutoCompleteInput>
+              <AutoCompleteList>
+                {(data?.tags ?? []).map(({ name }) => (
+                  <AutoCompleteItem
+                    key={`option-${name}`}
+                    value={name}
+                    textTransform="capitalize"
+                    _selected={{ bg: "whiteAlpha.50" }}
+                    _focus={{ bg: "whiteAlpha.100" }}
+                  >
+                    {name}
+                  </AutoCompleteItem>
+                ))}
+                <AutoCompleteCreatable>
+                  {({ value }) => <span>Create tag: {value}</span>}
+                </AutoCompleteCreatable>
+              </AutoCompleteList>
+            </AutoComplete>
+          ) : (
+            <IndeterminateProgress />
+          )}
           <FormControl display="flex" alignItems="center">
             <FormLabel htmlFor="isPublished" mb="0">
               Publish?
@@ -167,62 +225,7 @@ export const QuestForm: React.FC<QuestFormProps> = ({ initialValues }) => {
           <Button type="submit" disabled={isSubmitting}>
             Submit
           </Button>
-          <Box
-            w="full"
-            px={8}
-            py={4}
-            rounded="lg"
-            shadow="lg"
-            bg={`linear-gradient( ${bgOverlayStart}, ${bgOverlayEnd} ), url('${values.imageURL}')`}
-            bgSize="cover"
-            bgPosition="center"
-          >
-            <Flex justifyContent="space-between" alignItems="center">
-              <Heading
-                fontSize={["xl", "2xl", "2xl"]}
-                color={useColorModeValue("gray.700", "white")}
-                _hover={{
-                  color: useColorModeValue("gray.600", "gray.200"),
-                  textDecor: "underline",
-                }}
-              >
-                {values.title}
-              </Heading>
-              {/* <Wrap justify="end" zIndex={1}>
-          {tags.map((tag: any) => {
-            return (
-              <ToggleTag
-                key={tag}
-                isSelected={selectedTags.includes(tag)}
-                onClick={() => onTagClick(tag)}
-              >
-                {capitalCase(tag)}
-              </ToggleTag>
-            );
-          })}
-        </Wrap> */}
-            </Flex>
-
-            <Box mt={2}>
-              <Text
-                noOfLines={4}
-                mt={2}
-                color={useColorModeValue("gray.600", "gray.300")}
-              >
-                {values.description}
-              </Text>
-            </Box>
-
-            <Flex justifyContent="space-between" alignItems="end" mt={4}>
-              <Text
-                fontSize="sm"
-                color={useColorModeValue("gray.600", "gray.400")}
-              >
-                Live Preview
-              </Text>
-              <Text>{values.giver}</Text>
-            </Flex>
-          </Box>
+          <QuestCardPreview {...values} />
         </VStack>
       </form>
     </Box>

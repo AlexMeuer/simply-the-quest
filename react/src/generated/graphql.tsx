@@ -5743,6 +5743,11 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
+export type AllTagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllTagsQuery = { __typename?: 'query_root', tags: Array<{ __typename?: 'tags', name: string }> };
+
 export type QuestForEditQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
@@ -5793,6 +5798,40 @@ export const RewardFragmentDoc = gql`
   sourceURL
 }
     `;
+export const AllTagsDocument = gql`
+    query AllTags {
+  tags {
+    name
+  }
+}
+    `;
+
+/**
+ * __useAllTagsQuery__
+ *
+ * To run a query within a React component, call `useAllTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllTagsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllTagsQuery(baseOptions?: Apollo.QueryHookOptions<AllTagsQuery, AllTagsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllTagsQuery, AllTagsQueryVariables>(AllTagsDocument, options);
+      }
+export function useAllTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllTagsQuery, AllTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllTagsQuery, AllTagsQueryVariables>(AllTagsDocument, options);
+        }
+export type AllTagsQueryHookResult = ReturnType<typeof useAllTagsQuery>;
+export type AllTagsLazyQueryHookResult = ReturnType<typeof useAllTagsLazyQuery>;
+export type AllTagsQueryResult = Apollo.QueryResult<AllTagsQuery, AllTagsQueryVariables>;
 export const QuestForEditDocument = gql`
     query QuestForEdit($slug: String!) {
   quests(where: {slug: {_eq: $slug}}, limit: 1) {
