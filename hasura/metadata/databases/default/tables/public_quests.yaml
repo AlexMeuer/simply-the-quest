@@ -29,6 +29,17 @@ computed_fields:
       function:
         schema: public
         name: quest_slug
+insert_permissions:
+  - role: quest_admin
+    permission:
+      check: {}
+      columns:
+        - description
+        - giver
+        - imageURL
+        - isPublished
+        - title
+      backend_only: false
 select_permissions:
   - role: public
     permission:
@@ -38,6 +49,7 @@ select_permissions:
         - giver
         - id
         - imageURL
+        - isPublished
         - title
         - updated_at
       computed_fields:
@@ -46,3 +58,29 @@ select_permissions:
         isPublished:
           _eq: true
       allow_aggregations: true
+  - role: quest_admin
+    permission:
+      columns:
+        - isPublished
+        - id
+        - description
+        - giver
+        - imageURL
+        - title
+        - created_at
+        - updated_at
+      computed_fields:
+        - slug
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: quest_admin
+    permission:
+      columns:
+        - description
+        - giver
+        - imageURL
+        - isPublished
+        - title
+      filter: {}
+      check: null

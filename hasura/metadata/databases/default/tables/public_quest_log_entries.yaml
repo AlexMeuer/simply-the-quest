@@ -16,6 +16,18 @@ array_relationships:
         column_mapping:
           quest_id: quest_id
           step: step_id
+insert_permissions:
+  - role: quest_admin
+    permission:
+      check: {}
+      columns:
+        - body
+        - imageURL
+        - quest_id
+        - status
+        - step
+        - title
+      backend_only: false
 select_permissions:
   - role: public
     permission:
@@ -33,3 +45,27 @@ select_permissions:
           isPublished:
             _eq: true
       allow_aggregations: true
+  - role: quest_admin
+    permission:
+      columns:
+        - quest_id
+        - step
+        - body
+        - imageURL
+        - status
+        - title
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: quest_admin
+    permission:
+      columns:
+        - body
+        - imageURL
+        - status
+        - step
+        - title
+      filter: {}
+      check: null

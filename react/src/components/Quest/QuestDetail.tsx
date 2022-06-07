@@ -20,7 +20,6 @@ import { flattenNestedTags } from "../../util/Tags";
 import { useQuestWithLogForDetailViewQuery } from "../../generated/graphql";
 import { AreYouLost } from "../404";
 import { SafeParseError, z } from "zod";
-import { updateWith } from "lodash";
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
@@ -68,7 +67,7 @@ export const QuestDetailGraphqlWrapper: React.FC = () => {
 
   const result = React.useMemo(
     () =>
-      data
+      data && data.quests && data.quests.length
         ? QuestDetailProps.safeParse(flattenNestedTags(data.quests[0]))
         : ({ success: false, error: {} } as SafeParseError<QuestDetailProps>),
     [data]
