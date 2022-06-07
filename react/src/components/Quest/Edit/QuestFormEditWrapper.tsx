@@ -110,7 +110,10 @@ export const QuestFormEditWrapper: React.FC<QuestFormEditWrapperProps> = ({
 
   const onSubmit = React.useCallback(
     (values: FormValues) =>
-      mutateQuest({ variables: { id: questId, ...values } })
+      mutateQuest({
+        variables: { id: questId, ...values },
+        context: { headers: { "x-hasura-role": "quest_admin" } },
+      })
         .then(() => navigateTo(`/quest/${slug}`))
         .catch((e) =>
           toast({

@@ -49,7 +49,7 @@ export const QuestCardPreview: React.FC<QuestCardPreviewProps> = (props) => {
         >
           {props.title}
         </Heading>
-        <Wrap justify="end" zIndex={1}>
+        <Wrap justify="end">
           {props.tags.map((tag: any) => {
             return <Tag key={tag}>{capitalCase(tag)}</Tag>;
           })}

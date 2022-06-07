@@ -67,7 +67,7 @@ export const QuestDetailGraphqlWrapper: React.FC = () => {
 
   const result = React.useMemo(
     () =>
-      data
+      data && data.quests && data.quests.length
         ? QuestDetailProps.safeParse(flattenNestedTags(data.quests[0]))
         : ({ success: false, error: {} } as SafeParseError<QuestDetailProps>),
     [data]

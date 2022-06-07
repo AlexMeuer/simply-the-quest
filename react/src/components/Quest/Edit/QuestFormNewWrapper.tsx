@@ -43,9 +43,12 @@ export const QuestFormNewWrapper: React.FC = () => {
   const toast = useToast();
   const onSubmit = React.useCallback(
     (values: FormValues) =>
-      createQuest({ variables: values })
-        .then(
-          ({ data }) => navigateTo(`/quest/${data?.insert_quests_one?.slug}`) // TODO: handle fail state
+      createQuest({
+        variables: values,
+        context: { headers: { "x-hasura-role": "quest_admin" } },
+      })
+        .then(({ data }) =>
+          navigateTo(`/quest/${data?.insert_quests_one?.slug}`)
         )
         .catch((e) =>
           toast({
