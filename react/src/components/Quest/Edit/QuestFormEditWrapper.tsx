@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { useToast } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -81,6 +82,7 @@ export interface QuestFormEditWrapperProps {
 export const QuestFormEditWrapper: React.FC<QuestFormEditWrapperProps> = ({
   slug,
 }) => {
+  const toast = useToast();
   const navigateTo = useNavigate();
   const { data, error, loading } = useQuestForEditQuery({
     variables: { slug },
@@ -108,9 +110,16 @@ export const QuestFormEditWrapper: React.FC<QuestFormEditWrapperProps> = ({
 
   const onSubmit = React.useCallback(
     (values: FormValues) =>
-      mutateQuest({ variables: { id: questId, ...values } }).then(
-        () => navigateTo(`/quest/${slug}`) // TODO: handle fail state
-      ),
+      mutateQuest({ variables: { id: questId, ...values } })
+        .then(() => navigateTo(`/quest/${slug}`))
+        .catch((e) =>
+          toast({
+            title: "Failed to create quest!",
+            description: e.message || JSON.stringify(e),
+            status: "error",
+            isClosable: true,
+          })
+        ),
     [questId]
   );
 
