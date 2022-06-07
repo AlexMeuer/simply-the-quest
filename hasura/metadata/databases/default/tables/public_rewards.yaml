@@ -15,6 +15,22 @@ object_relationships:
   - name: quest
     using:
       foreign_key_constraint_on: quest_id
+insert_permissions:
+  - role: quest_admin
+    permission:
+      check: {}
+      columns:
+        - count
+        - description
+        - imageURL
+        - name
+        - quest_id
+        - rarity
+        - sourceURL
+        - step_id
+        - type
+        - value
+      backend_only: false
 select_permissions:
   - role: public
     permission:
@@ -40,3 +56,34 @@ select_permissions:
                 isPublished:
                   _eq: true
       allow_aggregations: true
+  - role: quest_admin
+    permission:
+      columns:
+        - count
+        - id
+        - quest_id
+        - step_id
+        - value
+        - description
+        - imageURL
+        - name
+        - rarity
+        - sourceURL
+        - type
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: quest_admin
+    permission:
+      columns:
+        - count
+        - description
+        - imageURL
+        - name
+        - rarity
+        - sourceURL
+        - step_id
+        - type
+        - value
+      filter: {}
+      check: null

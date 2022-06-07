@@ -13,9 +13,12 @@ import { AreYouLost } from "./404";
 import { GithubButton } from "./GithubButton";
 import { QuestList } from "./Quest/QuestList";
 import { QuestDetailGraphqlWrapper } from "./Quest/QuestDetail";
+import { AuthGate } from "./Auth";
+import { EditQuestView } from "./Quest/Edit";
 
 const nhost = new NhostClient({
   backendUrl: import.meta.env.VITE_GRAPHQL_ENDPOINT,
+  autoSignIn: true,
 });
 
 export const App = () => (
@@ -25,10 +28,13 @@ export const App = () => (
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<QuestList />} />
+            <Route path="/quest/new" element={<EditQuestView />} />
             <Route
               path="/quest/:slug"
               element={<QuestDetailGraphqlWrapper />}
             />
+            <Route path="/quest/:slug/edit" element={<EditQuestView />} />
+            <Route path="/auth" element={<AuthGate />} />
             <Route path="*" element={<AreYouLost />} />
           </Route>
         </Routes>

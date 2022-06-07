@@ -9,6 +9,13 @@ array_relationships:
         table:
           schema: public
           name: quest_tags
+insert_permissions:
+  - role: quest_admin
+    permission:
+      check: {}
+      columns:
+        - name
+      backend_only: false
 select_permissions:
   - role: public
     permission:
@@ -16,3 +23,16 @@ select_permissions:
         - name
       filter: {}
       allow_aggregations: true
+  - role: quest_admin
+    permission:
+      columns:
+        - name
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: quest_admin
+    permission:
+      columns:
+        - name
+      filter: {}
+      check: null
