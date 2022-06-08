@@ -46,7 +46,7 @@ export const QuestList: React.FC = () => {
   const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
   const [searchTerm, setSearchTerm] = React.useState<string>("");
   const [quests, setQuests] = React.useState<(QuestBase & WithFlatTags)[]>([]);
-  const { data, loading } = useQuestListQuery({
+  const { data, loading, error } = useQuestListQuery({
     variables: {
       filter: {
         tags: ifTruthy(selectedTags.length, {
@@ -124,7 +124,20 @@ export const QuestList: React.FC = () => {
         />
       );
     }
-    return <ErrorState />;
+    if (error) {
+      return <ErrorState />;
+    }
+    const NoQuestsState: React.FC = () => (
+      <BadState
+        title="No quests found"
+        subtitle="Put down that ale and hit up a quest board!"
+        imageURL={`https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/10/DnD-tavern-scene.jpg?q=50&fit=contain&w=750&h=&dpr=1.5`}
+        disableButton
+      >
+        <Button>Create quest</Button>
+      </BadState>
+    );
+    return <NoQuestsState />;
   }, [quests, loading, selectedTags, searchTerm]);
 
   return (
