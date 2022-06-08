@@ -50,6 +50,7 @@ select_permissions:
         - id
         - imageURL
         - isPublished
+        - status
         - title
         - updated_at
       computed_fields:
@@ -61,13 +62,14 @@ select_permissions:
   - role: quest_admin
     permission:
       columns:
-        - isPublished
-        - id
+        - created_at
         - description
         - giver
+        - id
         - imageURL
+        - isPublished
+        - status
         - title
-        - created_at
         - updated_at
       computed_fields:
         - slug
@@ -81,6 +83,7 @@ update_permissions:
         - giver
         - imageURL
         - isPublished
+        - status
         - title
       filter: {}
       check: null

@@ -26,6 +26,7 @@ gql`
     quests(limit: 1, where: { slug: { _eq: $slug } }) {
       title
       description
+      status
       giver
       imageURL
       tags {

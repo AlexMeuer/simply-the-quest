@@ -9,12 +9,14 @@ import {
   LinkBox,
   Wrap,
   Heading,
+  Badge,
+  Spacer,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { capitalCase } from "change-case";
-import { ToggleTag } from "../ToggleTag";
 import { QuestBase } from "../../types/Quest";
 import { WithFlatTags } from "../../util/Tags";
+import { ToggleTag, StatusBadge } from "../common";
 
 export interface QuestCardProps extends QuestBase, WithFlatTags {
   selectedTags: string[];
@@ -24,8 +26,10 @@ export interface QuestCardProps extends QuestBase, WithFlatTags {
 export const QuestCard: React.FC<QuestCardProps> = ({
   title,
   description,
+  status,
   giver,
   tags,
+  log_entries,
   updated_at,
   imageURL,
   slug,
@@ -91,10 +95,9 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         </Text>
       </Box>
 
-      <Flex justifyContent="space-between" alignItems="end" mt={4}>
-        <Text fontSize="sm" color={useColorModeValue("gray.600", "gray.400")}>
-          <TimeAgo live date={updated_at} />
-        </Text>
+      <Flex alignItems="baseline" mt={4}>
+        <StatusBadge status={status} logEntries={log_entries} px={2} py={1} />
+        <Spacer />
         <Text>{giver}</Text>
       </Flex>
     </LinkBox>

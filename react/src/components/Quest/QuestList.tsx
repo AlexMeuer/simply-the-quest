@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 import {
-  Button,
   IconButton,
   Input,
   InputGroup,
@@ -13,19 +12,20 @@ import {
 import { capitalCase } from "change-case";
 import React from "react";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
-import { QuestListQuery, useQuestListQuery } from "../../generated/graphql";
+import { useQuestListQuery } from "../../generated/graphql";
 import { QuestBase } from "../../types/Quest";
 import { flattenNestedTagsForEach, WithFlatTags } from "../../util/Tags";
 import { BadState } from "../common";
 import { ErrorState } from "../common/ErrorState";
 import { IndeterminateProgress } from "../common/IndeterminateProgress";
-import { ToggleTag } from "../ToggleTag";
+import { ToggleTag } from "../common/ToggleTag";
 import { QuestCard } from "./QuestCard";
 
 gql`
   query QuestList($filter: quests_bool_exp) {
     quests(where: $filter) {
       title
+      status
       slug
       description
       giver
@@ -35,6 +35,9 @@ gql`
       }
       created_at
       updated_at
+      log_entries(order_by: { step: desc }, limit: 1) {
+        status
+      }
     }
   }
 `;
@@ -104,7 +107,7 @@ export const QuestList: React.FC = () => {
     if (quests.length) {
       return quests.map((quest) => (
         <QuestCard
-          key={quest.slug!}
+          key={quest.slug}
           {...quest}
           selectedTags={selectedTags}
           onTagClick={toggleTag}
