@@ -1,11 +1,4 @@
-import {
-  useColorModeValue,
-  Flex,
-  Heading,
-  HStack,
-  Text,
-  Link,
-} from "@chakra-ui/react";
+import { useColorModeValue, Heading, HStack, Link } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import React from "react";
 

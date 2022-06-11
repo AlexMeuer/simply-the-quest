@@ -3734,6 +3734,7 @@ export type Quests = {
   rewards_aggregate: Rewards_Aggregate;
   /** A computed field, executes function "quest_slug" */
   slug?: Maybe<Scalars['String']>;
+  status: Statuses_Enum;
   /** An array relationship */
   tags: Array<Quest_Tags>;
   /** An aggregate relationship */
@@ -3852,6 +3853,7 @@ export type Quests_Bool_Exp = {
   log_entries?: InputMaybe<Quest_Log_Entries_Bool_Exp>;
   rewards?: InputMaybe<Rewards_Bool_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
+  status?: InputMaybe<Statuses_Enum_Comparison_Exp>;
   tags?: InputMaybe<Quest_Tags_Bool_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -3878,6 +3880,7 @@ export type Quests_Insert_Input = {
   isPublished?: InputMaybe<Scalars['Boolean']>;
   log_entries?: InputMaybe<Quest_Log_Entries_Arr_Rel_Insert_Input>;
   rewards?: InputMaybe<Rewards_Arr_Rel_Insert_Input>;
+  status?: InputMaybe<Statuses_Enum>;
   tags?: InputMaybe<Quest_Tags_Arr_Rel_Insert_Input>;
   title?: InputMaybe<Scalars['String']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
@@ -3941,6 +3944,7 @@ export type Quests_Order_By = {
   log_entries_aggregate?: InputMaybe<Quest_Log_Entries_Aggregate_Order_By>;
   rewards_aggregate?: InputMaybe<Rewards_Aggregate_Order_By>;
   slug?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
   tags_aggregate?: InputMaybe<Quest_Tags_Aggregate_Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
@@ -3966,6 +3970,8 @@ export enum Quests_Select_Column {
   /** column name */
   IsPublished = 'isPublished',
   /** column name */
+  Status = 'status',
+  /** column name */
   Title = 'title',
   /** column name */
   UpdatedAt = 'updated_at'
@@ -3979,6 +3985,7 @@ export type Quests_Set_Input = {
   id?: InputMaybe<Scalars['Int']>;
   imageURL?: InputMaybe<Scalars['String']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
+  status?: InputMaybe<Statuses_Enum>;
   title?: InputMaybe<Scalars['String']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
 };
@@ -4021,6 +4028,8 @@ export enum Quests_Update_Column {
   ImageUrl = 'imageURL',
   /** column name */
   IsPublished = 'isPublished',
+  /** column name */
+  Status = 'status',
   /** column name */
   Title = 'title',
   /** column name */
@@ -4532,6 +4541,7 @@ export enum Statuses_Constraint {
 
 export enum Statuses_Enum {
   Active = 'active',
+  Auto = 'auto',
   Disabled = 'disabled',
   Expired = 'expired',
   Fail = 'fail',
@@ -5783,7 +5793,7 @@ export type QuestWithLogForDetailViewQueryVariables = Exact<{
 }>;
 
 
-export type QuestWithLogForDetailViewQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, description: string, giver: string, imageURL?: string | null, tags: Array<{ __typename?: 'quest_tags', tag_name: string }>, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }>, log_entries: Array<{ __typename?: 'quest_log_entries', title: string, body: string, status: Statuses_Enum, step: number, created_at: any, imageURL?: string | null, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }> }> }> };
+export type QuestWithLogForDetailViewQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, description: string, status: Statuses_Enum, giver: string, imageURL?: string | null, tags: Array<{ __typename?: 'quest_tags', tag_name: string }>, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }>, log_entries: Array<{ __typename?: 'quest_log_entries', title: string, body: string, status: Statuses_Enum, step: number, created_at: any, imageURL?: string | null, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }> }> }> };
 
 export type RewardFragment = { __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null };
 
@@ -5792,7 +5802,7 @@ export type QuestListQueryVariables = Exact<{
 }>;
 
 
-export type QuestListQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, slug?: string | null, description: string, giver: string, imageURL?: string | null, created_at: any, updated_at: any, tags: Array<{ __typename?: 'quest_tags', tag_name: string }> }> };
+export type QuestListQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, status: Statuses_Enum, slug?: string | null, description: string, giver: string, imageURL?: string | null, created_at: any, updated_at: any, tags: Array<{ __typename?: 'quest_tags', tag_name: string }>, log_entries: Array<{ __typename?: 'quest_log_entries', status: Statuses_Enum }> }> };
 
 export const RewardWithIdFragmentDoc = gql`
     fragment rewardWithId on rewards {
@@ -5995,6 +6005,7 @@ export const QuestWithLogForDetailViewDocument = gql`
   quests(limit: 1, where: {slug: {_eq: $slug}}) {
     title
     description
+    status
     giver
     imageURL
     tags {
@@ -6049,6 +6060,7 @@ export const QuestListDocument = gql`
     query QuestList($filter: quests_bool_exp) {
   quests(where: $filter) {
     title
+    status
     slug
     description
     giver
@@ -6058,6 +6070,9 @@ export const QuestListDocument = gql`
     }
     created_at
     updated_at
+    log_entries(order_by: {step: desc}, limit: 1) {
+      status
+    }
   }
 }
     `;

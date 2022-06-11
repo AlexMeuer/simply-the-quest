@@ -5,10 +5,9 @@ import colors from "../../theme/colors";
 import tinycolor, { TinyColor } from "@ctrl/tinycolor";
 import { QuestLogEntry } from "../../types/QuestLogEntry";
 import { RewardAccordion } from "./RewardAccordion";
+import { Status } from "../../types/Status";
 
-export type QuestLogEntryDetailProps = QuestLogEntry;
-
-const tints: Record<string, TinyColor[]> = {
+const tints: Record<Status, TinyColor[]> = {
   success: [
     tinycolor(colors.gray[800]).setAlpha(0.7),
     tinycolor(colors.gray[800]).setAlpha(0.7),
@@ -33,9 +32,16 @@ const tints: Record<string, TinyColor[]> = {
     tinycolor(colors.gray[800]).setAlpha(0.6),
     tinycolor(colors.gray[900]).setAlpha(0.8),
   ],
+  auto: [
+    tinycolor(colors.gray[800]),
+    tinycolor(colors.gray[900]).setAlpha(0.6),
+    tinycolor(colors.gray[800]),
+  ],
 };
 
-const buildBg = (status: string, imageURL?: string | null): string => {
+export type QuestLogEntryDetailProps = QuestLogEntry;
+
+const buildBg = (status: Status, imageURL?: string | null): string => {
   const urlBg = `url('${imageURL}')`;
   const gradient = tints[status];
   if (gradient) {

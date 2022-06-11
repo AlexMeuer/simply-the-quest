@@ -2,3 +2,14 @@ table:
   schema: public
   name: statuses
 is_enum: true
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - name
+      filter: {}
+  - role: quest_admin
+    permission:
+      columns:
+        - name
+      filter: {}

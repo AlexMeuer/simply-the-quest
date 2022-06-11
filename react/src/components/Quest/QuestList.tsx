@@ -1,31 +1,34 @@
 import { gql } from "@apollo/client";
 import {
-  Button,
   IconButton,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  SlideFade,
   Stack,
   useColorModeValue,
   Wrap,
 } from "@chakra-ui/react";
 import { capitalCase } from "change-case";
+import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
-import { QuestListQuery, useQuestListQuery } from "../../generated/graphql";
+import { useQuestListQuery } from "../../generated/graphql";
 import { QuestBase } from "../../types/Quest";
 import { flattenNestedTagsForEach, WithFlatTags } from "../../util/Tags";
 import { BadState } from "../common";
+import { AnimatedBox } from "../common/AnimatedBox";
 import { ErrorState } from "../common/ErrorState";
 import { IndeterminateProgress } from "../common/IndeterminateProgress";
-import { ToggleTag } from "../ToggleTag";
+import { ToggleTag } from "../common/ToggleTag";
 import { QuestCard } from "./QuestCard";
 
 gql`
   query QuestList($filter: quests_bool_exp) {
     quests(where: $filter) {
       title
+      status
       slug
       description
       giver
@@ -35,6 +38,9 @@ gql`
       }
       created_at
       updated_at
+      log_entries(order_by: { step: desc }, limit: 1) {
+        status
+      }
     }
   }
 `;
@@ -43,10 +49,11 @@ const ifTruthy = <T, R>(value: T, result: R): R | undefined =>
   value ? result : undefined;
 
 export const QuestList: React.FC = () => {
+  const [allTags, setAllTags] = React.useState<string[]>([]);
   const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
   const [searchTerm, setSearchTerm] = React.useState<string>("");
   const [quests, setQuests] = React.useState<(QuestBase & WithFlatTags)[]>([]);
-  const { data, loading } = useQuestListQuery({
+  const { data, error } = useQuestListQuery({
     variables: {
       filter: {
         tags: ifTruthy(selectedTags.length, {
@@ -64,14 +71,15 @@ export const QuestList: React.FC = () => {
       },
     },
   });
+
   const tags = React.useMemo(
     () =>
+      data &&
       Array.from(
-        data?.quests
+        data.quests
           .flatMap((quest) => quest.tags.map((tag) => tag.tag_name))
-          .reduce<Set<string>>((set, tag) => set.add(tag), new Set<string>()) ??
-          selectedTags
-      ),
+          .reduce<Set<string>>((set, tag) => set.add(tag), new Set<string>())
+      ).sort(),
     [data]
   );
 
@@ -91,28 +99,37 @@ export const QuestList: React.FC = () => {
   }, [setSelectedTags, setSearchTerm]);
 
   React.useEffect(() => {
-    if (data?.quests) {
-      setQuests(
-        flattenNestedTagsForEach(data.quests).map((q) =>
-          QuestBase.merge(WithFlatTags).parse(q)
-        )
-      );
+    if (!data) {
+      return;
     }
+    const quests = flattenNestedTagsForEach(data.quests).map((q) =>
+      QuestBase.merge(WithFlatTags).parse(q)
+    );
+    const tagSet = new Set([...quests.flatMap((q) => q.tags), ...selectedTags]);
+    setQuests(quests);
+    setAllTags(Array.from(tagSet).sort());
   }, [data]);
 
   const mainContent = React.useMemo(() => {
     if (quests.length) {
-      return quests.map((quest) => (
-        <QuestCard
-          key={quest.slug!}
-          {...quest}
-          selectedTags={selectedTags}
-          onTagClick={toggleTag}
-        />
+      return quests.map((quest, i) => (
+        <SlideFade
+          key={quest.slug}
+          delay={i * 0.05}
+          offsetY={0}
+          offsetX={-64}
+          in
+        >
+          <QuestCard
+            {...quest}
+            selectedTags={selectedTags}
+            onTagClick={toggleTag}
+          />
+        </SlideFade>
       ));
     }
-    if (loading) {
-      return <IndeterminateProgress />;
+    if (error) {
+      return <ErrorState />;
     }
     if (searchTerm.length || selectedTags.length) {
       return (
@@ -124,8 +141,8 @@ export const QuestList: React.FC = () => {
         />
       );
     }
-    return <ErrorState />;
-  }, [quests, loading, selectedTags, searchTerm]);
+    return <IndeterminateProgress />;
+  }, [quests, error, selectedTags, searchTerm]);
 
   return (
     <Stack my={8} px={[1, 4, 0]}>
@@ -152,14 +169,23 @@ export const QuestList: React.FC = () => {
         />
       </InputGroup>
       <Wrap justify="end">
-        {tags.map((tag) => (
-          <ToggleTag
-            key={tag}
-            isSelected={selectedTags.includes(tag)}
-            onClick={() => toggleTag(tag)}
-            children={capitalCase(tag)}
-          />
-        ))}
+        <AnimatePresence>
+          {allTags.map((tag) => (
+            <AnimatedBox
+              key={tag}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              layout
+            >
+              <ToggleTag
+                isSelected={selectedTags.includes(tag)}
+                onClick={() => toggleTag(tag)}
+                children={capitalCase(tag)}
+              />
+            </AnimatedBox>
+          ))}
+        </AnimatePresence>
       </Wrap>
       {mainContent}
     </Stack>

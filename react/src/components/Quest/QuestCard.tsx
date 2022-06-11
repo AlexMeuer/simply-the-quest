@@ -9,12 +9,26 @@ import {
   LinkBox,
   Wrap,
   Heading,
+  Badge,
+  Spacer,
+  chakra,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { capitalCase } from "change-case";
-import { ToggleTag } from "../ToggleTag";
 import { QuestBase } from "../../types/Quest";
 import { WithFlatTags } from "../../util/Tags";
+import { ToggleTag, StatusBadge } from "../common";
+import { isValidMotionProp, motion } from "framer-motion";
+import { Status } from "../../types/Status";
+import { AnimatedBox } from "../common/AnimatedBox";
+
+const ChakraBox = chakra(motion.div, {
+  /**
+   * Allow motion props and the children prop to be forwarded.
+   * All other chakra props not matching the motion props will still be forwarded.
+   */
+  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
+});
 
 export interface QuestCardProps extends QuestBase, WithFlatTags {
   selectedTags: string[];
@@ -24,8 +38,10 @@ export interface QuestCardProps extends QuestBase, WithFlatTags {
 export const QuestCard: React.FC<QuestCardProps> = ({
   title,
   description,
+  status,
   giver,
   tags,
+  log_entries,
   updated_at,
   imageURL,
   slug,
@@ -42,7 +58,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   );
   return (
     <LinkBox
-      as="article"
+      as={AnimatedBox}
       w="full"
       px={8}
       py={4}
@@ -51,6 +67,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
       bg={`linear-gradient( ${bgOverlayStart}, ${bgOverlayEnd} ), url('${imageURL}')`}
       bgSize="cover"
       bgPosition="center"
+      whileHover={{ scale: 1.02 }}
     >
       <Flex justifyContent="space-between" alignItems="center">
         <Heading fontSize={["xl", "2xl", "2xl"]}>
@@ -91,10 +108,15 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         </Text>
       </Box>
 
-      <Flex justifyContent="space-between" alignItems="end" mt={4}>
-        <Text fontSize="sm" color={useColorModeValue("gray.600", "gray.400")}>
-          <TimeAgo live date={updated_at} />
-        </Text>
+      <Flex alignItems="baseline" mt={4}>
+        <StatusBadge
+          animate
+          status={status}
+          logEntries={log_entries}
+          px={2}
+          py={1}
+        />
+        <Spacer />
         <Text>{giver}</Text>
       </Flex>
     </LinkBox>

@@ -4528,6 +4528,7 @@ type quests {
   A computed field, executes function "quest_slug"
   """
   slug: String
+  status: statuses_enum!
 
   """An array relationship"""
   tags(
@@ -4614,6 +4615,7 @@ input quests_bool_exp {
   log_entries: quest_log_entries_bool_exp
   rewards: rewards_bool_exp
   slug: String_comparison_exp
+  status: statuses_enum_comparison_exp
   tags: quest_tags_bool_exp
   title: String_comparison_exp
   updated_at: timestamptz_comparison_exp
@@ -4646,6 +4648,7 @@ input quests_insert_input {
   isPublished: Boolean
   log_entries: quest_log_entries_arr_rel_insert_input
   rewards: rewards_arr_rel_insert_input
+  status: statuses_enum
   tags: quest_tags_arr_rel_insert_input
   title: String
   updated_at: timestamptz
@@ -4714,6 +4717,7 @@ input quests_order_by {
   log_entries_aggregate: quest_log_entries_aggregate_order_by
   rewards_aggregate: rewards_aggregate_order_by
   slug: order_by
+  status: order_by
   tags_aggregate: quest_tags_aggregate_order_by
   title: order_by
   updated_at: order_by
@@ -4747,6 +4751,9 @@ enum quests_select_column {
   isPublished
 
   """column name"""
+  status
+
+  """column name"""
   title
 
   """column name"""
@@ -4763,6 +4770,7 @@ input quests_set_input {
   id: Int
   imageURL: String
   isPublished: Boolean
+  status: statuses_enum
   title: String
   updated_at: timestamptz
 }
@@ -4808,6 +4816,9 @@ enum quests_update_column {
 
   """column name"""
   isPublished
+
+  """column name"""
+  status
 
   """column name"""
   title
@@ -5369,6 +5380,7 @@ enum statuses_constraint {
 
 enum statuses_enum {
   active
+  auto
   disabled
   expired
   fail

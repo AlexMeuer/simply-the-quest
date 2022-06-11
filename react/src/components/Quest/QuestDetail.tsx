@@ -3,6 +3,7 @@ import {
   Box,
   Center,
   Heading,
+  ScaleFade,
   Stack,
   Tag,
   Text,
@@ -20,12 +21,14 @@ import { flattenNestedTags } from "../../util/Tags";
 import { useQuestWithLogForDetailViewQuery } from "../../generated/graphql";
 import { AreYouLost } from "../404";
 import { SafeParseError, z } from "zod";
+import { capitalCase } from "change-case";
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
     quests(limit: 1, where: { slug: { _eq: $slug } }) {
       title
       description
+      status
       giver
       imageURL
       tags {
@@ -161,7 +164,7 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
           <Stack px={4} pb={4}>
             <Wrap direction="row" justify="end">
               {tags.map((tag: string) => (
-                <Tag key={tag}>{tag}</Tag>
+                <Tag key={tag}>{capitalCase(tag)}</Tag>
               ))}
               <Tag key={giver} variant="outline">
                 {giver}
@@ -176,8 +179,10 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
               </Stack>
             )}
             <Text>{description}</Text>
-            {log_entries.map((entry) => (
-              <QuestLogEntryDetail key={entry.step} {...entry} />
+            {log_entries.map((entry, i) => (
+              <ScaleFade key={entry.step} delay={i * 0.1} in>
+                <QuestLogEntryDetail {...entry} />
+              </ScaleFade>
             ))}
           </Stack>
         </Stack>
