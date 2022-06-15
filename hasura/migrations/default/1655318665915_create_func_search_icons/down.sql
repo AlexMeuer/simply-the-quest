@@ -1,0 +1,10 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- CREATE OR REPLACE FUNCTION search_icons(search text)
+-- returns setof icons AS $$
+-- SELECT   *
+-- FROM     icons
+-- WHERE    search <% ( NAME )
+-- ORDER BY similarity(search, ( NAME )) DESC limit 5;
+--
+-- $$ language sql stable;

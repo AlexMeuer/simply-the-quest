@@ -1,2 +1,1 @@
-alter table "public"."quests" add column "status" text
- not null default 'auto';
+alter table "public"."quests" drop column "status";

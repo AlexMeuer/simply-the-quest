@@ -1,13 +1,23 @@
 import React from "react";
 import {
   Box,
+  Button,
   Center,
   Heading,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Portal,
   ScaleFade,
   Stack,
   Tag,
   Text,
   useColorModeValue,
+  useDisclosure,
   Wrap,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
@@ -22,6 +32,7 @@ import { useQuestWithLogForDetailViewQuery } from "../../generated/graphql";
 import { AreYouLost } from "../404";
 import { SafeParseError, z } from "zod";
 import { capitalCase } from "change-case";
+import { AuthGuard } from "../Auth";
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
@@ -135,6 +146,7 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
     "rgba(255, 255, 255, 0.6)",
     "rgba(20, 10, 0, 0.5)"
   );
+  const questRewardModal = useDisclosure();
   return (
     <>
       <Helmet>
@@ -170,13 +182,17 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
                 {giver}
               </Tag>
             </Wrap>
-            {rewards.length && (
+            {rewards.length ? (
               <Stack rounded="lg" border="1px" borderColor="gray.500">
                 <Heading fontSize="md" as="h2" mx="auto" mt={1}>
                   Possible Rewards
                 </Heading>
                 <RewardAccordion rewards={rewards} />
               </Stack>
+            ) : (
+              <AuthGuard>
+                <Button onClick={questRewardModal.onOpen}>Add Reward</Button>
+              </AuthGuard>
             )}
             <Text>{description}</Text>
             {log_entries.map((entry, i) => (
@@ -187,6 +203,34 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
           </Stack>
         </Stack>
       </Center>
+      <Modal
+        isOpen={questRewardModal.isOpen}
+        onClose={questRewardModal.onClose}
+        isCentered
+      >
+        <ModalOverlay
+          bg="blackAlpha.300"
+          backdropFilter="blur(4px) hue-rotate(25deg)"
+        />
+        <ModalContent>
+          <ModalHeader>Add Reward</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>Placeholder Text</Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={questRewardModal.onClose}
+            >
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

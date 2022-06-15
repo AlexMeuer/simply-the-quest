@@ -5,3 +5,4 @@
 --     AS $$
 --   SELECT slugify(quest_row.title)
 -- $$;
+DROP FUNCTION IF EXISTS public.quest_slug(quest_row public.quests);
