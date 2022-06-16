@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  bigint: any;
   citext: any;
   jsonb: any;
   timestamptz: any;
@@ -1097,6 +1098,19 @@ export enum AuthUserRoles_Update_Column {
   UserId = 'userId'
 }
 
+/** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
+export type Bigint_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['bigint']>;
+  _gt?: InputMaybe<Scalars['bigint']>;
+  _gte?: InputMaybe<Scalars['bigint']>;
+  _in?: InputMaybe<Array<Scalars['bigint']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['bigint']>;
+  _lte?: InputMaybe<Scalars['bigint']>;
+  _neq?: InputMaybe<Scalars['bigint']>;
+  _nin?: InputMaybe<Array<Scalars['bigint']>>;
+};
+
 /** columns and relationships of "storage.buckets" */
 export type Buckets = {
   __typename?: 'buckets';
@@ -1773,6 +1787,375 @@ export type Files_Variance_Order_By = {
   size?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "icons" */
+export type Icons = {
+  __typename?: 'icons';
+  id: Scalars['bigint'];
+  name: Scalars['String'];
+  type: Scalars['String'];
+  url: Scalars['String'];
+};
+
+/** aggregated selection of "icons" */
+export type Icons_Aggregate = {
+  __typename?: 'icons_aggregate';
+  aggregate?: Maybe<Icons_Aggregate_Fields>;
+  nodes: Array<Icons>;
+};
+
+/** aggregate fields of "icons" */
+export type Icons_Aggregate_Fields = {
+  __typename?: 'icons_aggregate_fields';
+  avg?: Maybe<Icons_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Icons_Max_Fields>;
+  min?: Maybe<Icons_Min_Fields>;
+  stddev?: Maybe<Icons_Stddev_Fields>;
+  stddev_pop?: Maybe<Icons_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Icons_Stddev_Samp_Fields>;
+  sum?: Maybe<Icons_Sum_Fields>;
+  var_pop?: Maybe<Icons_Var_Pop_Fields>;
+  var_samp?: Maybe<Icons_Var_Samp_Fields>;
+  variance?: Maybe<Icons_Variance_Fields>;
+};
+
+
+/** aggregate fields of "icons" */
+export type Icons_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Icons_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Icons_Avg_Fields = {
+  __typename?: 'icons_avg_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "icons". All fields are combined with a logical 'AND'. */
+export type Icons_Bool_Exp = {
+  _and?: InputMaybe<Array<Icons_Bool_Exp>>;
+  _not?: InputMaybe<Icons_Bool_Exp>;
+  _or?: InputMaybe<Array<Icons_Bool_Exp>>;
+  id?: InputMaybe<Bigint_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  type?: InputMaybe<String_Comparison_Exp>;
+  url?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "icons" */
+export enum Icons_Constraint {
+  /** unique or primary key constraint */
+  IconsPkey = 'icons_pkey'
+}
+
+/** input type for incrementing numeric columns in table "icons" */
+export type Icons_Inc_Input = {
+  id?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "icons" */
+export type Icons_Insert_Input = {
+  id?: InputMaybe<Scalars['bigint']>;
+  name?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Icons_Max_Fields = {
+  __typename?: 'icons_max_fields';
+  id?: Maybe<Scalars['bigint']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Icons_Min_Fields = {
+  __typename?: 'icons_min_fields';
+  id?: Maybe<Scalars['bigint']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "icons" */
+export type Icons_Mutation_Response = {
+  __typename?: 'icons_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Icons>;
+};
+
+/** on_conflict condition type for table "icons" */
+export type Icons_On_Conflict = {
+  constraint: Icons_Constraint;
+  update_columns?: Array<Icons_Update_Column>;
+  where?: InputMaybe<Icons_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "icons". */
+export type Icons_Order_By = {
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  url?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: icons */
+export type Icons_Pk_Columns_Input = {
+  id: Scalars['bigint'];
+};
+
+/** select columns of table "icons" */
+export enum Icons_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  Url = 'url'
+}
+
+/** input type for updating data in table "icons" */
+export type Icons_Set_Input = {
+  id?: InputMaybe<Scalars['bigint']>;
+  name?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Icons_Stddev_Fields = {
+  __typename?: 'icons_stddev_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Icons_Stddev_Pop_Fields = {
+  __typename?: 'icons_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Icons_Stddev_Samp_Fields = {
+  __typename?: 'icons_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Icons_Sum_Fields = {
+  __typename?: 'icons_sum_fields';
+  id?: Maybe<Scalars['bigint']>;
+};
+
+/** update columns of table "icons" */
+export enum Icons_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  Url = 'url'
+}
+
+/** aggregate var_pop on columns */
+export type Icons_Var_Pop_Fields = {
+  __typename?: 'icons_var_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Icons_Var_Samp_Fields = {
+  __typename?: 'icons_var_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Icons_Variance_Fields = {
+  __typename?: 'icons_variance_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** columns and relationships of "item_rarities" */
+export type Item_Rarities = {
+  __typename?: 'item_rarities';
+  color: Scalars['String'];
+  name: Scalars['String'];
+  /** An array relationship */
+  rewards: Array<Rewards>;
+  /** An aggregate relationship */
+  rewards_aggregate: Rewards_Aggregate;
+};
+
+
+/** columns and relationships of "item_rarities" */
+export type Item_RaritiesRewardsArgs = {
+  distinct_on?: InputMaybe<Array<Rewards_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Rewards_Order_By>>;
+  where?: InputMaybe<Rewards_Bool_Exp>;
+};
+
+
+/** columns and relationships of "item_rarities" */
+export type Item_RaritiesRewards_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Rewards_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Rewards_Order_By>>;
+  where?: InputMaybe<Rewards_Bool_Exp>;
+};
+
+/** aggregated selection of "item_rarities" */
+export type Item_Rarities_Aggregate = {
+  __typename?: 'item_rarities_aggregate';
+  aggregate?: Maybe<Item_Rarities_Aggregate_Fields>;
+  nodes: Array<Item_Rarities>;
+};
+
+/** aggregate fields of "item_rarities" */
+export type Item_Rarities_Aggregate_Fields = {
+  __typename?: 'item_rarities_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Item_Rarities_Max_Fields>;
+  min?: Maybe<Item_Rarities_Min_Fields>;
+};
+
+
+/** aggregate fields of "item_rarities" */
+export type Item_Rarities_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Item_Rarities_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "item_rarities". All fields are combined with a logical 'AND'. */
+export type Item_Rarities_Bool_Exp = {
+  _and?: InputMaybe<Array<Item_Rarities_Bool_Exp>>;
+  _not?: InputMaybe<Item_Rarities_Bool_Exp>;
+  _or?: InputMaybe<Array<Item_Rarities_Bool_Exp>>;
+  color?: InputMaybe<String_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  rewards?: InputMaybe<Rewards_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "item_rarities" */
+export enum Item_Rarities_Constraint {
+  /** unique or primary key constraint */
+  ItemRaritiesPkey = 'item_rarities_pkey'
+}
+
+export enum Item_Rarities_Enum {
+  /** pink */
+  Artifact = 'artifact',
+  /** white */
+  Common = 'common',
+  /** orange */
+  Epic = 'epic',
+  /** blue */
+  Rare = 'rare',
+  /** gray */
+  Trash = 'trash',
+  /** green */
+  Uncommon = 'uncommon',
+  /** purple */
+  VeryRare = 'very_rare'
+}
+
+/** Boolean expression to compare columns of type "item_rarities_enum". All fields are combined with logical 'AND'. */
+export type Item_Rarities_Enum_Comparison_Exp = {
+  _eq?: InputMaybe<Item_Rarities_Enum>;
+  _in?: InputMaybe<Array<Item_Rarities_Enum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Item_Rarities_Enum>;
+  _nin?: InputMaybe<Array<Item_Rarities_Enum>>;
+};
+
+/** input type for inserting data into table "item_rarities" */
+export type Item_Rarities_Insert_Input = {
+  color?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  rewards?: InputMaybe<Rewards_Arr_Rel_Insert_Input>;
+};
+
+/** aggregate max on columns */
+export type Item_Rarities_Max_Fields = {
+  __typename?: 'item_rarities_max_fields';
+  color?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Item_Rarities_Min_Fields = {
+  __typename?: 'item_rarities_min_fields';
+  color?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "item_rarities" */
+export type Item_Rarities_Mutation_Response = {
+  __typename?: 'item_rarities_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Item_Rarities>;
+};
+
+/** input type for inserting object relation for remote table "item_rarities" */
+export type Item_Rarities_Obj_Rel_Insert_Input = {
+  data: Item_Rarities_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Item_Rarities_On_Conflict>;
+};
+
+/** on_conflict condition type for table "item_rarities" */
+export type Item_Rarities_On_Conflict = {
+  constraint: Item_Rarities_Constraint;
+  update_columns?: Array<Item_Rarities_Update_Column>;
+  where?: InputMaybe<Item_Rarities_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "item_rarities". */
+export type Item_Rarities_Order_By = {
+  color?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  rewards_aggregate?: InputMaybe<Rewards_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: item_rarities */
+export type Item_Rarities_Pk_Columns_Input = {
+  name: Scalars['String'];
+};
+
+/** select columns of table "item_rarities" */
+export enum Item_Rarities_Select_Column {
+  /** column name */
+  Color = 'color',
+  /** column name */
+  Name = 'name'
+}
+
+/** input type for updating data in table "item_rarities" */
+export type Item_Rarities_Set_Input = {
+  color?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "item_rarities" */
+export enum Item_Rarities_Update_Column {
+  /** column name */
+  Color = 'color',
+  /** column name */
+  Name = 'name'
+}
+
 export type Jsonb_Cast_Exp = {
   String?: InputMaybe<String_Comparison_Exp>;
 };
@@ -1840,6 +2223,14 @@ export type Mutation_Root = {
   deleteUser?: Maybe<Users>;
   /** delete data from the table: "auth.users" */
   deleteUsers?: Maybe<Users_Mutation_Response>;
+  /** delete data from the table: "icons" */
+  delete_icons?: Maybe<Icons_Mutation_Response>;
+  /** delete single row from the table: "icons" */
+  delete_icons_by_pk?: Maybe<Icons>;
+  /** delete data from the table: "item_rarities" */
+  delete_item_rarities?: Maybe<Item_Rarities_Mutation_Response>;
+  /** delete single row from the table: "item_rarities" */
+  delete_item_rarities_by_pk?: Maybe<Item_Rarities>;
   /** delete data from the table: "quest_log_entries" */
   delete_quest_log_entries?: Maybe<Quest_Log_Entries_Mutation_Response>;
   /** delete single row from the table: "quest_log_entries" */
@@ -1900,6 +2291,14 @@ export type Mutation_Root = {
   insertUser?: Maybe<Users>;
   /** insert data into the table: "auth.users" */
   insertUsers?: Maybe<Users_Mutation_Response>;
+  /** insert data into the table: "icons" */
+  insert_icons?: Maybe<Icons_Mutation_Response>;
+  /** insert a single row into the table: "icons" */
+  insert_icons_one?: Maybe<Icons>;
+  /** insert data into the table: "item_rarities" */
+  insert_item_rarities?: Maybe<Item_Rarities_Mutation_Response>;
+  /** insert a single row into the table: "item_rarities" */
+  insert_item_rarities_one?: Maybe<Item_Rarities>;
   /** insert data into the table: "quest_log_entries" */
   insert_quest_log_entries?: Maybe<Quest_Log_Entries_Mutation_Response>;
   /** insert a single row into the table: "quest_log_entries" */
@@ -1960,6 +2359,14 @@ export type Mutation_Root = {
   updateUser?: Maybe<Users>;
   /** update data of the table: "auth.users" */
   updateUsers?: Maybe<Users_Mutation_Response>;
+  /** update data of the table: "icons" */
+  update_icons?: Maybe<Icons_Mutation_Response>;
+  /** update single row of the table: "icons" */
+  update_icons_by_pk?: Maybe<Icons>;
+  /** update data of the table: "item_rarities" */
+  update_item_rarities?: Maybe<Item_Rarities_Mutation_Response>;
+  /** update single row of the table: "item_rarities" */
+  update_item_rarities_by_pk?: Maybe<Item_Rarities>;
   /** update data of the table: "quest_log_entries" */
   update_quest_log_entries?: Maybe<Quest_Log_Entries_Mutation_Response>;
   /** update single row of the table: "quest_log_entries" */
@@ -2092,6 +2499,30 @@ export type Mutation_RootDeleteUserArgs = {
 /** mutation root */
 export type Mutation_RootDeleteUsersArgs = {
   where: Users_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_IconsArgs = {
+  where: Icons_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Icons_By_PkArgs = {
+  id: Scalars['bigint'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Item_RaritiesArgs = {
+  where: Item_Rarities_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Item_Rarities_By_PkArgs = {
+  name: Scalars['String'];
 };
 
 
@@ -2292,6 +2723,34 @@ export type Mutation_RootInsertUserArgs = {
 export type Mutation_RootInsertUsersArgs = {
   objects: Array<Users_Insert_Input>;
   on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_IconsArgs = {
+  objects: Array<Icons_Insert_Input>;
+  on_conflict?: InputMaybe<Icons_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Icons_OneArgs = {
+  object: Icons_Insert_Input;
+  on_conflict?: InputMaybe<Icons_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Item_RaritiesArgs = {
+  objects: Array<Item_Rarities_Insert_Input>;
+  on_conflict?: InputMaybe<Item_Rarities_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Item_Rarities_OneArgs = {
+  object: Item_Rarities_Insert_Input;
+  on_conflict?: InputMaybe<Item_Rarities_On_Conflict>;
 };
 
 
@@ -2530,6 +2989,36 @@ export type Mutation_RootUpdateUsersArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_IconsArgs = {
+  _inc?: InputMaybe<Icons_Inc_Input>;
+  _set?: InputMaybe<Icons_Set_Input>;
+  where: Icons_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Icons_By_PkArgs = {
+  _inc?: InputMaybe<Icons_Inc_Input>;
+  _set?: InputMaybe<Icons_Set_Input>;
+  pk_columns: Icons_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Item_RaritiesArgs = {
+  _set?: InputMaybe<Item_Rarities_Set_Input>;
+  where: Item_Rarities_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Item_Rarities_By_PkArgs = {
+  _set?: InputMaybe<Item_Rarities_Set_Input>;
+  pk_columns: Item_Rarities_Pk_Columns_Input;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_Quest_Log_EntriesArgs = {
   _inc?: InputMaybe<Quest_Log_Entries_Inc_Input>;
   _set?: InputMaybe<Quest_Log_Entries_Set_Input>;
@@ -2686,9 +3175,21 @@ export type Query_Root = {
   files: Array<Files>;
   /** fetch aggregated fields from the table: "storage.files" */
   filesAggregate: Files_Aggregate;
-  /** fetch data from the table: "quest_log_entries" */
+  /** fetch data from the table: "icons" */
+  icons: Array<Icons>;
+  /** fetch aggregated fields from the table: "icons" */
+  icons_aggregate: Icons_Aggregate;
+  /** fetch data from the table: "icons" using primary key columns */
+  icons_by_pk?: Maybe<Icons>;
+  /** fetch data from the table: "item_rarities" */
+  item_rarities: Array<Item_Rarities>;
+  /** fetch aggregated fields from the table: "item_rarities" */
+  item_rarities_aggregate: Item_Rarities_Aggregate;
+  /** fetch data from the table: "item_rarities" using primary key columns */
+  item_rarities_by_pk?: Maybe<Item_Rarities>;
+  /** An array relationship */
   quest_log_entries: Array<Quest_Log_Entries>;
-  /** fetch aggregated fields from the table: "quest_log_entries" */
+  /** An aggregate relationship */
   quest_log_entries_aggregate: Quest_Log_Entries_Aggregate;
   /** fetch data from the table: "quest_log_entries" using primary key columns */
   quest_log_entries_by_pk?: Maybe<Quest_Log_Entries>;
@@ -2710,6 +3211,10 @@ export type Query_Root = {
   rewards_aggregate: Rewards_Aggregate;
   /** fetch data from the table: "rewards" using primary key columns */
   rewards_by_pk?: Maybe<Rewards>;
+  /** execute function "search_icons" which returns "icons" */
+  search_icons: Array<Icons>;
+  /** execute function "search_icons" and query aggregates on result of table type "icons" */
+  search_icons_aggregate: Icons_Aggregate;
   /** fetch data from the table: "statuses" */
   statuses: Array<Statuses>;
   /** fetch aggregated fields from the table: "statuses" */
@@ -2915,6 +3420,52 @@ export type Query_RootFilesAggregateArgs = {
 };
 
 
+export type Query_RootIconsArgs = {
+  distinct_on?: InputMaybe<Array<Icons_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Icons_Order_By>>;
+  where?: InputMaybe<Icons_Bool_Exp>;
+};
+
+
+export type Query_RootIcons_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Icons_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Icons_Order_By>>;
+  where?: InputMaybe<Icons_Bool_Exp>;
+};
+
+
+export type Query_RootIcons_By_PkArgs = {
+  id: Scalars['bigint'];
+};
+
+
+export type Query_RootItem_RaritiesArgs = {
+  distinct_on?: InputMaybe<Array<Item_Rarities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Item_Rarities_Order_By>>;
+  where?: InputMaybe<Item_Rarities_Bool_Exp>;
+};
+
+
+export type Query_RootItem_Rarities_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Item_Rarities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Item_Rarities_Order_By>>;
+  where?: InputMaybe<Item_Rarities_Bool_Exp>;
+};
+
+
+export type Query_RootItem_Rarities_By_PkArgs = {
+  name: Scalars['String'];
+};
+
+
 export type Query_RootQuest_Log_EntriesArgs = {
   distinct_on?: InputMaybe<Array<Quest_Log_Entries_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -3006,6 +3557,26 @@ export type Query_RootRewards_AggregateArgs = {
 
 export type Query_RootRewards_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Query_RootSearch_IconsArgs = {
+  args: Search_Icons_Args;
+  distinct_on?: InputMaybe<Array<Icons_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Icons_Order_By>>;
+  where?: InputMaybe<Icons_Bool_Exp>;
+};
+
+
+export type Query_RootSearch_Icons_AggregateArgs = {
+  args: Search_Icons_Args;
+  distinct_on?: InputMaybe<Array<Icons_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Icons_Order_By>>;
+  where?: InputMaybe<Icons_Bool_Exp>;
 };
 
 
@@ -3833,10 +4404,37 @@ export type Quests_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** order by aggregate values of table "quests" */
+export type Quests_Aggregate_Order_By = {
+  avg?: InputMaybe<Quests_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Quests_Max_Order_By>;
+  min?: InputMaybe<Quests_Min_Order_By>;
+  stddev?: InputMaybe<Quests_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Quests_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Quests_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Quests_Sum_Order_By>;
+  var_pop?: InputMaybe<Quests_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Quests_Var_Samp_Order_By>;
+  variance?: InputMaybe<Quests_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "quests" */
+export type Quests_Arr_Rel_Insert_Input = {
+  data: Array<Quests_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Quests_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Quests_Avg_Fields = {
   __typename?: 'quests_avg_fields';
   id?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "quests" */
+export type Quests_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "quests". All fields are combined with a logical 'AND'. */
@@ -3898,6 +4496,17 @@ export type Quests_Max_Fields = {
   updated_at?: Maybe<Scalars['timestamptz']>;
 };
 
+/** order by max() on columns of table "quests" */
+export type Quests_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  giver?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  imageURL?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
 /** aggregate min on columns */
 export type Quests_Min_Fields = {
   __typename?: 'quests_min_fields';
@@ -3908,6 +4517,17 @@ export type Quests_Min_Fields = {
   imageURL?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+/** order by min() on columns of table "quests" */
+export type Quests_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  giver?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  imageURL?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "quests" */
@@ -3996,10 +4616,20 @@ export type Quests_Stddev_Fields = {
   id?: Maybe<Scalars['Float']>;
 };
 
+/** order by stddev() on columns of table "quests" */
+export type Quests_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+};
+
 /** aggregate stddev_pop on columns */
 export type Quests_Stddev_Pop_Fields = {
   __typename?: 'quests_stddev_pop_fields';
   id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "quests" */
+export type Quests_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -4008,10 +4638,20 @@ export type Quests_Stddev_Samp_Fields = {
   id?: Maybe<Scalars['Float']>;
 };
 
+/** order by stddev_samp() on columns of table "quests" */
+export type Quests_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+};
+
 /** aggregate sum on columns */
 export type Quests_Sum_Fields = {
   __typename?: 'quests_sum_fields';
   id?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "quests" */
+export type Quests_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "quests" */
@@ -4042,16 +4682,31 @@ export type Quests_Var_Pop_Fields = {
   id?: Maybe<Scalars['Float']>;
 };
 
+/** order by var_pop() on columns of table "quests" */
+export type Quests_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+};
+
 /** aggregate var_samp on columns */
 export type Quests_Var_Samp_Fields = {
   __typename?: 'quests_var_samp_fields';
   id?: Maybe<Scalars['Float']>;
 };
 
+/** order by var_samp() on columns of table "quests" */
+export type Quests_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+};
+
 /** aggregate variance on columns */
 export type Quests_Variance_Fields = {
   __typename?: 'quests_variance_fields';
   id?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "quests" */
+export type Quests_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
 };
 
 /** columns and relationships of "rewards" */
@@ -4067,7 +4722,9 @@ export type Rewards = {
   /** An object relationship */
   quest: Quests;
   quest_id: Scalars['Int'];
-  rarity: Scalars['String'];
+  rarity: Item_Rarities_Enum;
+  /** An object relationship */
+  rarity_detail: Item_Rarities;
   sourceURL?: Maybe<Scalars['String']>;
   step_id?: Maybe<Scalars['Int']>;
   type: Scalars['String'];
@@ -4158,7 +4815,8 @@ export type Rewards_Bool_Exp = {
   name?: InputMaybe<String_Comparison_Exp>;
   quest?: InputMaybe<Quests_Bool_Exp>;
   quest_id?: InputMaybe<Int_Comparison_Exp>;
-  rarity?: InputMaybe<String_Comparison_Exp>;
+  rarity?: InputMaybe<Item_Rarities_Enum_Comparison_Exp>;
+  rarity_detail?: InputMaybe<Item_Rarities_Bool_Exp>;
   sourceURL?: InputMaybe<String_Comparison_Exp>;
   step_id?: InputMaybe<Int_Comparison_Exp>;
   type?: InputMaybe<String_Comparison_Exp>;
@@ -4190,7 +4848,8 @@ export type Rewards_Insert_Input = {
   name?: InputMaybe<Scalars['String']>;
   quest?: InputMaybe<Quests_Obj_Rel_Insert_Input>;
   quest_id?: InputMaybe<Scalars['Int']>;
-  rarity?: InputMaybe<Scalars['String']>;
+  rarity?: InputMaybe<Item_Rarities_Enum>;
+  rarity_detail?: InputMaybe<Item_Rarities_Obj_Rel_Insert_Input>;
   sourceURL?: InputMaybe<Scalars['String']>;
   step_id?: InputMaybe<Scalars['Int']>;
   type?: InputMaybe<Scalars['String']>;
@@ -4206,7 +4865,6 @@ export type Rewards_Max_Fields = {
   imageURL?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   quest_id?: Maybe<Scalars['Int']>;
-  rarity?: Maybe<Scalars['String']>;
   sourceURL?: Maybe<Scalars['String']>;
   step_id?: Maybe<Scalars['Int']>;
   type?: Maybe<Scalars['String']>;
@@ -4221,7 +4879,6 @@ export type Rewards_Max_Order_By = {
   imageURL?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   quest_id?: InputMaybe<Order_By>;
-  rarity?: InputMaybe<Order_By>;
   sourceURL?: InputMaybe<Order_By>;
   step_id?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
@@ -4237,7 +4894,6 @@ export type Rewards_Min_Fields = {
   imageURL?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   quest_id?: Maybe<Scalars['Int']>;
-  rarity?: Maybe<Scalars['String']>;
   sourceURL?: Maybe<Scalars['String']>;
   step_id?: Maybe<Scalars['Int']>;
   type?: Maybe<Scalars['String']>;
@@ -4252,7 +4908,6 @@ export type Rewards_Min_Order_By = {
   imageURL?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   quest_id?: InputMaybe<Order_By>;
-  rarity?: InputMaybe<Order_By>;
   sourceURL?: InputMaybe<Order_By>;
   step_id?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
@@ -4286,6 +4941,7 @@ export type Rewards_Order_By = {
   quest?: InputMaybe<Quests_Order_By>;
   quest_id?: InputMaybe<Order_By>;
   rarity?: InputMaybe<Order_By>;
+  rarity_detail?: InputMaybe<Item_Rarities_Order_By>;
   sourceURL?: InputMaybe<Order_By>;
   step_id?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
@@ -4331,7 +4987,7 @@ export type Rewards_Set_Input = {
   imageURL?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   quest_id?: InputMaybe<Scalars['Int']>;
-  rarity?: InputMaybe<Scalars['String']>;
+  rarity?: InputMaybe<Item_Rarities_Enum>;
   sourceURL?: InputMaybe<Scalars['String']>;
   step_id?: InputMaybe<Scalars['Int']>;
   type?: InputMaybe<Scalars['String']>;
@@ -4497,10 +5153,62 @@ export type Rewards_Variance_Order_By = {
   value?: InputMaybe<Order_By>;
 };
 
+export type Search_Icons_Args = {
+  search?: InputMaybe<Scalars['String']>;
+};
+
 /** columns and relationships of "statuses" */
 export type Statuses = {
   __typename?: 'statuses';
   name: Scalars['String'];
+  /** An array relationship */
+  quest_log_entries: Array<Quest_Log_Entries>;
+  /** An aggregate relationship */
+  quest_log_entries_aggregate: Quest_Log_Entries_Aggregate;
+  /** fetch data from the table: "quests" */
+  quests: Array<Quests>;
+  /** fetch aggregated fields from the table: "quests" */
+  quests_aggregate: Quests_Aggregate;
+};
+
+
+/** columns and relationships of "statuses" */
+export type StatusesQuest_Log_EntriesArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Log_Entries_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Log_Entries_Order_By>>;
+  where?: InputMaybe<Quest_Log_Entries_Bool_Exp>;
+};
+
+
+/** columns and relationships of "statuses" */
+export type StatusesQuest_Log_Entries_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Quest_Log_Entries_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quest_Log_Entries_Order_By>>;
+  where?: InputMaybe<Quest_Log_Entries_Bool_Exp>;
+};
+
+
+/** columns and relationships of "statuses" */
+export type StatusesQuestsArgs = {
+  distinct_on?: InputMaybe<Array<Quests_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quests_Order_By>>;
+  where?: InputMaybe<Quests_Bool_Exp>;
+};
+
+
+/** columns and relationships of "statuses" */
+export type StatusesQuests_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Quests_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Quests_Order_By>>;
+  where?: InputMaybe<Quests_Bool_Exp>;
 };
 
 /** aggregated selection of "statuses" */
@@ -4531,6 +5239,8 @@ export type Statuses_Bool_Exp = {
   _not?: InputMaybe<Statuses_Bool_Exp>;
   _or?: InputMaybe<Array<Statuses_Bool_Exp>>;
   name?: InputMaybe<String_Comparison_Exp>;
+  quest_log_entries?: InputMaybe<Quest_Log_Entries_Bool_Exp>;
+  quests?: InputMaybe<Quests_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "statuses" */
@@ -4560,6 +5270,8 @@ export type Statuses_Enum_Comparison_Exp = {
 /** input type for inserting data into table "statuses" */
 export type Statuses_Insert_Input = {
   name?: InputMaybe<Scalars['String']>;
+  quest_log_entries?: InputMaybe<Quest_Log_Entries_Arr_Rel_Insert_Input>;
+  quests?: InputMaybe<Quests_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -4593,6 +5305,8 @@ export type Statuses_On_Conflict = {
 /** Ordering options when selecting data from "statuses". */
 export type Statuses_Order_By = {
   name?: InputMaybe<Order_By>;
+  quest_log_entries_aggregate?: InputMaybe<Quest_Log_Entries_Aggregate_Order_By>;
+  quests_aggregate?: InputMaybe<Quests_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: statuses */
@@ -4667,9 +5381,21 @@ export type Subscription_Root = {
   files: Array<Files>;
   /** fetch aggregated fields from the table: "storage.files" */
   filesAggregate: Files_Aggregate;
-  /** fetch data from the table: "quest_log_entries" */
+  /** fetch data from the table: "icons" */
+  icons: Array<Icons>;
+  /** fetch aggregated fields from the table: "icons" */
+  icons_aggregate: Icons_Aggregate;
+  /** fetch data from the table: "icons" using primary key columns */
+  icons_by_pk?: Maybe<Icons>;
+  /** fetch data from the table: "item_rarities" */
+  item_rarities: Array<Item_Rarities>;
+  /** fetch aggregated fields from the table: "item_rarities" */
+  item_rarities_aggregate: Item_Rarities_Aggregate;
+  /** fetch data from the table: "item_rarities" using primary key columns */
+  item_rarities_by_pk?: Maybe<Item_Rarities>;
+  /** An array relationship */
   quest_log_entries: Array<Quest_Log_Entries>;
-  /** fetch aggregated fields from the table: "quest_log_entries" */
+  /** An aggregate relationship */
   quest_log_entries_aggregate: Quest_Log_Entries_Aggregate;
   /** fetch data from the table: "quest_log_entries" using primary key columns */
   quest_log_entries_by_pk?: Maybe<Quest_Log_Entries>;
@@ -4691,6 +5417,10 @@ export type Subscription_Root = {
   rewards_aggregate: Rewards_Aggregate;
   /** fetch data from the table: "rewards" using primary key columns */
   rewards_by_pk?: Maybe<Rewards>;
+  /** execute function "search_icons" which returns "icons" */
+  search_icons: Array<Icons>;
+  /** execute function "search_icons" and query aggregates on result of table type "icons" */
+  search_icons_aggregate: Icons_Aggregate;
   /** fetch data from the table: "statuses" */
   statuses: Array<Statuses>;
   /** fetch aggregated fields from the table: "statuses" */
@@ -4896,6 +5626,52 @@ export type Subscription_RootFilesAggregateArgs = {
 };
 
 
+export type Subscription_RootIconsArgs = {
+  distinct_on?: InputMaybe<Array<Icons_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Icons_Order_By>>;
+  where?: InputMaybe<Icons_Bool_Exp>;
+};
+
+
+export type Subscription_RootIcons_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Icons_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Icons_Order_By>>;
+  where?: InputMaybe<Icons_Bool_Exp>;
+};
+
+
+export type Subscription_RootIcons_By_PkArgs = {
+  id: Scalars['bigint'];
+};
+
+
+export type Subscription_RootItem_RaritiesArgs = {
+  distinct_on?: InputMaybe<Array<Item_Rarities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Item_Rarities_Order_By>>;
+  where?: InputMaybe<Item_Rarities_Bool_Exp>;
+};
+
+
+export type Subscription_RootItem_Rarities_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Item_Rarities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Item_Rarities_Order_By>>;
+  where?: InputMaybe<Item_Rarities_Bool_Exp>;
+};
+
+
+export type Subscription_RootItem_Rarities_By_PkArgs = {
+  name: Scalars['String'];
+};
+
+
 export type Subscription_RootQuest_Log_EntriesArgs = {
   distinct_on?: InputMaybe<Array<Quest_Log_Entries_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -4987,6 +5763,26 @@ export type Subscription_RootRewards_AggregateArgs = {
 
 export type Subscription_RootRewards_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Subscription_RootSearch_IconsArgs = {
+  args: Search_Icons_Args;
+  distinct_on?: InputMaybe<Array<Icons_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Icons_Order_By>>;
+  where?: InputMaybe<Icons_Bool_Exp>;
+};
+
+
+export type Subscription_RootSearch_Icons_AggregateArgs = {
+  args: Search_Icons_Args;
+  distinct_on?: InputMaybe<Array<Icons_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Icons_Order_By>>;
+  where?: InputMaybe<Icons_Bool_Exp>;
 };
 
 
@@ -5758,9 +6554,9 @@ export type QuestForEditQueryVariables = Exact<{
 }>;
 
 
-export type QuestForEditQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', id: number, title: string, description: string, giver: string, imageURL?: string | null, isPublished: boolean, rewards: Array<{ __typename?: 'rewards', id: number, name: string, description?: string | null, rarity: string, count?: number | null, value?: number | null, type: string, imageURL?: string | null, sourceURL?: string | null }>, log_entries: Array<{ __typename?: 'quest_log_entries', step: number, title: string, body: string, status: Statuses_Enum, imageURL?: string | null, rewards: Array<{ __typename?: 'rewards', id: number, name: string, description?: string | null, rarity: string, count?: number | null, value?: number | null, type: string, imageURL?: string | null, sourceURL?: string | null }> }>, tags: Array<{ __typename?: 'quest_tags', tag_name: string }> }>, tags: Array<{ __typename?: 'tags', name: string }> };
+export type QuestForEditQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', id: number, title: string, description: string, giver: string, imageURL?: string | null, isPublished: boolean, rewards: Array<{ __typename?: 'rewards', id: number, name: string, description?: string | null, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, type: string, imageURL?: string | null, sourceURL?: string | null }>, log_entries: Array<{ __typename?: 'quest_log_entries', step: number, title: string, body: string, status: Statuses_Enum, imageURL?: string | null, rewards: Array<{ __typename?: 'rewards', id: number, name: string, description?: string | null, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, type: string, imageURL?: string | null, sourceURL?: string | null }> }>, tags: Array<{ __typename?: 'quest_tags', tag_name: string }> }>, tags: Array<{ __typename?: 'tags', name: string }> };
 
-export type RewardWithIdFragment = { __typename?: 'rewards', id: number, name: string, description?: string | null, rarity: string, count?: number | null, value?: number | null, type: string, imageURL?: string | null, sourceURL?: string | null };
+export type RewardWithIdFragment = { __typename?: 'rewards', id: number, name: string, description?: string | null, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, type: string, imageURL?: string | null, sourceURL?: string | null };
 
 export type UpdateQuestByPkMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -5793,9 +6589,9 @@ export type QuestWithLogForDetailViewQueryVariables = Exact<{
 }>;
 
 
-export type QuestWithLogForDetailViewQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, description: string, status: Statuses_Enum, giver: string, imageURL?: string | null, tags: Array<{ __typename?: 'quest_tags', tag_name: string }>, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }>, log_entries: Array<{ __typename?: 'quest_log_entries', title: string, body: string, status: Statuses_Enum, step: number, created_at: any, imageURL?: string | null, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }> }> }> };
+export type QuestWithLogForDetailViewQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, description: string, status: Statuses_Enum, giver: string, imageURL?: string | null, tags: Array<{ __typename?: 'quest_tags', tag_name: string }>, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }>, log_entries: Array<{ __typename?: 'quest_log_entries', title: string, body: string, status: Statuses_Enum, step: number, created_at: any, imageURL?: string | null, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }> }> }> };
 
-export type RewardFragment = { __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: string, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null };
+export type RewardFragment = { __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null };
 
 export type QuestListQueryVariables = Exact<{
   filter?: InputMaybe<Quests_Bool_Exp>;
@@ -5803,6 +6599,11 @@ export type QuestListQueryVariables = Exact<{
 
 
 export type QuestListQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, status: Statuses_Enum, slug?: string | null, description: string, giver: string, imageURL?: string | null, created_at: any, updated_at: any, tags: Array<{ __typename?: 'quest_tags', tag_name: string }>, log_entries: Array<{ __typename?: 'quest_log_entries', status: Statuses_Enum }> }> };
+
+export type AllItemRaritiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllItemRaritiesQuery = { __typename?: 'query_root', item_rarities: Array<{ __typename?: 'item_rarities', name: string, color: string }> };
 
 export const RewardWithIdFragmentDoc = gql`
     fragment rewardWithId on rewards {
@@ -6104,3 +6905,38 @@ export function useQuestListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type QuestListQueryHookResult = ReturnType<typeof useQuestListQuery>;
 export type QuestListLazyQueryHookResult = ReturnType<typeof useQuestListLazyQuery>;
 export type QuestListQueryResult = Apollo.QueryResult<QuestListQuery, QuestListQueryVariables>;
+export const AllItemRaritiesDocument = gql`
+    query AllItemRarities {
+  item_rarities {
+    name
+    color
+  }
+}
+    `;
+
+/**
+ * __useAllItemRaritiesQuery__
+ *
+ * To run a query within a React component, call `useAllItemRaritiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllItemRaritiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllItemRaritiesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllItemRaritiesQuery(baseOptions?: Apollo.QueryHookOptions<AllItemRaritiesQuery, AllItemRaritiesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllItemRaritiesQuery, AllItemRaritiesQueryVariables>(AllItemRaritiesDocument, options);
+      }
+export function useAllItemRaritiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllItemRaritiesQuery, AllItemRaritiesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllItemRaritiesQuery, AllItemRaritiesQueryVariables>(AllItemRaritiesDocument, options);
+        }
+export type AllItemRaritiesQueryHookResult = ReturnType<typeof useAllItemRaritiesQuery>;
+export type AllItemRaritiesLazyQueryHookResult = ReturnType<typeof useAllItemRaritiesLazyQuery>;
+export type AllItemRaritiesQueryResult = Apollo.QueryResult<AllItemRaritiesQuery, AllItemRaritiesQueryVariables>;

@@ -1283,6 +1283,23 @@ enum authUserRoles_update_column {
   userId
 }
 
+scalar bigint
+
+"""
+Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'.
+"""
+input bigint_comparison_exp {
+  _eq: bigint
+  _gt: bigint
+  _gte: bigint
+  _in: [bigint!]
+  _is_null: Boolean
+  _lt: bigint
+  _lte: bigint
+  _neq: bigint
+  _nin: [bigint!]
+}
+
 """
 columns and relationships of "storage.buckets"
 """
@@ -2061,6 +2078,420 @@ input files_variance_order_by {
   size: order_by
 }
 
+"""
+columns and relationships of "icons"
+"""
+type icons {
+  id: bigint!
+  name: String!
+  type: String!
+  url: String!
+}
+
+"""
+aggregated selection of "icons"
+"""
+type icons_aggregate {
+  aggregate: icons_aggregate_fields
+  nodes: [icons!]!
+}
+
+"""
+aggregate fields of "icons"
+"""
+type icons_aggregate_fields {
+  avg: icons_avg_fields
+  count(columns: [icons_select_column!], distinct: Boolean): Int!
+  max: icons_max_fields
+  min: icons_min_fields
+  stddev: icons_stddev_fields
+  stddev_pop: icons_stddev_pop_fields
+  stddev_samp: icons_stddev_samp_fields
+  sum: icons_sum_fields
+  var_pop: icons_var_pop_fields
+  var_samp: icons_var_samp_fields
+  variance: icons_variance_fields
+}
+
+"""aggregate avg on columns"""
+type icons_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "icons". All fields are combined with a logical 'AND'.
+"""
+input icons_bool_exp {
+  _and: [icons_bool_exp!]
+  _not: icons_bool_exp
+  _or: [icons_bool_exp!]
+  id: bigint_comparison_exp
+  name: String_comparison_exp
+  type: String_comparison_exp
+  url: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "icons"
+"""
+enum icons_constraint {
+  """unique or primary key constraint"""
+  icons_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "icons"
+"""
+input icons_inc_input {
+  id: bigint
+}
+
+"""
+input type for inserting data into table "icons"
+"""
+input icons_insert_input {
+  id: bigint
+  name: String
+  type: String
+  url: String
+}
+
+"""aggregate max on columns"""
+type icons_max_fields {
+  id: bigint
+  name: String
+  type: String
+  url: String
+}
+
+"""aggregate min on columns"""
+type icons_min_fields {
+  id: bigint
+  name: String
+  type: String
+  url: String
+}
+
+"""
+response of any mutation on the table "icons"
+"""
+type icons_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [icons!]!
+}
+
+"""
+on_conflict condition type for table "icons"
+"""
+input icons_on_conflict {
+  constraint: icons_constraint!
+  update_columns: [icons_update_column!]! = []
+  where: icons_bool_exp
+}
+
+"""Ordering options when selecting data from "icons"."""
+input icons_order_by {
+  id: order_by
+  name: order_by
+  type: order_by
+  url: order_by
+}
+
+"""primary key columns input for table: icons"""
+input icons_pk_columns_input {
+  id: bigint!
+}
+
+"""
+select columns of table "icons"
+"""
+enum icons_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  type
+
+  """column name"""
+  url
+}
+
+"""
+input type for updating data in table "icons"
+"""
+input icons_set_input {
+  id: bigint
+  name: String
+  type: String
+  url: String
+}
+
+"""aggregate stddev on columns"""
+type icons_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type icons_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type icons_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type icons_sum_fields {
+  id: bigint
+}
+
+"""
+update columns of table "icons"
+"""
+enum icons_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  type
+
+  """column name"""
+  url
+}
+
+"""aggregate var_pop on columns"""
+type icons_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type icons_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type icons_variance_fields {
+  id: Float
+}
+
+"""
+columns and relationships of "item_rarities"
+"""
+type item_rarities {
+  color: String!
+  name: String!
+
+  """An array relationship"""
+  rewards(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): [rewards!]!
+
+  """An aggregate relationship"""
+  rewards_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rewards_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rewards_order_by!]
+
+    """filter the rows returned"""
+    where: rewards_bool_exp
+  ): rewards_aggregate!
+}
+
+"""
+aggregated selection of "item_rarities"
+"""
+type item_rarities_aggregate {
+  aggregate: item_rarities_aggregate_fields
+  nodes: [item_rarities!]!
+}
+
+"""
+aggregate fields of "item_rarities"
+"""
+type item_rarities_aggregate_fields {
+  count(columns: [item_rarities_select_column!], distinct: Boolean): Int!
+  max: item_rarities_max_fields
+  min: item_rarities_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "item_rarities". All fields are combined with a logical 'AND'.
+"""
+input item_rarities_bool_exp {
+  _and: [item_rarities_bool_exp!]
+  _not: item_rarities_bool_exp
+  _or: [item_rarities_bool_exp!]
+  color: String_comparison_exp
+  name: String_comparison_exp
+  rewards: rewards_bool_exp
+}
+
+"""
+unique or primary key constraints on table "item_rarities"
+"""
+enum item_rarities_constraint {
+  """unique or primary key constraint"""
+  item_rarities_pkey
+}
+
+enum item_rarities_enum {
+  """pink"""
+  artifact
+
+  """white"""
+  common
+
+  """orange"""
+  epic
+
+  """blue"""
+  rare
+
+  """gray"""
+  trash
+
+  """green"""
+  uncommon
+
+  """purple"""
+  very_rare
+}
+
+"""
+Boolean expression to compare columns of type "item_rarities_enum". All fields are combined with logical 'AND'.
+"""
+input item_rarities_enum_comparison_exp {
+  _eq: item_rarities_enum
+  _in: [item_rarities_enum!]
+  _is_null: Boolean
+  _neq: item_rarities_enum
+  _nin: [item_rarities_enum!]
+}
+
+"""
+input type for inserting data into table "item_rarities"
+"""
+input item_rarities_insert_input {
+  color: String
+  name: String
+  rewards: rewards_arr_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type item_rarities_max_fields {
+  color: String
+  name: String
+}
+
+"""aggregate min on columns"""
+type item_rarities_min_fields {
+  color: String
+  name: String
+}
+
+"""
+response of any mutation on the table "item_rarities"
+"""
+type item_rarities_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [item_rarities!]!
+}
+
+"""
+input type for inserting object relation for remote table "item_rarities"
+"""
+input item_rarities_obj_rel_insert_input {
+  data: item_rarities_insert_input!
+
+  """upsert condition"""
+  on_conflict: item_rarities_on_conflict
+}
+
+"""
+on_conflict condition type for table "item_rarities"
+"""
+input item_rarities_on_conflict {
+  constraint: item_rarities_constraint!
+  update_columns: [item_rarities_update_column!]! = []
+  where: item_rarities_bool_exp
+}
+
+"""Ordering options when selecting data from "item_rarities"."""
+input item_rarities_order_by {
+  color: order_by
+  name: order_by
+  rewards_aggregate: rewards_aggregate_order_by
+}
+
+"""primary key columns input for table: item_rarities"""
+input item_rarities_pk_columns_input {
+  name: String!
+}
+
+"""
+select columns of table "item_rarities"
+"""
+enum item_rarities_select_column {
+  """column name"""
+  color
+
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "item_rarities"
+"""
+input item_rarities_set_input {
+  color: String
+  name: String
+}
+
+"""
+update columns of table "item_rarities"
+"""
+enum item_rarities_update_column {
+  """column name"""
+  color
+
+  """column name"""
+  name
+}
+
 scalar jsonb
 
 input jsonb_cast_exp {
@@ -2216,6 +2647,32 @@ type mutation_root {
     """filter the rows which have to be deleted"""
     where: users_bool_exp!
   ): users_mutation_response
+
+  """
+  delete data from the table: "icons"
+  """
+  delete_icons(
+    """filter the rows which have to be deleted"""
+    where: icons_bool_exp!
+  ): icons_mutation_response
+
+  """
+  delete single row from the table: "icons"
+  """
+  delete_icons_by_pk(id: bigint!): icons
+
+  """
+  delete data from the table: "item_rarities"
+  """
+  delete_item_rarities(
+    """filter the rows which have to be deleted"""
+    where: item_rarities_bool_exp!
+  ): item_rarities_mutation_response
+
+  """
+  delete single row from the table: "item_rarities"
+  """
+  delete_item_rarities_by_pk(name: String!): item_rarities
 
   """
   delete data from the table: "quest_log_entries"
@@ -2492,6 +2949,50 @@ type mutation_root {
     """upsert condition"""
     on_conflict: users_on_conflict
   ): users_mutation_response
+
+  """
+  insert data into the table: "icons"
+  """
+  insert_icons(
+    """the rows to be inserted"""
+    objects: [icons_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: icons_on_conflict
+  ): icons_mutation_response
+
+  """
+  insert a single row into the table: "icons"
+  """
+  insert_icons_one(
+    """the row to be inserted"""
+    object: icons_insert_input!
+
+    """upsert condition"""
+    on_conflict: icons_on_conflict
+  ): icons
+
+  """
+  insert data into the table: "item_rarities"
+  """
+  insert_item_rarities(
+    """the rows to be inserted"""
+    objects: [item_rarities_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: item_rarities_on_conflict
+  ): item_rarities_mutation_response
+
+  """
+  insert a single row into the table: "item_rarities"
+  """
+  insert_item_rarities_one(
+    """the row to be inserted"""
+    object: item_rarities_insert_input!
+
+    """upsert condition"""
+    on_conflict: item_rarities_on_conflict
+  ): item_rarities
 
   """
   insert data into the table: "quest_log_entries"
@@ -2900,6 +3401,52 @@ type mutation_root {
     """filter the rows which have to be updated"""
     where: users_bool_exp!
   ): users_mutation_response
+
+  """
+  update data of the table: "icons"
+  """
+  update_icons(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: icons_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: icons_set_input
+
+    """filter the rows which have to be updated"""
+    where: icons_bool_exp!
+  ): icons_mutation_response
+
+  """
+  update single row of the table: "icons"
+  """
+  update_icons_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: icons_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: icons_set_input
+    pk_columns: icons_pk_columns_input!
+  ): icons
+
+  """
+  update data of the table: "item_rarities"
+  """
+  update_item_rarities(
+    """sets the columns of the filtered rows to the given values"""
+    _set: item_rarities_set_input
+
+    """filter the rows which have to be updated"""
+    where: item_rarities_bool_exp!
+  ): item_rarities_mutation_response
+
+  """
+  update single row of the table: "item_rarities"
+  """
+  update_item_rarities_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: item_rarities_set_input
+    pk_columns: item_rarities_pk_columns_input!
+  ): item_rarities
 
   """
   update data of the table: "quest_log_entries"
@@ -3417,8 +3964,92 @@ type query_root {
   ): files_aggregate!
 
   """
-  fetch data from the table: "quest_log_entries"
+  fetch data from the table: "icons"
   """
+  icons(
+    """distinct select on columns"""
+    distinct_on: [icons_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [icons_order_by!]
+
+    """filter the rows returned"""
+    where: icons_bool_exp
+  ): [icons!]!
+
+  """
+  fetch aggregated fields from the table: "icons"
+  """
+  icons_aggregate(
+    """distinct select on columns"""
+    distinct_on: [icons_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [icons_order_by!]
+
+    """filter the rows returned"""
+    where: icons_bool_exp
+  ): icons_aggregate!
+
+  """fetch data from the table: "icons" using primary key columns"""
+  icons_by_pk(id: bigint!): icons
+
+  """
+  fetch data from the table: "item_rarities"
+  """
+  item_rarities(
+    """distinct select on columns"""
+    distinct_on: [item_rarities_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [item_rarities_order_by!]
+
+    """filter the rows returned"""
+    where: item_rarities_bool_exp
+  ): [item_rarities!]!
+
+  """
+  fetch aggregated fields from the table: "item_rarities"
+  """
+  item_rarities_aggregate(
+    """distinct select on columns"""
+    distinct_on: [item_rarities_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [item_rarities_order_by!]
+
+    """filter the rows returned"""
+    where: item_rarities_bool_exp
+  ): item_rarities_aggregate!
+
+  """fetch data from the table: "item_rarities" using primary key columns"""
+  item_rarities_by_pk(name: String!): item_rarities
+
+  """An array relationship"""
   quest_log_entries(
     """distinct select on columns"""
     distinct_on: [quest_log_entries_select_column!]
@@ -3436,9 +4067,7 @@ type query_root {
     where: quest_log_entries_bool_exp
   ): [quest_log_entries!]!
 
-  """
-  fetch aggregated fields from the table: "quest_log_entries"
-  """
+  """An aggregate relationship"""
   quest_log_entries_aggregate(
     """distinct select on columns"""
     distinct_on: [quest_log_entries_select_column!]
@@ -3581,6 +4210,56 @@ type query_root {
 
   """fetch data from the table: "rewards" using primary key columns"""
   rewards_by_pk(id: Int!): rewards
+
+  """
+  execute function "search_icons" which returns "icons"
+  """
+  search_icons(
+    """
+    input parameters for function "search_icons"
+    """
+    args: search_icons_args!
+
+    """distinct select on columns"""
+    distinct_on: [icons_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [icons_order_by!]
+
+    """filter the rows returned"""
+    where: icons_bool_exp
+  ): [icons!]!
+
+  """
+  execute function "search_icons" and query aggregates on result of table type "icons"
+  """
+  search_icons_aggregate(
+    """
+    input parameters for function "search_icons_aggregate"
+    """
+    args: search_icons_args!
+
+    """distinct select on columns"""
+    distinct_on: [icons_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [icons_order_by!]
+
+    """filter the rows returned"""
+    where: icons_bool_exp
+  ): icons_aggregate!
 
   """
   fetch data from the table: "statuses"
@@ -4594,9 +5273,43 @@ type quests_aggregate_fields {
   variance: quests_variance_fields
 }
 
+"""
+order by aggregate values of table "quests"
+"""
+input quests_aggregate_order_by {
+  avg: quests_avg_order_by
+  count: order_by
+  max: quests_max_order_by
+  min: quests_min_order_by
+  stddev: quests_stddev_order_by
+  stddev_pop: quests_stddev_pop_order_by
+  stddev_samp: quests_stddev_samp_order_by
+  sum: quests_sum_order_by
+  var_pop: quests_var_pop_order_by
+  var_samp: quests_var_samp_order_by
+  variance: quests_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "quests"
+"""
+input quests_arr_rel_insert_input {
+  data: [quests_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: quests_on_conflict
+}
+
 """aggregate avg on columns"""
 type quests_avg_fields {
   id: Float
+}
+
+"""
+order by avg() on columns of table "quests"
+"""
+input quests_avg_order_by {
+  id: order_by
 }
 
 """
@@ -4665,6 +5378,19 @@ type quests_max_fields {
   updated_at: timestamptz
 }
 
+"""
+order by max() on columns of table "quests"
+"""
+input quests_max_order_by {
+  created_at: order_by
+  description: order_by
+  giver: order_by
+  id: order_by
+  imageURL: order_by
+  title: order_by
+  updated_at: order_by
+}
+
 """aggregate min on columns"""
 type quests_min_fields {
   created_at: timestamptz
@@ -4674,6 +5400,19 @@ type quests_min_fields {
   imageURL: String
   title: String
   updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "quests"
+"""
+input quests_min_order_by {
+  created_at: order_by
+  description: order_by
+  giver: order_by
+  id: order_by
+  imageURL: order_by
+  title: order_by
+  updated_at: order_by
 }
 
 """
@@ -4780,9 +5519,23 @@ type quests_stddev_fields {
   id: Float
 }
 
+"""
+order by stddev() on columns of table "quests"
+"""
+input quests_stddev_order_by {
+  id: order_by
+}
+
 """aggregate stddev_pop on columns"""
 type quests_stddev_pop_fields {
   id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "quests"
+"""
+input quests_stddev_pop_order_by {
+  id: order_by
 }
 
 """aggregate stddev_samp on columns"""
@@ -4790,9 +5543,23 @@ type quests_stddev_samp_fields {
   id: Float
 }
 
+"""
+order by stddev_samp() on columns of table "quests"
+"""
+input quests_stddev_samp_order_by {
+  id: order_by
+}
+
 """aggregate sum on columns"""
 type quests_sum_fields {
   id: Int
+}
+
+"""
+order by sum() on columns of table "quests"
+"""
+input quests_sum_order_by {
+  id: order_by
 }
 
 """
@@ -4832,14 +5599,35 @@ type quests_var_pop_fields {
   id: Float
 }
 
+"""
+order by var_pop() on columns of table "quests"
+"""
+input quests_var_pop_order_by {
+  id: order_by
+}
+
 """aggregate var_samp on columns"""
 type quests_var_samp_fields {
   id: Float
 }
 
+"""
+order by var_samp() on columns of table "quests"
+"""
+input quests_var_samp_order_by {
+  id: order_by
+}
+
 """aggregate variance on columns"""
 type quests_variance_fields {
   id: Float
+}
+
+"""
+order by variance() on columns of table "quests"
+"""
+input quests_variance_order_by {
+  id: order_by
 }
 
 """
@@ -4858,7 +5646,10 @@ type rewards {
   """An object relationship"""
   quest: quests!
   quest_id: Int!
-  rarity: String!
+  rarity: item_rarities_enum!
+
+  """An object relationship"""
+  rarity_detail: item_rarities!
   sourceURL: String
   step_id: Int
   type: String!
@@ -4952,7 +5743,8 @@ input rewards_bool_exp {
   name: String_comparison_exp
   quest: quests_bool_exp
   quest_id: Int_comparison_exp
-  rarity: String_comparison_exp
+  rarity: item_rarities_enum_comparison_exp
+  rarity_detail: item_rarities_bool_exp
   sourceURL: String_comparison_exp
   step_id: Int_comparison_exp
   type: String_comparison_exp
@@ -4990,7 +5782,8 @@ input rewards_insert_input {
   name: String
   quest: quests_obj_rel_insert_input
   quest_id: Int
-  rarity: String
+  rarity: item_rarities_enum
+  rarity_detail: item_rarities_obj_rel_insert_input
   sourceURL: String
   step_id: Int
   type: String
@@ -5005,7 +5798,6 @@ type rewards_max_fields {
   imageURL: String
   name: String
   quest_id: Int
-  rarity: String
   sourceURL: String
   step_id: Int
   type: String
@@ -5022,7 +5814,6 @@ input rewards_max_order_by {
   imageURL: order_by
   name: order_by
   quest_id: order_by
-  rarity: order_by
   sourceURL: order_by
   step_id: order_by
   type: order_by
@@ -5037,7 +5828,6 @@ type rewards_min_fields {
   imageURL: String
   name: String
   quest_id: Int
-  rarity: String
   sourceURL: String
   step_id: Int
   type: String
@@ -5054,7 +5844,6 @@ input rewards_min_order_by {
   imageURL: order_by
   name: order_by
   quest_id: order_by
-  rarity: order_by
   sourceURL: order_by
   step_id: order_by
   type: order_by
@@ -5092,6 +5881,7 @@ input rewards_order_by {
   quest: quests_order_by
   quest_id: order_by
   rarity: order_by
+  rarity_detail: item_rarities_order_by
   sourceURL: order_by
   step_id: order_by
   type: order_by
@@ -5151,7 +5941,7 @@ input rewards_set_input {
   imageURL: String
   name: String
   quest_id: Int
-  rarity: String
+  rarity: item_rarities_enum
   sourceURL: String
   step_id: Int
   type: String
@@ -5336,11 +6126,91 @@ input rewards_variance_order_by {
   value: order_by
 }
 
+input search_icons_args {
+  search: String
+}
+
 """
 columns and relationships of "statuses"
 """
 type statuses {
   name: String!
+
+  """An array relationship"""
+  quest_log_entries(
+    """distinct select on columns"""
+    distinct_on: [quest_log_entries_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_log_entries_order_by!]
+
+    """filter the rows returned"""
+    where: quest_log_entries_bool_exp
+  ): [quest_log_entries!]!
+
+  """An aggregate relationship"""
+  quest_log_entries_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quest_log_entries_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quest_log_entries_order_by!]
+
+    """filter the rows returned"""
+    where: quest_log_entries_bool_exp
+  ): quest_log_entries_aggregate!
+
+  """
+  fetch data from the table: "quests"
+  """
+  quests(
+    """distinct select on columns"""
+    distinct_on: [quests_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quests_order_by!]
+
+    """filter the rows returned"""
+    where: quests_bool_exp
+  ): [quests!]!
+
+  """
+  fetch aggregated fields from the table: "quests"
+  """
+  quests_aggregate(
+    """distinct select on columns"""
+    distinct_on: [quests_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [quests_order_by!]
+
+    """filter the rows returned"""
+    where: quests_bool_exp
+  ): quests_aggregate!
 }
 
 """
@@ -5368,6 +6238,8 @@ input statuses_bool_exp {
   _not: statuses_bool_exp
   _or: [statuses_bool_exp!]
   name: String_comparison_exp
+  quest_log_entries: quest_log_entries_bool_exp
+  quests: quests_bool_exp
 }
 
 """
@@ -5403,6 +6275,8 @@ input type for inserting data into table "statuses"
 """
 input statuses_insert_input {
   name: String
+  quest_log_entries: quest_log_entries_arr_rel_insert_input
+  quests: quests_arr_rel_insert_input
 }
 
 """aggregate max on columns"""
@@ -5438,6 +6312,8 @@ input statuses_on_conflict {
 """Ordering options when selecting data from "statuses"."""
 input statuses_order_by {
   name: order_by
+  quest_log_entries_aggregate: quest_log_entries_aggregate_order_by
+  quests_aggregate: quests_aggregate_order_by
 }
 
 """primary key columns input for table: statuses"""
@@ -5818,8 +6694,92 @@ type subscription_root {
   ): files_aggregate!
 
   """
-  fetch data from the table: "quest_log_entries"
+  fetch data from the table: "icons"
   """
+  icons(
+    """distinct select on columns"""
+    distinct_on: [icons_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [icons_order_by!]
+
+    """filter the rows returned"""
+    where: icons_bool_exp
+  ): [icons!]!
+
+  """
+  fetch aggregated fields from the table: "icons"
+  """
+  icons_aggregate(
+    """distinct select on columns"""
+    distinct_on: [icons_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [icons_order_by!]
+
+    """filter the rows returned"""
+    where: icons_bool_exp
+  ): icons_aggregate!
+
+  """fetch data from the table: "icons" using primary key columns"""
+  icons_by_pk(id: bigint!): icons
+
+  """
+  fetch data from the table: "item_rarities"
+  """
+  item_rarities(
+    """distinct select on columns"""
+    distinct_on: [item_rarities_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [item_rarities_order_by!]
+
+    """filter the rows returned"""
+    where: item_rarities_bool_exp
+  ): [item_rarities!]!
+
+  """
+  fetch aggregated fields from the table: "item_rarities"
+  """
+  item_rarities_aggregate(
+    """distinct select on columns"""
+    distinct_on: [item_rarities_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [item_rarities_order_by!]
+
+    """filter the rows returned"""
+    where: item_rarities_bool_exp
+  ): item_rarities_aggregate!
+
+  """fetch data from the table: "item_rarities" using primary key columns"""
+  item_rarities_by_pk(name: String!): item_rarities
+
+  """An array relationship"""
   quest_log_entries(
     """distinct select on columns"""
     distinct_on: [quest_log_entries_select_column!]
@@ -5837,9 +6797,7 @@ type subscription_root {
     where: quest_log_entries_bool_exp
   ): [quest_log_entries!]!
 
-  """
-  fetch aggregated fields from the table: "quest_log_entries"
-  """
+  """An aggregate relationship"""
   quest_log_entries_aggregate(
     """distinct select on columns"""
     distinct_on: [quest_log_entries_select_column!]
@@ -5982,6 +6940,56 @@ type subscription_root {
 
   """fetch data from the table: "rewards" using primary key columns"""
   rewards_by_pk(id: Int!): rewards
+
+  """
+  execute function "search_icons" which returns "icons"
+  """
+  search_icons(
+    """
+    input parameters for function "search_icons"
+    """
+    args: search_icons_args!
+
+    """distinct select on columns"""
+    distinct_on: [icons_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [icons_order_by!]
+
+    """filter the rows returned"""
+    where: icons_bool_exp
+  ): [icons!]!
+
+  """
+  execute function "search_icons" and query aggregates on result of table type "icons"
+  """
+  search_icons_aggregate(
+    """
+    input parameters for function "search_icons_aggregate"
+    """
+    args: search_icons_args!
+
+    """distinct select on columns"""
+    distinct_on: [icons_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [icons_order_by!]
+
+    """filter the rows returned"""
+    where: icons_bool_exp
+  ): icons_aggregate!
 
   """
   fetch data from the table: "statuses"

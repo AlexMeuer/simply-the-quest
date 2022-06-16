@@ -72,17 +72,6 @@ export const QuestList: React.FC = () => {
     },
   });
 
-  const tags = React.useMemo(
-    () =>
-      data &&
-      Array.from(
-        data.quests
-          .flatMap((quest) => quest.tags.map((tag) => tag.tag_name))
-          .reduce<Set<string>>((set, tag) => set.add(tag), new Set<string>())
-      ).sort(),
-    [data]
-  );
-
   const toggleTag = React.useCallback(
     (tag: string) =>
       setSelectedTags(

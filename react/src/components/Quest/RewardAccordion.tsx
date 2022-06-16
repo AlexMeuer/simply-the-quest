@@ -22,19 +22,11 @@ import React from "react";
 import { capitalCase } from "change-case";
 import { GiTwoCoins, GiSwapBag } from "react-icons/gi";
 import { FaLink } from "react-icons/fa";
-import { RewardFragment } from "../../generated/graphql";
-
-const rarityColors: Record<string, string> = {
-  artifact: "orange",
-  very_rare: "purple",
-  rare: "blue",
-  uncommon: "green",
-  common: "gray",
-  trash: "gray",
-};
+import { Reward } from "../../types/Reward";
+import { ItemRarityTag } from "../common/ItemRarityTag";
 
 export interface RewardAccordionProps {
-  rewards: RewardFragment[];
+  rewards: Reward[];
 }
 
 export const RewardAccordion: React.FC<RewardAccordionProps> = ({
@@ -59,7 +51,7 @@ export const RewardAccordion: React.FC<RewardAccordionProps> = ({
 };
 
 interface RewardAccordionItemProps {
-  reward: RewardFragment;
+  reward: Reward;
   expandTitle: boolean;
 }
 
@@ -76,7 +68,7 @@ const RewardAccordionItem: React.FC<RewardAccordionItemProps> = ({
           </AspectRatio>
           <Text noOfLines={expandTitle ? undefined : 1}>{name}</Text>
           <Spacer flex={1} />
-          <Tag colorScheme={rarityColors[rarity]}>{capitalCase(rarity)}</Tag>
+          <ItemRarityTag rarity={rarity} />
         </Stack>
         <AccordionIcon />
       </AccordionButton>

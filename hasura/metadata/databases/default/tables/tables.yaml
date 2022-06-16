@@ -6,6 +6,7 @@
 - "!include auth_user_roles.yaml"
 - "!include auth_users.yaml"
 - "!include public_icons.yaml"
+- "!include public_item_rarities.yaml"
 - "!include public_quest_log_entries.yaml"
 - "!include public_quest_tags.yaml"
 - "!include public_quests.yaml"

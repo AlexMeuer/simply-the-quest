@@ -33,6 +33,7 @@ import { AreYouLost } from "../404";
 import { SafeParseError, z } from "zod";
 import { capitalCase } from "change-case";
 import { AuthGuard } from "../Auth";
+import { RewardModal } from "./RewardModal/RewardModal";
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
@@ -203,34 +204,14 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
           </Stack>
         </Stack>
       </Center>
-      <Modal
+      <RewardModal
         isOpen={questRewardModal.isOpen}
         onClose={questRewardModal.onClose}
-        isCentered
-      >
-        <ModalOverlay
-          bg="blackAlpha.300"
-          backdropFilter="blur(4px) hue-rotate(25deg)"
-        />
-        <ModalContent>
-          <ModalHeader>Add Reward</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Text>Placeholder Text</Text>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              colorScheme="blue"
-              mr={3}
-              onClick={questRewardModal.onClose}
-            >
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+        onSubmit={(values) => {
+          console.info(values);
+          return Promise.resolve();
+        }}
+      />
     </>
   );
 };

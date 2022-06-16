@@ -1,0 +1,10 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- INSERT INTO item_rarities(name, color) VALUES
+--     ('trash', 'gray'),
+--     ('common', 'white'),
+--     ('uncommon', 'green'),
+--     ('rare', 'blue'),
+--     ('very_rare', 'purple'),
+--     ('epic', 'orange'),
+--     ('artifact', 'pink');
