@@ -4,29 +4,20 @@ import {
   Button,
   Center,
   Heading,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Portal,
   ScaleFade,
   Stack,
   Tag,
-  Text,
   useColorModeValue,
   useDisclosure,
   Wrap,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { gql } from "@apollo/client";
+import { gql, MutationResult, useMutation } from "@apollo/client";
 import { BadState, ErrorState, IndeterminateProgress } from "../common";
 import { QuestLogEntryDetail } from "./QuestLogEntryDetail";
 import { RewardAccordion } from "./RewardAccordion";
-import { QuestDetail as QuestDetailDomainType } from "../../types/Quest";
+import { QuestDetail as QuestDetailBase } from "../../types/Quest";
 import { flattenNestedTags } from "../../util/Tags";
 import { useQuestWithLogForDetailViewQuery } from "../../generated/graphql";
 import { AreYouLost } from "../404";
@@ -34,10 +25,22 @@ import { SafeParseError, z } from "zod";
 import { capitalCase } from "change-case";
 import { AuthGuard } from "../Auth";
 import { RewardModal } from "./RewardModal/RewardModal";
+import { NewlineText } from "../common/NewlineText";
+import { Reward } from "../../types/Reward";
+
+const QuestDetail = QuestDetailBase.omit({
+  slug: true,
+  created_at: true,
+  updated_at: true,
+}).extend({
+  id: z.number(),
+});
+type QuestDetail = z.infer<typeof QuestDetail>;
 
 gql`
   query QuestWithLogForDetailView($slug: String) {
     quests(limit: 1, where: { slug: { _eq: $slug } }) {
+      id
       title
       description
       status
@@ -63,6 +66,7 @@ gql`
     }
   }
   fragment reward on rewards {
+    id
     name
     description
     type
@@ -74,19 +78,66 @@ gql`
   }
 `;
 
+const addRewardMutation = gql`
+  mutation AddReward($object: rewards_insert_input!) {
+    insert_rewards_one(object: $object) {
+      id
+      quest_id
+      step_id
+    }
+  }
+`;
+
+//? Does this really need it's own hook?
+type RewardAdder = (
+  reward: Reward,
+  questId: number,
+  stepId?: number
+) => Promise<any>;
+function useAddRewardMutation(): [RewardAdder, MutationResult<any>] {
+  const [addReward, info] = useMutation(addRewardMutation);
+  const mutate = React.useCallback(
+    (reward: Reward, questId: number, stepId?: number) =>
+      addReward({
+        variables: {
+          object: {
+            name: reward.name,
+            description: reward.description,
+            type: reward.type,
+            rarity: reward.rarity,
+            count: reward.count,
+            value: reward.value,
+            imageURL: reward.imageURL,
+            sourceURL: reward.sourceURL,
+            quest_id: questId,
+            step_id: stepId,
+          },
+        },
+      }),
+    [addReward]
+  );
+  return [mutate, info];
+}
+
 export const QuestDetailGraphqlWrapper: React.FC = () => {
   const { slug } = useParams();
-  const { data, loading } = useQuestWithLogForDetailViewQuery({
+  const { data, loading, refetch } = useQuestWithLogForDetailViewQuery({
     variables: { slug },
   });
 
   const result = React.useMemo(
     () =>
       data && data.quests && data.quests.length
-        ? QuestDetailProps.safeParse(flattenNestedTags(data.quests[0]))
-        : ({ success: false, error: {} } as SafeParseError<QuestDetailProps>),
+        ? QuestDetail.safeParse(flattenNestedTags(data.quests[0]))
+        : ({ success: false, error: {} } as SafeParseError<QuestDetail>),
     [data]
   );
+
+  const [addReward, { data: rewardMutationData }] = useAddRewardMutation();
+
+  React.useEffect(() => {
+    refetch();
+  }, [rewardMutationData]);
 
   if (loading) {
     return <IndeterminateProgress />;
@@ -111,29 +162,26 @@ export const QuestDetailGraphqlWrapper: React.FC = () => {
     );
   }
 
-  return <QuestDetail {...result.data} />;
+  return <QuestDetailView quest={result.data} onAddReward={addReward} />;
 };
 
-export const QuestDetailProps = QuestDetailDomainType.pick({
-  title: true,
-  description: true,
-  imageURL: true,
-  giver: true,
-  tags: true,
-  rewards: true,
-  log_entries: true,
-});
+export interface QuestDetailViewProps {
+  quest: QuestDetail;
+  onAddReward: RewardAdder;
+}
 
-export type QuestDetailProps = z.infer<typeof QuestDetailProps>;
-
-export const QuestDetail: React.FC<QuestDetailProps> = ({
-  title,
-  description,
-  imageURL,
-  giver,
-  tags,
-  rewards,
-  log_entries,
+export const QuestDetailView: React.FC<QuestDetailViewProps> = ({
+  quest: {
+    id,
+    title,
+    description,
+    imageURL,
+    giver,
+    tags,
+    rewards,
+    log_entries,
+  },
+  onAddReward,
 }) => {
   const bgHeaderTintStart = useColorModeValue(
     "rgba(255, 255, 255, 0.0)",
@@ -183,19 +231,18 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
                 {giver}
               </Tag>
             </Wrap>
-            {rewards.length ? (
+            {rewards.length && (
               <Stack rounded="lg" border="1px" borderColor="gray.500">
                 <Heading fontSize="md" as="h2" mx="auto" mt={1}>
                   Possible Rewards
                 </Heading>
                 <RewardAccordion rewards={rewards} />
               </Stack>
-            ) : (
-              <AuthGuard>
-                <Button onClick={questRewardModal.onOpen}>Add Reward</Button>
-              </AuthGuard>
             )}
-            <Text>{description}</Text>
+            <AuthGuard>
+              <Button onClick={questRewardModal.onOpen}>Add Reward</Button>
+            </AuthGuard>
+            <NewlineText>{description}</NewlineText>
             {log_entries.map((entry, i) => (
               <ScaleFade key={entry.step} delay={i * 0.1} in>
                 <QuestLogEntryDetail {...entry} />
@@ -207,9 +254,12 @@ export const QuestDetail: React.FC<QuestDetailProps> = ({
       <RewardModal
         isOpen={questRewardModal.isOpen}
         onClose={questRewardModal.onClose}
-        onSubmit={(values) => {
-          console.info(values);
-          return Promise.resolve();
+        onSubmit={(reward) => {
+          if (reward.id !== undefined) {
+            throw new Error("Updating rewards is not yet implemented!");
+          }
+          // TODO: implement reward updating, and adding rewards to steps.
+          return onAddReward(reward, id).then();
         }}
       />
     </>

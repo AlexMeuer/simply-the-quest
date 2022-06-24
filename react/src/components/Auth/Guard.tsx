@@ -40,5 +40,5 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
     );
   }
 
-  return isAuthenticated ? children : whenUnauthed || <AuthGate />;
+  return isAuthenticated ? children : whenUnauthed || null;
 };

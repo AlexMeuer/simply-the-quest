@@ -16,6 +16,7 @@ export const ItemRarityDetail = z.object({
 });
 
 export const Reward = z.object({
+  id: z.number().optional(),
   name: z.string().min(1),
   description: z.string(),
   type: z.string(),

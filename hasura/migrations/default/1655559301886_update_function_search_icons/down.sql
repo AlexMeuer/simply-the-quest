@@ -1,0 +1,13 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- CREATE OR REPLACE FUNCTION public.search_icons(search text)
+--  RETURNS SETOF icons
+--  LANGUAGE sql
+--  STABLE
+-- AS $function$
+-- SELECT   *
+-- FROM     icons
+-- WHERE    search <% ( NAME )
+-- ORDER BY similarity(search, ( NAME )) DESC;
+--
+-- $function$;

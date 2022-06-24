@@ -6589,9 +6589,16 @@ export type QuestWithLogForDetailViewQueryVariables = Exact<{
 }>;
 
 
-export type QuestWithLogForDetailViewQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, description: string, status: Statuses_Enum, giver: string, imageURL?: string | null, tags: Array<{ __typename?: 'quest_tags', tag_name: string }>, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }>, log_entries: Array<{ __typename?: 'quest_log_entries', title: string, body: string, status: Statuses_Enum, step: number, created_at: any, imageURL?: string | null, rewards: Array<{ __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }> }> }> };
+export type QuestWithLogForDetailViewQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', id: number, title: string, description: string, status: Statuses_Enum, giver: string, imageURL?: string | null, tags: Array<{ __typename?: 'quest_tags', tag_name: string }>, rewards: Array<{ __typename?: 'rewards', id: number, name: string, description?: string | null, type: string, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }>, log_entries: Array<{ __typename?: 'quest_log_entries', title: string, body: string, status: Statuses_Enum, step: number, created_at: any, imageURL?: string | null, rewards: Array<{ __typename?: 'rewards', id: number, name: string, description?: string | null, type: string, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null }> }> }> };
 
-export type RewardFragment = { __typename?: 'rewards', name: string, description?: string | null, type: string, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null };
+export type RewardFragment = { __typename?: 'rewards', id: number, name: string, description?: string | null, type: string, rarity: Item_Rarities_Enum, count?: number | null, value?: number | null, imageURL?: string | null, sourceURL?: string | null };
+
+export type AddRewardMutationVariables = Exact<{
+  object: Rewards_Insert_Input;
+}>;
+
+
+export type AddRewardMutation = { __typename?: 'mutation_root', insert_rewards_one?: { __typename?: 'rewards', id: number, quest_id: number, step_id?: number | null } | null };
 
 export type QuestListQueryVariables = Exact<{
   filter?: InputMaybe<Quests_Bool_Exp>;
@@ -6599,6 +6606,13 @@ export type QuestListQueryVariables = Exact<{
 
 
 export type QuestListQuery = { __typename?: 'query_root', quests: Array<{ __typename?: 'quests', title: string, status: Statuses_Enum, slug?: string | null, description: string, giver: string, imageURL?: string | null, created_at: any, updated_at: any, tags: Array<{ __typename?: 'quest_tags', tag_name: string }>, log_entries: Array<{ __typename?: 'quest_log_entries', status: Statuses_Enum }> }> };
+
+export type SearchIconsQueryVariables = Exact<{
+  searchTerm: Scalars['String'];
+}>;
+
+
+export type SearchIconsQuery = { __typename?: 'query_root', search_icons: Array<{ __typename?: 'icons', name: string, url: string }> };
 
 export type AllItemRaritiesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6620,6 +6634,7 @@ export const RewardWithIdFragmentDoc = gql`
     `;
 export const RewardFragmentDoc = gql`
     fragment reward on rewards {
+  id
   name
   description
   type
@@ -6804,6 +6819,7 @@ export type CreateQuestMutationOptions = Apollo.BaseMutationOptions<CreateQuestM
 export const QuestWithLogForDetailViewDocument = gql`
     query QuestWithLogForDetailView($slug: String) {
   quests(limit: 1, where: {slug: {_eq: $slug}}) {
+    id
     title
     description
     status
@@ -6857,6 +6873,41 @@ export function useQuestWithLogForDetailViewLazyQuery(baseOptions?: Apollo.LazyQ
 export type QuestWithLogForDetailViewQueryHookResult = ReturnType<typeof useQuestWithLogForDetailViewQuery>;
 export type QuestWithLogForDetailViewLazyQueryHookResult = ReturnType<typeof useQuestWithLogForDetailViewLazyQuery>;
 export type QuestWithLogForDetailViewQueryResult = Apollo.QueryResult<QuestWithLogForDetailViewQuery, QuestWithLogForDetailViewQueryVariables>;
+export const AddRewardDocument = gql`
+    mutation AddReward($object: rewards_insert_input!) {
+  insert_rewards_one(object: $object) {
+    id
+    quest_id
+    step_id
+  }
+}
+    `;
+export type AddRewardMutationFn = Apollo.MutationFunction<AddRewardMutation, AddRewardMutationVariables>;
+
+/**
+ * __useAddRewardMutation__
+ *
+ * To run a mutation, you first call `useAddRewardMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddRewardMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addRewardMutation, { data, loading, error }] = useAddRewardMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useAddRewardMutation(baseOptions?: Apollo.MutationHookOptions<AddRewardMutation, AddRewardMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddRewardMutation, AddRewardMutationVariables>(AddRewardDocument, options);
+      }
+export type AddRewardMutationHookResult = ReturnType<typeof useAddRewardMutation>;
+export type AddRewardMutationResult = Apollo.MutationResult<AddRewardMutation>;
+export type AddRewardMutationOptions = Apollo.BaseMutationOptions<AddRewardMutation, AddRewardMutationVariables>;
 export const QuestListDocument = gql`
     query QuestList($filter: quests_bool_exp) {
   quests(where: $filter) {
@@ -6905,6 +6956,42 @@ export function useQuestListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type QuestListQueryHookResult = ReturnType<typeof useQuestListQuery>;
 export type QuestListLazyQueryHookResult = ReturnType<typeof useQuestListLazyQuery>;
 export type QuestListQueryResult = Apollo.QueryResult<QuestListQuery, QuestListQueryVariables>;
+export const SearchIconsDocument = gql`
+    query SearchIcons($searchTerm: String!) {
+  search_icons(args: {search: $searchTerm}) {
+    name
+    url
+  }
+}
+    `;
+
+/**
+ * __useSearchIconsQuery__
+ *
+ * To run a query within a React component, call `useSearchIconsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchIconsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchIconsQuery({
+ *   variables: {
+ *      searchTerm: // value for 'searchTerm'
+ *   },
+ * });
+ */
+export function useSearchIconsQuery(baseOptions: Apollo.QueryHookOptions<SearchIconsQuery, SearchIconsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchIconsQuery, SearchIconsQueryVariables>(SearchIconsDocument, options);
+      }
+export function useSearchIconsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchIconsQuery, SearchIconsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchIconsQuery, SearchIconsQueryVariables>(SearchIconsDocument, options);
+        }
+export type SearchIconsQueryHookResult = ReturnType<typeof useSearchIconsQuery>;
+export type SearchIconsLazyQueryHookResult = ReturnType<typeof useSearchIconsLazyQuery>;
+export type SearchIconsQueryResult = Apollo.QueryResult<SearchIconsQuery, SearchIconsQueryVariables>;
 export const AllItemRaritiesDocument = gql`
     query AllItemRarities {
   item_rarities {

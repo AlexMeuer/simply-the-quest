@@ -1,2 +1,3 @@
 version: 3
-endpoint: https://rmstpsgvghyucodosnyh.nhost.run
+#endpoint: https://rmstpsgvghyucodosnyh.nhost.run
+endpoint: http://localhost:9256

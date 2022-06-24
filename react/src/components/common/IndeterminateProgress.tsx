@@ -1,8 +1,22 @@
-import { Center, CircularProgress, useColorModeValue } from "@chakra-ui/react";
+import {
+  Center,
+  CircularProgress,
+  CircularProgressProps,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import React from "react";
 
-export const IndeterminateProgress = () => (
+export type InderterminateProgressProps = Omit<
+  CircularProgressProps,
+  "isIndeterminate" | "capIsRound" | "color" | "trackColor"
+>;
+
+export const IndeterminateProgress: React.FC<InderterminateProgressProps> = (
+  props
+) => (
   <Center>
     <CircularProgress
+      {...props}
       isIndeterminate
       capIsRound
       color={useColorModeValue("cyan.900", "cyan.300")}

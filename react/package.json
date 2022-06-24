@@ -21,6 +21,7 @@
     "@ctrl/tinycolor": "^3.4.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@faker-js/faker": "^7.2.0",
     "@nhost/nhost-js": "^1.1.14",
     "@nhost/react": "^0.7.8",
     "@nhost/react-apollo": "^4.2.8",

@@ -10,10 +10,10 @@ import {
   useColorModeValue,
   Wrap,
 } from "@chakra-ui/react";
+import { SearchIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import { capitalCase } from "change-case";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
-import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { useQuestListQuery } from "../../generated/graphql";
 import { QuestBase } from "../../types/Quest";
 import { flattenNestedTagsForEach, WithFlatTags } from "../../util/Tags";
@@ -138,23 +138,13 @@ export const QuestList: React.FC = () => {
       <InputGroup bg={useColorModeValue("gray.200", "gray.800")}>
         <InputLeftElement
           pointerEvents="none"
-          children={<AiOutlineSearch color="gray" />}
+          children={<SearchIcon color="gray" />}
         />
         <Input
+          type="search"
           placeholder="Search..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <InputRightElement
-          children={
-            <IconButton
-              aria-label="clear"
-              variant="ghost"
-              disabled={searchTerm.length <= 0}
-              icon={<AiOutlineClose />}
-              onClick={clearFilters}
-            />
-          }
         />
       </InputGroup>
       <Wrap justify="end">

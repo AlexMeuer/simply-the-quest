@@ -6,6 +6,7 @@ import tinycolor, { TinyColor } from "@ctrl/tinycolor";
 import { QuestLogEntry } from "../../types/QuestLogEntry";
 import { RewardAccordion } from "./RewardAccordion";
 import { Status } from "../../types/Status";
+import { NewlineText } from "../common/NewlineText";
 
 const tints: Record<Status, TinyColor[]> = {
   success: [
@@ -73,7 +74,7 @@ export const QuestLogEntryDetail: React.FC<QuestLogEntryDetailProps> = ({
           <StatusBadge status={status} />
         </Box>
       </Flex>
-      <Text>{body}</Text>
+      <NewlineText>{body}</NewlineText>
       {rewards.length && <RewardAccordion rewards={rewards} />}
     </Stack>
   );
