@@ -5,6 +5,10 @@ import {
   AccordionItem,
   AccordionPanel,
   AspectRatio,
+  Button,
+  Center,
+  Flex,
+  IconButton,
   Image,
   LinkBox,
   LinkOverlay,
@@ -15,22 +19,28 @@ import {
   TagProps,
   TagRightIcon,
   Text,
-  ThemingProps,
+  Tooltip,
   Wrap,
 } from "@chakra-ui/react";
 import React from "react";
-import { capitalCase } from "change-case";
 import { GiTwoCoins, GiSwapBag } from "react-icons/gi";
 import { FaLink } from "react-icons/fa";
 import { Reward } from "../../types/Reward";
 import { ItemRarityTag } from "../common/ItemRarityTag";
+import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 export interface RewardAccordionProps {
   rewards: Reward[];
+  onAddReward?: () => void;
+  onEditReward?: (reward: Reward) => void;
+  onDeleteReward?: (reward: Reward) => void;
 }
 
 export const RewardAccordion: React.FC<RewardAccordionProps> = ({
   rewards,
+  onAddReward,
+  onEditReward,
+  onDeleteReward,
 }) => {
   const [openIndices, setOpenIndices] = React.useState<number[]>([]);
   return (
@@ -44,8 +54,22 @@ export const RewardAccordion: React.FC<RewardAccordionProps> = ({
           key={r.name}
           reward={r}
           expandTitle={openIndices.includes(i)}
+          onEdit={onEditReward && (() => onEditReward(r))}
+          onDelete={onDeleteReward && (() => onDeleteReward(r))}
         />
       ))}
+      {onAddReward && (
+        <Button
+          mx={2}
+          size="xs"
+          aria-label="add reward"
+          variant="ghost"
+          onClick={onAddReward}
+        >
+          <AddIcon mr={1} />
+          Add Reward
+        </Button>
+      )}
     </Accordion>
   );
 };
@@ -53,11 +77,15 @@ export const RewardAccordion: React.FC<RewardAccordionProps> = ({
 interface RewardAccordionItemProps {
   reward: Reward;
   expandTitle: boolean;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
 const RewardAccordionItem: React.FC<RewardAccordionItemProps> = ({
   reward: { name, description, imageURL, rarity, count, value, sourceURL },
   expandTitle,
+  onEdit,
+  onDelete,
 }) => (
   <AccordionItem>
     <h3>
@@ -74,26 +102,53 @@ const RewardAccordionItem: React.FC<RewardAccordionItemProps> = ({
       </AccordionButton>
     </h3>
     <AccordionPanel pb={4}>
-      <Wrap direction="row">
-        <RewardStat value={value} colorScheme="orange">
-          <GiTwoCoins />
-        </RewardStat>
-        <RewardStat value={count}>
-          <GiSwapBag />
-        </RewardStat>
-        {sourceURL && (
-          <LinkBox>
-            <Tag colorScheme="blue">
-              <TagLabel>
-                <LinkOverlay isExternal href={sourceURL}>
-                  Source
-                </LinkOverlay>
-              </TagLabel>
-              <TagRightIcon as={FaLink} />
-            </Tag>
-          </LinkBox>
+      <Flex direction="row" justifyContent="space-between">
+        <Wrap direction="row">
+          <RewardStat value={value} colorScheme="orange">
+            <GiTwoCoins />
+          </RewardStat>
+          <RewardStat value={count}>
+            <GiSwapBag />
+          </RewardStat>
+          {sourceURL && (
+            <LinkBox>
+              <Tag colorScheme="blue">
+                <TagLabel>
+                  <LinkOverlay isExternal href={sourceURL}>
+                    Source
+                  </LinkOverlay>
+                </TagLabel>
+                <TagRightIcon as={FaLink} />
+              </Tag>
+            </LinkBox>
+          )}
+        </Wrap>
+        {(onEdit || onDelete) && (
+          <Wrap direction="row">
+            {onEdit && (
+              <Tooltip label="Edit" openDelay={500} hasArrow>
+                <IconButton
+                  size="xs"
+                  onClick={onEdit}
+                  aria-label="edit"
+                  icon={<EditIcon />}
+                />
+              </Tooltip>
+            )}
+            {onDelete && (
+              <Tooltip label="Delete" openDelay={500} hasArrow>
+                <IconButton
+                  size="xs"
+                  onClick={onDelete}
+                  aria-label="delete"
+                  icon={<DeleteIcon />}
+                  colorScheme="red"
+                />
+              </Tooltip>
+            )}
+          </Wrap>
         )}
-      </Wrap>
+      </Flex>
       {description && <Text>{description}</Text>}
     </AccordionPanel>
   </AccordionItem>

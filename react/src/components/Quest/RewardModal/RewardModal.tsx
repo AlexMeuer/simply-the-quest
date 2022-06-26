@@ -37,7 +37,7 @@ export interface RewardModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (reward: Reward) => Promise<any>;
-  initialValue?: Reward;
+  initialValue: React.RefObject<Reward | null>;
 }
 
 export const RewardModal: React.FC<RewardModalProps> = ({
@@ -69,7 +69,7 @@ export const RewardModal: React.FC<RewardModalProps> = ({
     isSubmitting,
     setFieldValue,
   } = useFormik<Reward>({
-    initialValues: initialValue || {
+    initialValues: initialValue.current || {
       name: "",
       description: "",
       type: "",

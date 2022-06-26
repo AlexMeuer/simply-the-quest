@@ -7,6 +7,8 @@ import { QuestLogEntry } from "../../types/QuestLogEntry";
 import { RewardAccordion } from "./RewardAccordion";
 import { Status } from "../../types/Status";
 import { NewlineText } from "../common/NewlineText";
+import { Reward } from "../../types/Reward";
+import { AddRewardButton } from "./AddRewardButton";
 
 const tints: Record<Status, TinyColor[]> = {
   success: [
@@ -40,7 +42,12 @@ const tints: Record<Status, TinyColor[]> = {
   ],
 };
 
-export type QuestLogEntryDetailProps = QuestLogEntry;
+export interface QuestLogEntryDetailProps {
+  entry: QuestLogEntry;
+  onAddReward?: () => void;
+  onEditReward?: (reward: Reward) => void;
+  onDeleteReward?: (reward: Reward) => void;
+}
 
 const buildBg = (status: Status, imageURL?: string | null): string => {
   const urlBg = `url('${imageURL}')`;
@@ -52,11 +59,10 @@ const buildBg = (status: Status, imageURL?: string | null): string => {
 };
 
 export const QuestLogEntryDetail: React.FC<QuestLogEntryDetailProps> = ({
-  title,
-  status,
-  body,
-  imageURL,
-  rewards,
+  entry: { title, status, body, imageURL, rewards },
+  onAddReward,
+  onEditReward,
+  onDeleteReward,
 }) => {
   return (
     <Stack
@@ -75,7 +81,15 @@ export const QuestLogEntryDetail: React.FC<QuestLogEntryDetailProps> = ({
         </Box>
       </Flex>
       <NewlineText>{body}</NewlineText>
-      {rewards.length && <RewardAccordion rewards={rewards} />}
+      {(rewards.length && (
+        <RewardAccordion
+          rewards={rewards}
+          onAddReward={onAddReward}
+          onEditReward={onEditReward}
+          onDeleteReward={onDeleteReward}
+        />
+      )) ||
+        (onAddReward && <AddRewardButton onClick={onAddReward} />)}
     </Stack>
   );
 };

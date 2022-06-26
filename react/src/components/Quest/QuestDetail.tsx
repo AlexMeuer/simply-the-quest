@@ -27,6 +27,9 @@ import { AuthGuard } from "../Auth";
 import { RewardModal } from "./RewardModal/RewardModal";
 import { NewlineText } from "../common/NewlineText";
 import { Reward } from "../../types/Reward";
+import { useAuthenticationStatus } from "@nhost/react";
+import { useIfAuthenticated } from "../../hooks/useIfAuthenticated";
+import { AddRewardButton } from "./AddRewardButton";
 
 const QuestDetail = QuestDetailBase.omit({
   slug: true,
@@ -195,7 +198,18 @@ export const QuestDetailView: React.FC<QuestDetailViewProps> = ({
     "rgba(255, 255, 255, 0.6)",
     "rgba(20, 10, 0, 0.5)"
   );
-  const questRewardModal = useDisclosure();
+  const { ifAuthed, isAuthenticated } = useIfAuthenticated();
+  const rewardModal = useDisclosure();
+  const rewardBeingEditted = React.useRef<Reward | null>(null);
+  const rewardStepId = React.useRef<number | undefined>(undefined);
+  const showRewardModal = React.useCallback(
+    (edit: Reward | null, stepId?: number) => {
+      rewardBeingEditted.current = edit;
+      rewardStepId.current = stepId;
+      rewardModal.onOpen();
+    },
+    [rewardModal, rewardBeingEditted, rewardStepId]
+  );
   return (
     <>
       <Helmet>
@@ -231,35 +245,56 @@ export const QuestDetailView: React.FC<QuestDetailViewProps> = ({
                 {giver}
               </Tag>
             </Wrap>
-            {rewards.length && (
+            {(rewards.length && (
               <Stack rounded="lg" border="1px" borderColor="gray.500">
                 <Heading fontSize="md" as="h2" mx="auto" mt={1}>
                   Possible Rewards
                 </Heading>
-                <RewardAccordion rewards={rewards} />
+                <RewardAccordion
+                  rewards={rewards}
+                  onAddReward={ifAuthed(() => showRewardModal(null))}
+                  onEditReward={ifAuthed((r) => showRewardModal(r))}
+                  onDeleteReward={ifAuthed((r) =>
+                    console.info("Reward deletion not implemented", r)
+                  )}
+                />
               </Stack>
-            )}
-            <AuthGuard>
-              <Button onClick={questRewardModal.onOpen}>Add Reward</Button>
-            </AuthGuard>
+            )) ||
+              (isAuthenticated && (
+                <AddRewardButton onClick={() => showRewardModal(null)} />
+              ))}
             <NewlineText>{description}</NewlineText>
             {log_entries.map((entry, i) => (
               <ScaleFade key={entry.step} delay={i * 0.1} in>
-                <QuestLogEntryDetail {...entry} />
+                <QuestLogEntryDetail
+                  entry={entry}
+                  onAddReward={ifAuthed(() =>
+                    showRewardModal(null, entry.step)
+                  )}
+                  onEditReward={ifAuthed((r) => showRewardModal(r, entry.step))}
+                  onDeleteReward={ifAuthed((r) =>
+                    console.info(
+                      "Reward deletion not implemented",
+                      r,
+                      entry.step
+                    )
+                  )}
+                />
               </ScaleFade>
             ))}
           </Stack>
         </Stack>
       </Center>
       <RewardModal
-        isOpen={questRewardModal.isOpen}
-        onClose={questRewardModal.onClose}
+        isOpen={rewardModal.isOpen}
+        onClose={rewardModal.onClose}
+        initialValue={rewardBeingEditted}
         onSubmit={(reward) => {
           if (reward.id !== undefined) {
             throw new Error("Updating rewards is not yet implemented!");
           }
           // TODO: implement reward updating, and adding rewards to steps.
-          return onAddReward(reward, id).then();
+          return onAddReward(reward, id, rewardStepId.current).then();
         }}
       />
     </>
