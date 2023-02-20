@@ -2831,10 +2831,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^12.0.0":
-  version: 12.20.52
-  resolution: "@types/node@npm:12.20.52"
-  checksum: b720ee939a43f1427baf1606deee97e50892ff482bf3d64ab8a1eda3a50802a80866a232aeab337621f6ea4fdc4515147d7829337653e9e99d97c3aaeec3615d
+"@types/node@npm:^18.14.0":
+  version: 18.14.0
+  resolution: "@types/node@npm:18.14.0"
+  checksum: d83fcf5e4ed544755dd9028f5cbb6b9d46235043159111bb2ad62223729aee581c0144a9f6df8ba73d74011db9ed4ebd7af2fd5e0996714e3beb508a5da8ac5c
   languageName: node
   linkType: hard
 
@@ -7022,7 +7022,7 @@ __metadata:
     "@testing-library/user-event": ^12.0.2
     "@types/jest": ^25.0.0
     "@types/lodash": ^4.14.182
-    "@types/node": ^12.0.0
+    "@types/node": ^18.14.0
     "@types/react": ^18.0.0
     "@types/react-dom": ^18.0.0
     "@types/react-helmet": ^6.1.5

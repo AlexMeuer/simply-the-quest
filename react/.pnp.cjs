@@ -62,7 +62,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/user-event", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:12.8.3"],\
             ["@types/jest", "npm:25.2.3"],\
             ["@types/lodash", "npm:4.14.182"],\
-            ["@types/node", "npm:12.20.52"],\
+            ["@types/node", "npm:18.14.0"],\
             ["@types/react", "npm:18.0.9"],\
             ["@types/react-dom", "npm:18.0.4"],\
             ["@types/react-helmet", "npm:6.1.5"],\
@@ -5107,17 +5107,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/node", [\
-        ["npm:12.20.52", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-12.20.52-be1a44f9b8-b720ee939a.zip/node_modules/@types/node/",\
-          "packageDependencies": [\
-            ["@types/node", "npm:12.20.52"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:17.0.33", {\
           "packageLocation": "./.yarn/cache/@types-node-npm-17.0.33-e827e447d2-6620652cc8.zip/node_modules/@types/node/",\
           "packageDependencies": [\
             ["@types/node", "npm:17.0.33"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:18.14.0", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.14.0-ddc1a221d2-d83fcf5e4e.zip/node_modules/@types/node/",\
+          "packageDependencies": [\
+            ["@types/node", "npm:18.14.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -10032,7 +10032,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/user-event", "virtual:8949a597add54d5dbb5f576fd4cb57e5bce967629416bd3aa5672b941ee5e9e757262be663caf8acb51659441b4c65b5b8a544c688157048334f9aee20ae40cc#npm:12.8.3"],\
             ["@types/jest", "npm:25.2.3"],\
             ["@types/lodash", "npm:4.14.182"],\
-            ["@types/node", "npm:12.20.52"],\
+            ["@types/node", "npm:18.14.0"],\
             ["@types/react", "npm:18.0.9"],\
             ["@types/react-dom", "npm:18.0.4"],\
             ["@types/react-helmet", "npm:6.1.5"],\
