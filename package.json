@@ -1,0 +1,43 @@
+{
+  "name": "simply-the-quest",
+  "private": true,
+  "packageManager": "bun@1.1.20",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tests/*",
+    "infra/*"
+  ],
+  "scripts": {
+    "prepare": "husky install",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "check": "turbo check",
+    "check:ci": "turbo check:ci"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "bun",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "bun",
+      "onFail": "error"
+    }
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "latest",
+    "turbo": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.7.2"
+  },
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "@parcel/watcher",
+    "esbuild"
+  ]
+}

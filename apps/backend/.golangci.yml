@@ -1,0 +1,30 @@
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - durationcheck
+    - errname
+    - fatcontext
+    - forcetypeassert
+    - gci
+    - gochecknoinits
+    - goconst
+    - gofmt
+    - goimports
+    - gosec
+    - iface
+    - ireturn
+    - mirror
+    - nestif
+    - nilerr
+    - nolintlint
+    - paralleltest
+    - prealloc
+    - protogetter
+    - unconvert
+    - wastedassign
+    - zerologlint

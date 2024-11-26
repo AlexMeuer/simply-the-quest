@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon --watch './**/*.go' --signal SIGTERM --exec 'go' run cmd/serve/main.go",
+    "build": "mkdir out && go build -o out ./...",
+    "check": "golangci-lint run",
+    "check:ci": "golangci-lint run",
+    "lint": "golangci-lint run"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
