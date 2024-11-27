@@ -9,8 +9,7 @@ import (
 )
 
 const (
-	DefaultDBName        = "_system"
-	QuestsCollectionName = "quests"
+	DefaultDBName = "_system"
 )
 
 type ArangoDB struct {
@@ -56,7 +55,7 @@ func (a *ArangoDB) Foo(ctx context.Context) ([]interface{}, error) {
 		},
 	}
 
-	query := fmt.Sprintf("FOR q IN %s LIMIT @offset, @limit  RETURN q", QuestsCollectionName)
+	query := "FOR q IN quests LIMIT @offset, @limit  RETURN q"
 	cursor, err := a.db.Query(ctx, query, &options)
 	if err != nil {
 		return []interface{}{}, err
@@ -65,6 +64,59 @@ func (a *ArangoDB) Foo(ctx context.Context) ([]interface{}, error) {
 	fmt.Printf("Query yields %d documents\n", cursor.Count())
 
 	docs := make([]interface{}, cursor.Count())
+	for i := 0; cursor.HasMore(); i++ {
+		_, err := cursor.ReadDocument(ctx, &docs[i])
+		if err != nil {
+			return docs, err
+		}
+	}
+	return docs, nil
+}
+
+func (a *ArangoDB) ListQuestsWithBasicInfo(ctx context.Context, limit, offset int) ([]QuestWithLinkedCharacters, error) {
+	options := arangodb.QueryOptions{
+		Count: true,
+		BindVars: map[string]interface{}{
+			"limit":  limit,
+			"offset": offset,
+		},
+	}
+
+	query := `
+LET paginatedQuests = (
+  FOR q IN quests
+    LIMIT @offset, @limit
+    RETURN q
+)
+
+LET questsWithLinkedCharacters = (
+  FOR quest IN paginatedQuests
+    LET linkedCharacters = (
+      FOR edge IN quest_character_edges
+        FILTER edge._from == quest._id
+        LET character = DOCUMENT(edge._to)
+        RETURN MERGE(
+          KEEP(character, "name", "avatar"),
+          KEEP(edge, "role", "objective_type")
+        )
+    )
+    RETURN MERGE(
+      quest, {
+      characters: linkedCharacters
+    })
+)
+
+FOR q in questsWithLinkedCharacters
+  RETURN q
+`
+
+	cursor, err := a.db.Query(ctx, query, &options)
+	if err != nil {
+		return []QuestWithLinkedCharacters{}, err
+	}
+	defer cursor.Close()
+
+	docs := make([]QuestWithLinkedCharacters, cursor.Count())
 	for i := 0; cursor.HasMore(); i++ {
 		_, err := cursor.ReadDocument(ctx, &docs[i])
 		if err != nil {

@@ -1,19 +1,11 @@
-import { createQuery } from "@tanstack/solid-query";
 import { ErrorBoundary, For, Suspense } from "solid-js";
+import { QuestCard } from "~/components/QuestCard";
+import { createQuestListQuery } from "~/hooks/createQuestListQuery";
 
 export default function Home() {
-  const repositoryQuery = createQuery(() => ({
-    queryKey: ["Quests"],
-    queryFn: async () => {
-      const result = await fetch("http://localhost:8080/foo");
-      if (!result.ok) throw new Error("Failed to fetch data");
-      return result.json();
-    },
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    throwOnError: true,
-  }));
+  const repositoryQuery = createQuestListQuery();
   return (
-    <main class="text-center mx-auto text-text p-4">
+    <main class="text-center mx-auto text-text p-4 max-w-screen-lg">
       <h1 class="max-6-xs text-6xl text-green font-thin uppercase my-16">
         Quests
       </h1>
@@ -26,14 +18,9 @@ export default function Home() {
             The `data` property on a query is a SolidJS resource  
             so it will work with Suspense and transitions out of the box! 
           */}
-          <ul>
-            <For each={repositoryQuery.data}>
-              {(item) => (
-                <li>
-                  <span class="text-overlay1">({item._key})</span>{" "}
-                  <span class="text-yellow">{item.title}</span> - {item.body}
-                </li>
-              )}
+          <ul class="space-y-6">
+            <For each={repositoryQuery.data?.pages.flat()}>
+              {(item) => <QuestCard quest={item} />}
             </For>
           </ul>
         </Suspense>

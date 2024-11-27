@@ -21,7 +21,8 @@ func Serve(cfg Config) error {
 
 	r.GET("/ping", pingHandler)
 	r.HEAD("/ping", pingHandler)
-	r.GET("/foo", foo)
+	r.GET("/foo", withArangoDB(foo))
+	r.GET("/quests", withArangoDB(listQuestsWithBasicInfo))
 
 	return r.Run(fmt.Sprintf(":%d", cfg.Port))
 }

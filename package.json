@@ -1,21 +1,12 @@
 {
   "name": "simply-the-quest",
-  "private": true,
-  "packageManager": "bun@1.1.20",
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "tests/*",
-    "infra/*"
-  ],
-  "scripts": {
-    "prepare": "husky install",
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "turbo format",
-    "check": "turbo check",
-    "check:ci": "turbo check:ci"
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "latest",
+    "turbo": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.7.2"
   },
   "devEngines": {
     "runtime": {
@@ -27,17 +18,26 @@
       "onFail": "error"
     }
   },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@types/bun": "latest",
-    "turbo": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.7.2"
+  "packageManager": "bun@1.1.20",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "check": "turbo check",
+    "check:ci": "turbo check:ci"
   },
   "trustedDependencies": [
     "@biomejs/biome",
     "@parcel/watcher",
     "esbuild"
+  ],
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tests/*",
+    "infra/*"
   ]
 }
