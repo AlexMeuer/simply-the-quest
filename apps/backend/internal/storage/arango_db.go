@@ -125,3 +125,36 @@ FOR q in questsWithLinkedCharacters
 	}
 	return docs, nil
 }
+
+func (a *ArangoDB) QuestDetail(ctx context.Context, id string) (*QuestDetail, error) {
+	options := arangodb.QueryOptions{
+		BindVars: map[string]interface{}{
+			"ID": fmt.Sprintf("quests/%s", id),
+		},
+	}
+
+	query := `
+	LET quest = DOCUMENT(@ID)
+LET relations = (
+  FOR v, e IN OUTBOUND @ID GRAPH "quest_detail"
+    RETURN MERGE(
+      v,
+      { c: PARSE_IDENTIFIER(v).collection, relation: UNSET(e, "_id", "_key", "_from", "_to", "_rev") }
+    )
+)
+RETURN MERGE(quest, {
+  children: (FOR rel IN relations FILTER rel.c == "quests" RETURN UNSET(rel, "c")),
+  notes: (FOR rel IN relations FILTER rel.c == "notes" RETURN UNSET(rel, "c")),
+  characters: (FOR rel IN relations FILTER rel.c == "characters" RETURN UNSET(rel,"c"))
+})
+`
+	cursor, err := a.db.Query(ctx, query, &options)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close()
+
+	var questDetail QuestDetail
+	_, err = cursor.ReadDocument(ctx, &questDetail)
+	return &questDetail, err
+}

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { QuestDetail } from "~/types/questDetail";
 import { QuestWithCharacters } from "~/types/questWithCharacters";
 
 const api = axios.create({
@@ -24,5 +25,14 @@ export const BackendAPI = {
     }
     console.error(result.error);
     return [];
+  },
+  questDetail: async (id: string) => {
+    const response = await api.get<unknown>(`/quests/${id}`);
+    const result = QuestDetail.safeParse(response.data);
+    if (result.success) {
+      return result.data;
+    }
+    console.error(result.error);
+    return null;
   },
 } as const;

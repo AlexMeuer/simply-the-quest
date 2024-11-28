@@ -3,7 +3,7 @@ import { QuestCard } from "~/components/QuestCard";
 import { createQuestListQuery } from "~/hooks/createQuestListQuery";
 
 export default function Home() {
-  const repositoryQuery = createQuestListQuery();
+  const query = createQuestListQuery();
   return (
     <main class="text-center mx-auto text-text p-4 max-w-screen-lg">
       <h1 class="max-6-xs text-6xl text-green font-thin uppercase my-16">
@@ -19,7 +19,7 @@ export default function Home() {
             so it will work with Suspense and transitions out of the box! 
           */}
           <ul class="space-y-6">
-            <For each={repositoryQuery.data?.pages.flat()}>
+            <For each={query.data?.pages.flat()}>
               {(item) => <QuestCard quest={item} />}
             </For>
           </ul>

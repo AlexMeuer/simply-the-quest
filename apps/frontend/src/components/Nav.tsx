@@ -10,7 +10,7 @@ export default function Nav() {
     <nav class="bg-mantle">
       <ul class="container flex items-center p-3 text-text">
         <li class={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
-          <a href="/">Home</a>
+          <a href="/">Quests</a>
         </li>
         <li class={`border-b-2 ${active("/about")} mx-1.5 sm:mx-6`}>
           <a href="/about">About</a>

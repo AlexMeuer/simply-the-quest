@@ -23,6 +23,7 @@ func Serve(cfg Config) error {
 	r.HEAD("/ping", pingHandler)
 	r.GET("/foo", withArangoDB(foo))
 	r.GET("/quests", withArangoDB(listQuestsWithBasicInfo))
+	r.GET("/quests/:id", withArangoDB(getQuestByID))
 
 	return r.Run(fmt.Sprintf(":%d", cfg.Port))
 }

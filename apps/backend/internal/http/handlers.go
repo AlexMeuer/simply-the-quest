@@ -63,3 +63,14 @@ func listQuestsWithBasicInfo(ctx *gin.Context, db *storage.ArangoDB) {
 	}
 	ctx.JSON(http.StatusOK, quests)
 }
+
+func getQuestByID(ctx *gin.Context, db *storage.ArangoDB) {
+	id := ctx.Param("id")
+	quest, err := db.QuestDetail(ctx, id)
+	if err != nil {
+		log.Error().Err(err).Msg("failed to execute QuestDetail")
+		ctx.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+	ctx.JSON(http.StatusOK, quest)
+}
