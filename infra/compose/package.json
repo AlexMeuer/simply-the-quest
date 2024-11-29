@@ -3,10 +3,12 @@
   "private": true,
   "scripts": {
     "up": "docker-compose up -d",
+    "up:attach": "docker-compose up",
     "down": "docker-compose down",
     "restart": "docker-compose down && docker-compose up -d",
     "logs": "docker-compose logs -f",
     "clean": "docker-compose down --volumes --remove-orphans",
+    "build": "docker-compose build",
     "status": "docker-compose ps"
   }
 }

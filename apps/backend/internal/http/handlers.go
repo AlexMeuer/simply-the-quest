@@ -25,6 +25,11 @@ func LimitOffsetFrom(ctx *gin.Context) LimitOffset {
 	return limitOffset
 }
 
+// @Summary Send Ping, get Pong
+// @Accept  text/plain; charset=utf-8
+// @Produce  text/plain; charset=utf-8
+// @Success 200 {string} PONG
+// @Router /ping [get]
 func pingHandler(ctx *gin.Context) {
 	ctx.Header("Cache-Control", "no-cache, no-store, must-revalidate")
 	ctx.String(http.StatusOK, "PONG")
@@ -52,6 +57,15 @@ func foo(ctx *gin.Context, db *storage.ArangoDB) {
 	ctx.JSON(http.StatusOK, docs)
 }
 
+// @Summary      List quests
+// @Description  Gets a page of quests with basic relations
+// @Tags         quests
+// @Accept       json
+// @Produce      json
+// @Param        limit query     int     false  "limit"  Format(int) default(10) minimum(1) maximum(100)
+// @Param        offset query     int     false  "offset"  Format(int) default(0)
+// @Success      200  {array}   storage.QuestWithLinkedCharacters
+// @Router       /quests [get]
 func listQuestsWithBasicInfo(ctx *gin.Context, db *storage.ArangoDB) {
 	pagination := LimitOffsetFrom(ctx)
 
@@ -64,6 +78,14 @@ func listQuestsWithBasicInfo(ctx *gin.Context, db *storage.ArangoDB) {
 	ctx.JSON(http.StatusOK, quests)
 }
 
+// @Summary      Quest details
+// @Description  Gets details of a quest
+// @Tags         quests
+// @Accept       json
+// @Produce      json
+// @Param        id path     string     true  "quest id"
+// @Success      200  {array}   storage.QuestDetail
+// @Router       /quests/:id [get]
 func getQuestByID(ctx *gin.Context, db *storage.ArangoDB) {
 	id := ctx.Param("id")
 	quest, err := db.QuestDetail(ctx, id)

@@ -46,6 +46,19 @@ services:
     build:
       context: ../../apps/backend/
     container_name: stq-web-api
+    ports:
+      - "8080:8080/tcp"
+    secrets:
+      - arango_root_password
+    environment:
+      ARANGODB_USER: root
+      ARANGODB_HOST: http://arangodb:8529
+      ARANGODB_PASS: /run/secrets/arango_root_password
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 secrets:
   arango_root_password:
