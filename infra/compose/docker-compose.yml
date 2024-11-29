@@ -32,6 +32,21 @@ services:
       timeout: 10s
       retries: 3
 
+  web:
+    image: simply-the-quest-web:latest
+    build:
+      context: ../../
+      dockerfile: apps/frontend/Dockerfile
+    container_name: stq-web
+    ports:
+      - "3000:3000/tcp"
+
+  web-api:
+    image: simply-the-quest-web-api:latest
+    build:
+      context: ../../apps/backend/
+    container_name: stq-web-api
+
 secrets:
   arango_root_password:
     file: ./arangodb_root_password
