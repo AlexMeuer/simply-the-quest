@@ -21,7 +21,7 @@ RUN bun run build --filter=frontend
 # copy production dependencies and source code into final image
 FROM base AS release
 COPY --from=install /usr/src/app/node_modules node_modules
-COPY --from=prerelease /usr/src/app/apps/frontend/.output .
+COPY --from=prerelease /usr/src/app/apps/frontend/.output ./.output
 COPY --from=prerelease /usr/src/app/apps/frontend/package.json .
 
 USER bun

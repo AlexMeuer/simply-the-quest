@@ -1,11 +1,5 @@
-import axios from "axios";
 import { QuestDetail } from "~/types/questDetail";
 import { QuestWithCharacters } from "~/types/questWithCharacters";
-
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASEURL,
-  withCredentials: true,
-});
 
 export const BackendAPI = {
   questsWithCharacters: async (limit: number, offset: number) => {
@@ -13,13 +7,10 @@ export const BackendAPI = {
       limit: limit.toString(),
       offset: offset.toString(),
     });
-    const response = await api.get<unknown>(`/quests?${params}`, {
-      params: {
-        limit,
-        offset,
-      },
-    });
-    const result = QuestWithCharacters.array().safeParse(response.data);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASEURL}/quests?${params}`,
+    );
+    const result = QuestWithCharacters.array().safeParse(await response.json());
     if (result.success) {
       return result.data;
     }
@@ -27,8 +18,10 @@ export const BackendAPI = {
     return [];
   },
   questDetail: async (id: string) => {
-    const response = await api.get<unknown>(`/quests/${id}`);
-    const result = QuestDetail.safeParse(response.data);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASEURL}/quests/${id}`,
+    );
+    const result = QuestDetail.safeParse(await response.json());
     if (result.success) {
       return result.data;
     }

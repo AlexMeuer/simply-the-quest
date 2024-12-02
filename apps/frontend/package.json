@@ -15,7 +15,6 @@
     "@solidjs/start": "^1.0.10",
     "@tanstack/solid-query": "^5.61.4",
     "autoprefixer": "^10.4.19",
-    "axios": "^1.7.8",
     "isomorphic-dompurify": "^2.17.0",
     "marked": "^15.0.2",
     "postcss": "^8.4.38",

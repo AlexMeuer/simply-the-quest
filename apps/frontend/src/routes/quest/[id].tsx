@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "@solidjs/router";
 import { createQuery } from "@tanstack/solid-query";
-import { For, Show, Suspense } from "solid-js";
+import { For, Show } from "solid-js";
 import { BackendAPI } from "~/api/backend";
 import { assetUrlFor } from "~/assetUrlFor";
 import { Avatar } from "~/components/Avatar";
