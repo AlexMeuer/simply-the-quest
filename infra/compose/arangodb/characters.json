@@ -1,0 +1,74 @@
+[
+  {
+    "_id": "characters/elarion",
+    "_key": "elarion",
+    "name": "Elarion Moonshade",
+    "aliases": ["Elar"],
+    "race": "Elf",
+    "class": "Ranger",
+    "avatar": {
+      "sm": "/avatars/elarion_sm.webp",
+      "md": "/avatars/elarion_md.webp"
+    }
+  },
+  {
+    "_id": "characters/thorgar",
+    "_key": "thorgar",
+    "name": "Thorgar Ironfist",
+    "aliases": ["Thorg"],
+    "race": "Dwarf",
+    "class": "Fighter",
+    "avatar": {
+      "sm": "/avatars/thorgar_sm.webp",
+      "md": "/avatars/thorgar_md.webp"
+    }
+  },
+  {
+    "_id": "characters/lyssa",
+    "_key": "lyssa",
+    "name": "Lyssa Starfire",
+    "aliases": ["Ly"],
+    "race": "Human",
+    "class": "Wizard",
+    "avatar": {
+      "sm": "/avatars/lyssa_sm.webp",
+      "md": "/avatars/lyssa_md.webp"
+    }
+  },
+  {
+    "_id": "characters/krynn",
+    "_key": "krynn",
+    "name": "Krynn Darkshade",
+    "aliases": [],
+    "race": "Tiefling",
+    "class": "Rogue",
+    "avatar": {
+      "sm": "/avatars/krynn_sm.webp",
+      "md": "/avatars/krynn_md.webp"
+    }
+  },
+  {
+    "_id": "characters/arelia",
+    "_key": "arelia",
+    "name": "Arelia Sunbringer",
+    "aliases": ["Rel"],
+    "race": "Half-Elf",
+    "class": "Cleric",
+    "avatar": {
+      "sm": "/avatars/arelia_sm.webp",
+      "md": "/avatars/arelia_md.webp"
+    }
+  },
+  {
+    "_id": "characters/captain_varnak",
+    "_key": "captain_varnak",
+    "name": "Captain Varnak",
+    "aliases": ["The Butcher of Graymere"],
+    "race": "Orc",
+    "class": "Barbarian",
+    "avatar": {
+      "sm": "/avatars/varnak_sm.webp",
+      "md": "/avatars/varnak_md.webp"
+    }
+  }
+]

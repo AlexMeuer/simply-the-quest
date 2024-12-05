@@ -1,5 +1,6 @@
 import { useLocation, useParams } from "@solidjs/router";
 import { createQuery } from "@tanstack/solid-query";
+import { pascalCase } from "change-case";
 import { For, Show } from "solid-js";
 import { BackendAPI } from "~/api/backend";
 import { assetUrlFor } from "~/assetUrlFor";
@@ -64,7 +65,15 @@ export default function QuestDetail() {
                   }
                 >
                   {char.name} -{" "}
-                  <span class="text-subtext0">{char.relation.role}</span>
+                  <span class="text-subtext0">
+                    {pascalCase(char.relation.role)}
+                  </span>
+                  <Show when={char.relation.objective_type}>
+                    <span class="text-red font-bold">
+                      {" "}
+                      [ {pascalCase(char.relation.objective_type ?? "")} ]
+                    </span>
+                  </Show>
                 </p>
               </div>
             )}

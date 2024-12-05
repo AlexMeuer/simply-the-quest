@@ -37,12 +37,12 @@ type QuestDetail struct {
 }
 
 type CharacterWithRelationInfo struct {
-	ID       string  `json:"_id"`
-	Aliases  *string `json:"aliases,omitempty"`
-	Avatar   Avatar  `json:"avatar"`
-	Bio      string  `json:"bio"`
-	Name     string  `json:"name"`
-	Race     string  `json:"race"`
+	ID       string   `json:"_id"`
+	Aliases  []string `json:"aliases"`
+	Avatar   Avatar   `json:"avatar"`
+	Bio      string   `json:"bio"`
+	Name     string   `json:"name"`
+	Race     string   `json:"race"`
 	Relation struct {
 		Role          string  `json:"role"`
 		ObjectiveType *string `json:"objective_type,omitempty"`

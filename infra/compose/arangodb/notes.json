@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "notes/bandit_ambush",
+    "_key": "bandit_ambush",
+    "title": "Bandit ambush tactics",
+    "body": "The bandits used fire arrows to drive the villagers into the open before charging.",
+    "created_at": "2024-12-01T10:00:00Z",
+    "updated_at": "2024-12-01T10:00:00Z"
+  },
+  {
+    "_id": "notes/healers_location",
+    "_key": "healers_location",
+    "title": "Healer's location",
+    "body": "We suspect the healer is being held in the Graymere Watchtower.",
+    "created_at": "2024-12-02T15:30:00Z",
+    "updated_at": "2024-12-02T15:30:00Z"
+  },
+  {
+    "_id": "notes/artifact_lumara",
+    "_key": "artifact_lumara",
+    "title": "Artifact of Lumara",
+    "body": "Legends say the artifact grants immense power, but at a cost. Proceed with caution.",
+    "created_at": "2024-12-03T20:00:00Z",
+    "updated_at": "2024-12-03T20:00:00Z"
+  }
+]

@@ -5,6 +5,7 @@ import (
 
 	_ "alexmeuer.com/simply-the-quest/api"
 	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -15,6 +16,7 @@ type Config struct {
 	ArangoDBUser   string   `env:"ARANGODB_USER,required"`
 	ArangoDBPass   string   `env:"ARANGODB_PASS,required"`
 	ArangoDBHost   string   `env:"ARANGODB_HOST,required"`
+	TrustedProxies []string `env:"TRUSTED_PROXIES"`
 }
 
 //go:generate swag init --parseDependency  --parseInternal -g serve.go -o ../../api
@@ -31,6 +33,14 @@ type Config struct {
 
 func Serve(cfg Config) error {
 	r := gin.Default()
+	if len(cfg.TrustedProxies) > 0 {
+		if err := r.SetTrustedProxies(cfg.TrustedProxies); err != nil {
+			log.
+				Err(err).
+				Strs("trusted-proxies", cfg.TrustedProxies).
+				Msg("failed to set trusted proxies, will trust all!")
+		}
+	}
 	r.Use(newCorsMiddleware(cfg))
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
@@ -41,5 +51,6 @@ func Serve(cfg Config) error {
 	v1.GET("/quests", withArangoDB(listQuestsWithBasicInfo))
 	v1.GET("/quests/:id", withArangoDB(getQuestByID))
 
+	log.Info().Msgf("Starting server on port %d", cfg.Port)
 	return r.Run(fmt.Sprintf(":%d", cfg.Port))
 }

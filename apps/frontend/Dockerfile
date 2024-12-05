@@ -16,7 +16,7 @@ FROM base AS prerelease
 COPY --from=install-dev /usr/src/app/node_modules node_modules
 COPY . .
 
-RUN bun run build --filter=frontend
+RUN bun run build --filter=frontend -- --mode=production
 
 # copy production dependencies and source code into final image
 FROM base AS release

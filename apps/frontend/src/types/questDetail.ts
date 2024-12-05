@@ -9,7 +9,7 @@ export type CharacterRelation = z.infer<typeof CharacterRelation>;
 
 export const Character = z.object({
   _id: z.string(),
-  aliases: z.string().optional(),
+  aliases: z.array(z.string()),
   avatar: Avatar,
   bio: z.string(),
   name: z.string(),

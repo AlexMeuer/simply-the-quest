@@ -1,9 +1,35 @@
 services:
+  traefik:
+    image: traefik:v3.2.1
+    container_name: traefik
+    ports:
+      - "80:80" # HTTP
+      - "443:443" # HTTPS
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--api.dashboard=true" # Enable the dashboard
+      - "--log.level=INFO"
+      - "--providers.file.filename=/dynamic/dynamic.yml"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/certs:/certs:ro
+      - ./traefik/dynamic.yml:/dynamic/dynamic.yml:ro
+      - ./traefik-data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.quest.local`)"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.traefik-dashboard.tls=true"
+
   arangodb:
+    ports:
+      - 8529:8529 # Exposing this port is useful for CLI tools (e.g. arangodump)
     image: arangodb:latest
     container_name: arangodb
-    ports:
-      - "8529:8529"
     secrets:
       - arango_root_password
     environment:
@@ -11,26 +37,45 @@ services:
     volumes:
       - arango-data:/var/lib/arangodb3
       - arango-apps:/var/lib/arangodb3-apps
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.arangodb.rule=Host(`arangodb.quest.local`)"
+      - "traefik.http.routers.arangodb.entrypoints=websecure"
+      - "traefik.http.routers.arangodb.tls=true"
+      - "traefik.http.services.arangodb.loadbalancer.server.port=8529"
 
   minio:
     image: quay.io/minio/minio
     container_name: minio
-    ports:
-      - "9000:9000" # MinIO API
-      - "9001:9001" # MinIO Console
     secrets:
       - minio_root_password
     environment:
       MINIO_ROOT_USER: root
       MINIO_ROOT_PASSWORD_FILE: /run/secrets/minio_root_password
     volumes:
-      - minio-data:/data # Persisted storage
+      - minio-data:/data
     command: server /data --console-address ":9001"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 10s
       retries: 3
+    labels:
+      - "traefik.enable=true"
+
+      # API Route
+      - "traefik.http.routers.minio-api.rule=Host(`minio.quest.local`)"
+      - "traefik.http.routers.minio-api.entrypoints=websecure"
+      - "traefik.http.routers.minio-api.tls=true"
+      - "traefik.http.routers.minio-api.service=minio-api-service"
+      - "traefik.http.services.minio-api-service.loadbalancer.server.port=9000"
+
+      # Console Route
+      - "traefik.http.routers.minio-console.rule=Host(`minio-console.quest.local`)"
+      - "traefik.http.routers.minio-console.entrypoints=websecure"
+      - "traefik.http.routers.minio-console.tls=true"
+      - "traefik.http.routers.minio-console.service=minio-console-service"
+      - "traefik.http.services.minio-console-service.loadbalancer.server.port=9001"
 
   web:
     image: simply-the-quest-web:latest
@@ -38,27 +83,32 @@ services:
       context: ../../
       dockerfile: apps/frontend/Dockerfile
     container_name: stq-web
-    ports:
-      - "3000:3000/tcp"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`web.quest.local`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls=true"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
 
   web-api:
     image: simply-the-quest-web-api:latest
     build:
       context: ../../apps/backend/
     container_name: stq-web-api
-    ports:
-      - "8080:8080/tcp"
     secrets:
       - arango_root_password
     environment:
       ARANGODB_USER: root
       ARANGODB_HOST: http://arangodb:8529
       ARANGODB_PASS: /run/secrets/arango_root_password
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      TRUSTED_PROXIES: 172.21.0.0/16 # Trust the internal docker network
+      GIN_MODE: debug # disable in production
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webapi.rule=Host(`api.quest.local`)"
+      - "traefik.http.routers.webapi.entrypoints=websecure"
+      - "traefik.http.routers.webapi.tls=true"
+      - "traefik.http.services.webapi.loadbalancer.server.port=8080"
 
 secrets:
   arango_root_password:
@@ -70,3 +120,4 @@ volumes:
   arango-data:
   arango-apps:
   minio-data:
+  traefik-data:

@@ -1,0 +1,62 @@
+[
+  {
+    "_id": "quests/defend_eldwyn",
+    "_key": "defend_eldwyn",
+    "title": "Defend the Village of Eldwyn",
+    "body": "The village of Eldwyn is under attack by bandits. Defend the townsfolk and drive out the invaders.",
+    "images": {
+      "banner": "/quests/defend_eldwyn/banner.webp"
+    },
+    "status": "complete"
+  },
+  {
+    "_id": "quests/rescue_healer",
+    "_key": "rescue_healer",
+    "title": "Rescue the Healer of Graymere",
+    "body": "The village healer was kidnapped by Captain Varnak. Track down his forces and rescue her.",
+    "images": {
+      "banner": "/quests/rescue_healer/banner.webp"
+    },
+    "status": "active"
+  },
+  {
+    "_id": "quests/siege_graymere",
+    "_key": "siege_graymere",
+    "title": "The Siege of Graymere",
+    "body": "A pivotal moment: decide between stopping the attack on Graymere or defending Eldwyn from raiders.",
+    "images": {
+      "banner": "/quests/siege_graymere/banner.webp"
+    },
+    "status": "locked"
+  },
+  {
+    "_id": "quests/save_norhollow",
+    "_key": "save_norhollow",
+    "title": "Save the Town of Norhollow",
+    "body": "The neighboring town of Norhollow is under siege. Will you come to their aid?",
+    "images": {
+      "banner": "/quests/save_norhollow/banner.webp"
+    },
+    "status": "failed"
+  },
+  {
+    "_id": "quests/artifact_lumara",
+    "_key": "artifact_lumara",
+    "title": "Uncover the Artifact of Lumara",
+    "body": "Deep in the ruins of Eldwyn lies a powerful artifact of unknown origin. Unearth it and harness its power.",
+    "images": {
+      "banner": "/quests/artifact_lumara/banner.webp"
+    },
+    "status": "active"
+  },
+  {
+    "_id": "quests/rebuild_eldwyn",
+    "_key": "rebuild_eldwyn",
+    "title": "Rebuild Eldwyn",
+    "body": "After the attack, the village needs help rebuilding and preparing for future threats.",
+    "images": {
+      "banner": "/quests/rebuild_eldwyn/banner.webp"
+    },
+    "status": "active"
+  }
+]

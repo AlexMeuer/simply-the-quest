@@ -32,9 +32,9 @@ export const QuestCard: VoidComponent<QuestCardProps> = (props) => {
               #{props.quest._key}
             </span>
           </div>
-          <p class="text-subtext0 text-sm leading-relaxed">
+          <div class="text-subtext0 text-sm leading-relaxed shadow-[0_0_8px_8px_rgba(0,0,0,0.3)] bg-black bg-opacity-30 backdrop-blur-sm">
             <Markdown>{props.quest.body}</Markdown>
-          </p>
+          </div>
 
           <AvatarStrip>
             <For each={props.quest.characters}>

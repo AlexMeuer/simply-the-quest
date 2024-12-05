@@ -134,7 +134,7 @@ func (a *ArangoDB) QuestDetail(ctx context.Context, id string) (*QuestDetail, er
 	}
 
 	query := `
-	LET quest = DOCUMENT(@ID)
+LET quest = DOCUMENT(@ID)
 LET relations = (
   FOR v, e IN OUTBOUND @ID GRAPH "quest_detail"
     RETURN MERGE(

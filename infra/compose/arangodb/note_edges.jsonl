@@ -1,0 +1,5 @@
+[
+  { "_from": "notes/bandit_ambush", "_to": "quests/defend_eldwyn" },
+  { "_from": "notes/healers_location", "_to": "quests/rescue_healer" },
+  { "_from": "notes/artifact_lumara", "_to": "quests/artifact_lumara" }
+]

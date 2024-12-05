@@ -1,0 +1,6 @@
+[
+  { "_from": "quests/defend_eldwyn", "_to": "quests/rebuild_eldwyn" },
+  { "_from": "quests/siege_graymere", "_to": "quests/save_norhollow" },
+  { "_from": "quests/siege_graymere", "_to": "quests/defend_eldwyn" },
+  { "_from": "quests/rebuild_eldwyn", "_to": "quests/artifact_lumara" }
+]

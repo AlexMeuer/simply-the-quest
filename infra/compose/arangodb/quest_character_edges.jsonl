@@ -1,0 +1,7 @@
+[
+  { "_from": "quests/defend_eldwyn", "_to": "characters/elarion", "role": "participant" },
+  { "_from": "quests/defend_eldwyn", "_to": "characters/lyssa", "role": "participant" },
+  { "_from": "quests/rescue_healer", "_to": "characters/thorgar", "role": "objective", "objective_type": "RESCUE" },
+  { "_from": "quests/rebuild_eldwyn", "_to": "characters/arelia", "role": "participant" },
+  { "_from": "quests/save_norhollow", "_to": "characters/captain_varnak", "role": "opponent" }
+]
