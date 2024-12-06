@@ -9,6 +9,9 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// This file was created before the handlers subpackages was created.
+// Avoid creating new handlers in this file please.
+
 type LimitOffset struct {
 	Limit  int `query:"limit"`
 	Offset int `query:"offset"`

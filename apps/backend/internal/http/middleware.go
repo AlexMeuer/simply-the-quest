@@ -3,8 +3,10 @@ package http
 import (
 	"errors"
 	"net/http"
+	"time"
 
 	"alexmeuer.com/simply-the-quest/internal/storage"
+	"alexmeuer.com/simply-the-quest/pkg/jwt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
@@ -46,6 +48,30 @@ func arangoDBFromMiddleware(ctx *gin.Context) (*storage.ArangoDB, error) {
 	typed, ok := untyped.(*storage.ArangoDB)
 	if !ok {
 		return nil, errors.New("arangodb has wrong type in context")
+	}
+	return typed, nil
+}
+
+func newTokenGeneratorMiddleware(cfg Config) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		ctx.Set("tokenGenerator", &jwt.JWTTokenGenerator{
+			AccessTokenSecret:  []byte(cfg.JWTAccessTokenSecret),
+			RefreshTokenSecret: []byte(cfg.JWTRefreshTokenSecret),
+			AccessTokenTTL:     1 * time.Hour,
+			RefreshTokenTTL:    30 * 24 * time.Hour,
+		})
+		ctx.Next()
+	}
+}
+
+func tknGenFromMiddleware(ctx *gin.Context) (*jwt.JWTTokenGenerator, error) {
+	untyped, ok := ctx.Get("tokenGenerator")
+	if !ok {
+		return nil, errors.New("token generator not found in context")
+	}
+	typed, ok := untyped.(*jwt.JWTTokenGenerator)
+	if !ok {
+		return nil, errors.New("token generator has wrong type in context")
 	}
 	return typed, nil
 }
