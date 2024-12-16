@@ -12,7 +12,7 @@ export type QuestCardProps = {
 
 export const QuestCard: VoidComponent<QuestCardProps> = (props) => {
   return (
-    <li class="relative w-full max-w-2xl mx-auto rounded-lg overflow-hidden shadow-lg bg-gradient-to-br from-crust to-mantle border-2 border-mantle hover:rotate-1 hover:border-peach transition-all">
+    <li class="relative w-full max-w-2xl mx-auto md:rounded-lg overflow-hidden shadow-lg shadow-black-50 bg-gradient-to-br from-crust to-mantle border-2 border-mantle md:hover:rotate-1 hover:border-peach transition-all">
       <A href={`/quest/${props.quest._key}`} state={{ quest: props.quest }}>
         <div class="absolute inset-0">
           <img

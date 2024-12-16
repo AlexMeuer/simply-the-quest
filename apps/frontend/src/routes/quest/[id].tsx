@@ -28,7 +28,7 @@ export default function QuestDetail() {
   }));
 
   return (
-    <div class="m-6 p-6 w-full max-w-2xl mx-auto rounded-lg overflow-hidden shadow-lg bg-gradient-to-b from-base to-mantle border-2 border-peach -z-20">
+    <div class="sm:my-6 p-6 w-full max-w-2xl mx-auto rounded-lg overflow-hidden shadow-lg bg-gradient-to-b from-base to-mantle border-2 border-peach">
       <div class="absolute inset-0 -z-10 opacity-40">
         <img
           src={assetUrlFor(initialQuest?.images.banner)}
@@ -38,7 +38,7 @@ export default function QuestDetail() {
         <div class="absolute inset-0 bg-gradient-to-t from-base" />
       </div>
       <div class="text-text flex flex-col space-y-4">
-        <div class="flex flex-row">
+        <div class="flex sm:flex-row flex-col-reverse">
           <h1 class="flex-grow text-2xl font-bold text-peach">
             {query.data?.title ?? initialQuest?.title}
           </h1>

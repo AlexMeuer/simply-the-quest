@@ -13,8 +13,8 @@ import (
 // Avoid creating new handlers in this file please.
 
 type LimitOffset struct {
-	Limit  int `query:"limit"`
-	Offset int `query:"offset"`
+	Limit  int `form:"limit"`
+	Offset int `form:"offset"`
 }
 
 func LimitOffsetFrom(ctx *gin.Context) LimitOffset {

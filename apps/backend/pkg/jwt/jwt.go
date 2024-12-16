@@ -21,12 +21,13 @@ type JWTTokenGenerator struct {
 }
 
 func (t *JWTTokenGenerator) GenerateAccessToken(userID, role string) (string, error) {
+	now := time.Now()
 	claims := CustomClaims{
 		UserID: userID,
 		Role:   role,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(t.AccessTokenTTL)),
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
+			ExpiresAt: jwt.NewNumericDate(now.Add(t.AccessTokenTTL)),
+			IssuedAt:  jwt.NewNumericDate(now),
 		},
 	}
 
@@ -35,9 +36,10 @@ func (t *JWTTokenGenerator) GenerateAccessToken(userID, role string) (string, er
 }
 
 func (t *JWTTokenGenerator) GenerateRefreshToken(userID string) (string, error) {
+	now := time.Now()
 	claims := jwt.RegisteredClaims{
-		ExpiresAt: jwt.NewNumericDate(time.Now().Add(t.RefreshTokenTTL)),
-		IssuedAt:  jwt.NewNumericDate(time.Now()),
+		ExpiresAt: jwt.NewNumericDate(now.Add(t.RefreshTokenTTL)),
+		IssuedAt:  jwt.NewNumericDate(now),
 		Subject:   userID,
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
