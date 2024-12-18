@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	_ "alexmeuer.com/simply-the-quest/api"
+	helmet "github.com/danielkov/gin-helmet"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 	swaggerfiles "github.com/swaggo/files"
@@ -20,6 +21,9 @@ type Config struct {
 	JWTAccessTokenSecret  string   `env:"JWT_ACCESS_TOKEN_SECRET,required"`
 	JWTRefreshTokenSecret string   `env:"JWT_REFRESH_TOKEN_SECRET,required"`
 	JWTDomain             string   `env:"JWT_DOMAIN,required"`
+	DiscordClientID       string   `env:"DISCORD_CLIENT_ID"`
+	DiscordClientSecret   string   `env:"DISCORD_CLIENT_SECRET"`
+	DiscordRedirectURI    string   `env:"DISCORD_REDIRECT_URI"`
 }
 
 //go:generate swag init --parseDependency  --parseInternal -g serve.go -o ../../api
@@ -44,6 +48,7 @@ func Serve(cfg Config) error {
 				Msg("failed to set trusted proxies, will trust all!")
 		}
 	}
+	r.Use(helmet.Default())
 	r.Use(newCorsMiddleware(cfg))
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
@@ -59,6 +64,8 @@ func Serve(cfg Config) error {
 	userRoutes.POST("/register", registerUser)
 	userRoutes.POST("/refresh", refreshUser)
 	userRoutes.POST("/logout", logoutUser)
+
+	registerDiscordOAuthHandlers(cfg, g.Group("/oauth"))
 
 	log.Info().Msgf("Starting server on port %d", cfg.Port)
 	return r.Run(fmt.Sprintf(":%d", cfg.Port))

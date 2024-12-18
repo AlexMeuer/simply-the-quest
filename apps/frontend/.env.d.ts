@@ -5,8 +5,7 @@ interface ImportMetaEnv {
   /** Baseurl of MinIO */
   readonly VITE_ASSETS_BASEURL: string;
 
-  /** Baseurl of the API server for SSR */
-  readonly VITE_API_BASEURL_SSR: string;
+  readonly VITE_SESSION_SECRET: string;
 }
 
 interface ImportMeta {

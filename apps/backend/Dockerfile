@@ -4,6 +4,9 @@ FROM golang:1.23 AS builder
 # Set environment variables
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
+# Install ca-certificates
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Copy go.mod and go.sum
@@ -12,7 +15,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the entire backend source code
-COPY  . .
+COPY . .
 
 RUN go build -o serve cmd/serve/main.go
 
@@ -21,10 +24,7 @@ FROM scratch
 
 # Set working directory
 WORKDIR /app
-
-# Why no CA certs?
-# It is assumed that you're either running this locally or
-# you're using a reverse proxy that handles SSL termination.
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 # Copy the built binary from the builder stage
 COPY --from=builder /app/serve .

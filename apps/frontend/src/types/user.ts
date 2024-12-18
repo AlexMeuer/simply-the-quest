@@ -10,3 +10,10 @@ export const User = z.object({
   updated_at: z.number().transform(Date),
 });
 export type User = z.infer<typeof User>;
+
+export const UserSession = User.pick({
+  username: true,
+}).extend({
+  expires_at: z.number().transform(Date),
+});
+export type UserSession = z.infer<typeof UserSession>;
