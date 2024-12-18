@@ -1,0 +1,79 @@
+# dsn: postgres://<username>:<password>@postgres:5432/kratos?sslmode=disable
+# dsn: memory
+dsn: mysql://root:my-secure-password@tcp(mysqld:3306)/mysql?max_conns=20&max_idle_conns=4
+
+log:
+  level: debug # Adjust to "info" or "warn" in production
+
+serve:
+  public:
+    base_url: https://auth.quest.local # Publicly accessible URL (used by frontend)
+  admin:
+    base_url: http://kratos:4433 # Internal admin API (used by backend)
+
+selfservice:
+  default_browser_return_url: https://web.quest.local # Redirect here after login/logout
+
+  flows:
+    error:
+      ui_url: https://web.quest.local/error # Where users are sent if an error occurs
+    login:
+      ui_url: https://web.quest.local/login # Login form
+      lifespan: 10m # Session lifetime for the login flow
+    registration:
+      ui_url: https://web.quest.local/register # Registration form
+    settings:
+      ui_url: https://web.quest.local/settings # Account settings page
+    recovery:
+      ui_url: https://web.quest.local/recovery # Password recovery form
+    verification:
+      ui_url: https://web.quest.local/verify # Email verification page
+
+  methods:
+    password:
+      enabled: true # Enable password-based login
+    # oidc: # Example for social login (Optional)
+    #   enabled: false
+    #   config:
+    #     providers:
+    #       - id: google
+    #         provider: google
+    #         client_id: <your-client-id>
+    #         client_secret: <your-client-secret>
+    #         mapper_url: file:///etc/kratos/oidc-mapper.json
+
+identity:
+  schemas:
+    - id: default
+      url: file:///etc/config/kratos/identity.schema.json # Path to identity schema
+
+session:
+  cookie:
+    domain: quest.local # Sets the domain for your cookies
+    same_site: Lax # Adjust to "Strict" or "None" (if cross-site cookies are needed)
+  lifespan: 720h # Session lifetime (30 days)
+
+hashers:
+  argon2:
+    parallelism: 1
+    memory: 128MB
+    iterations: 4
+    salt_length: 16
+    key_length: 32
+
+# CORS settings (if Kratos runs on a separate domain from your frontend)
+security:
+  cors:
+    enabled: true
+    allowed_origins:
+      - https://web.quest.local
+    allowed_methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+    allowed_headers:
+      - Authorization
+      - Content-Type
+    exposed_headers:
+      - Content-Type

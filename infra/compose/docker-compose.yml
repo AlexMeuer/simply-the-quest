@@ -103,7 +103,7 @@ services:
       ARANGODB_USER: root
       ARANGODB_HOST: http://arangodb:8529
       ARANGODB_PASS: /run/secrets/arango_root_password
-      TRUSTED_PROXIES: 172.21.0.0/16 # Trust the internal docker network
+      # TRUSTED_PROXIES: 172.21.0.0/16 # Trust the internal docker network
       JWT_ACCESS_TOKEN_SECRET: /run/secrets/jwt_access_token_secret
       JWT_REFRESH_TOKEN_SECRET: /run/secrets/jwt_refresh_token_secret
       JWT_DOMAIN: "api.quest.local"
@@ -115,6 +115,62 @@ services:
       - "traefik.http.routers.webapi.tls=true"
       - "traefik.http.services.webapi.loadbalancer.server.port=8080"
 
+  kratos-migrate:
+    image: oryd/kratos:v1.3.1
+    secrets:
+      - mysql_root_password
+    environment:
+      - DSN=mysql://root:my-secure-password@tcp(mysqld:3306)/mysql?max_conns=20&max_idle_conns=4
+    command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
+    volumes:
+      - type: bind
+        source: ./ory/config
+        target: /etc/config/kratos
+    restart: on-failure
+    depends_on:
+      - mysqld
+
+  kratos:
+    image: oryd/kratos:v1.3.1
+    ports:
+      - "4434:4434" # Public API
+      - "4433:4433" # Admin API
+    secrets:
+      - mysql_root_password
+    environment:
+      - DSN=DSN=mysql://root:my-secure-password@tcp(mysqld:3306)/mysql?max_conns=20&max_idle_conns=4
+      - LOG_LEVEL=debug
+      - SERVE_PUBLIC_BASE_URL=https://auth.quest.local
+      - SERVE_ADMIN_BASE_URL=http://kratos.quest.local:4433
+    command: serve -c /etc/config/kratos/kratos.yml --dev
+    volumes:
+      - type: bind
+        source: ./ory/config
+        target: /etc/config/kratos
+    depends_on:
+      - mysqld
+      - kratos-migrate
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kratos.rule=Host(`auth.quest.local`)"
+      - "traefik.http.routers.kratos.entrypoints=websecure"
+      - "traefik.http.routers.kratos.tls=true"
+      - "traefik.http.services.kratos.loadbalancer.server.port=4434"
+
+  mysqld:
+    image: mysql:9
+    ports:
+      - "3306:3306"
+    secrets:
+      - mysql_root_password
+    environment:
+      # - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password
+      - MYSQL_ROOT_PASSWORD=my-secure-password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
 secrets:
   arango_root_password:
     file: ./secrets/arangodb_root_password
@@ -124,6 +180,8 @@ secrets:
     file: ./secrets/jwt_access_token_secret
   jwt_refresh_token_secret:
     file: ./secrets/jwt_refresh_token_secret
+  mysql_root_password:
+    file: ./secrets/mysql_password
 
 volumes:
   arango-data:

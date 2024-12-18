@@ -1,0 +1,27 @@
+{
+  "$id": "https://auth.quest.local/identity.schema.json",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "title": "Username"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "PLAYER",
+            "GM",
+            "TRUSTED_PLAYER"
+          ],
+          "title": "Role"
+        }
+      },
+      "required": [
+        "username"
+      ]
+    }
+  }
+}
