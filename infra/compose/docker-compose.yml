@@ -13,11 +13,17 @@ services:
       - "--api.dashboard=true" # Enable the dashboard
       - "--log.level=INFO"
       - "--providers.file.filename=/dynamic/dynamic.yml"
+      - "--metrics.prometheus=true" # Enable Prometheus metrics
+      - "--metrics.prometheus.buckets=0.100000, 0.300000, 1.200000, 5.000000"
+      - "--metrics.prometheus.addEntryPointsLabels=true"
+      - "--metrics.prometheus.addServicesLabels=true"
+      - "--entryPoints.metrics.address=:8899"
+      - "--metrics.prometheus.entryPoint=metrics"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/certs:/certs:ro
       - ./traefik/dynamic.yml:/dynamic/dynamic.yml:ro
-      - ./traefik-data:/data
+      - ./traefik/data:/data:rw
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.quest.local`)"
@@ -35,8 +41,8 @@ services:
     environment:
       ARANGO_ROOT_PASSWORD_FILE: /run/secrets/arango_root_password
     volumes:
-      - arango-data:/var/lib/arangodb3
-      - arango-apps:/var/lib/arangodb3-apps
+      - ./arangodb/volumes/data:/var/lib/arangodb3
+      - ./arangodb/volumes/apps:/var/lib/arangodb3-apps
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.arangodb.rule=Host(`arangodb.quest.local`)"
@@ -53,7 +59,7 @@ services:
       MINIO_ROOT_USER: root
       MINIO_ROOT_PASSWORD_FILE: /run/secrets/minio_root_password
     volumes:
-      - minio-data:/data
+      - ./minio/volume:/data
     command: server /data --console-address ":9001"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
@@ -115,6 +121,43 @@ services:
       - "traefik.http.routers.webapi.tls=true"
       - "traefik.http.services.webapi.loadbalancer.server.port=8080"
 
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/config:/etc/prometheus
+      - ./prometheus/data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.quest.local`)"
+      - "traefik.http.routers.prometheus.entrypoints=websecure"
+      - "traefik.http.routers.prometheus.tls=true"
+      - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    secrets:
+      - grafana_root_password
+    volumes:
+      - ./grafana/config:/etc/grafana
+      - ./grafana/data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=root
+      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana_root_password
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.quest.local`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+
 secrets:
   arango_root_password:
     file: ./secrets/arangodb_root_password
@@ -124,9 +167,5 @@ secrets:
     file: ./secrets/jwt_access_token_secret
   jwt_refresh_token_secret:
     file: ./secrets/jwt_refresh_token_secret
-
-volumes:
-  arango-data:
-  arango-apps:
-  minio-data:
-  traefik-data:
+  grafana_root_password:
+    file: ./secrets/grafana_root_password
