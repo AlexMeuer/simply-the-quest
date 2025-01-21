@@ -1,7 +1,9 @@
 # Docker volume bind mounts
-infra/compose/arangodb/volumes/data
-infra/compose/grafana/data
-infra/compose/prometheus/data
+infra/compose/arangodb/volumes/data/
+infra/compose/grafana/data/
+infra/compose/prometheus/data/
+infra/compose/minio/volume/
+infra/compose/minio/volume/.minio.sys/tmp
 
 
 .turbo
