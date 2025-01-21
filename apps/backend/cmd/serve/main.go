@@ -20,7 +20,7 @@ func main() {
 	}
 
 	var cfg http.Config
-	if err := env.Parse(&cfg); err != nil {
+	if err = env.Parse(&cfg); err != nil {
 		log.Fatal().Err(err).Msg("failed to parse config")
 	}
 
@@ -37,6 +37,11 @@ func main() {
 	cfg.JWTRefreshTokenSecret, err = extractIfFile(cfg.JWTRefreshTokenSecret)
 	if err != nil {
 		log.Fatal().Err(err).Msg("failed to read jwt refresh token secret")
+	}
+
+	cfg.DiscordClientSecret, err = extractIfFile(cfg.DiscordClientSecret)
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to read discord client secret")
 	}
 
 	if err := http.Serve(cfg); err != nil {

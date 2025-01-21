@@ -1,4 +1,5 @@
 import { A } from "@solidjs/router";
+import { useSession } from "vinxi/http";
 import Counter from "~/components/Counter";
 
 export default function About() {

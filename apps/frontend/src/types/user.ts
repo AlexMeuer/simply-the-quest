@@ -6,6 +6,7 @@ export type Role = z.infer<typeof Role>;
 export const User = z.object({
   username: z.string(),
   role: Role,
+  avatar_url: z.string(),
   created_at: z.number().transform(Date),
   updated_at: z.number().transform(Date),
 });

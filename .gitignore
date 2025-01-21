@@ -1,3 +1,9 @@
+# Docker volume bind mounts
+infra/compose/arangodb/volumes/data
+infra/compose/grafana/data
+infra/compose/prometheus/data
+
+
 .turbo
 .output
 .vinxi

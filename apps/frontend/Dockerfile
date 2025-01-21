@@ -3,7 +3,7 @@
 FROM oven/bun:1 AS base
 WORKDIR /usr/src/app
 
-FROM base as install
+FROM base AS install
 COPY . .
 RUN bun install --frozen-lockfile --production
 

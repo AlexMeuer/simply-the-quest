@@ -3,76 +3,30 @@ package http
 import (
 	"net/http"
 
-	"alexmeuer.com/simply-the-quest/internal/user"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 )
 
-type LoginPayload struct {
-	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required"`
-}
-
-type RegistrationPayload struct {
-	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required"`
-}
-
-func loginUser(ctx *gin.Context) {
-	var payload LoginPayload
-	if err := ctx.ShouldBindJSON(&payload); err != nil {
-		ctx.JSON(400, gin.H{"message": err.Error()})
-		return
-	}
+func getUserSelf(ctx *gin.Context) {
 	db, err := arangoDBFromMiddleware(ctx)
 	if err != nil {
-		log.Error().Err(err).Msg("failed to get arangodb from middleware")
-		ctx.AbortWithStatus(http.StatusInternalServerError)
+		log.Err(err).Msg("failed to get ArangoDB from middleware")
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
 		return
 	}
-	tknGen, err := tknGenFromMiddleware(ctx)
+	claims, err := loggedInUserClaimsFromMiddleware(ctx)
 	if err != nil {
-		log.Error().Err(err).Msg("failed to get token generator from middleware")
-		ctx.AbortWithStatus(http.StatusInternalServerError)
+		log.Err(err).Msg("failed to get user claims from middleware")
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
 		return
 	}
-
-	result, err := user.Login(ctx, db, tknGen, payload.Username, payload.Password)
+	u, err := db.RetrieveUser(ctx, claims.Subject)
 	if err != nil {
-		// TODO: Better error handling
-		ctx.JSON(400, gin.H{"message": err.Error()})
+		log.Err(err).Msg("failed to retrieve user")
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
 		return
 	}
-	result.User.HashedPassword = ""
-
-	ctx.SetCookie("access_token", result.AccessToken, int(tknGen.AccessTokenTTL.Milliseconds()), "/", tknGen.Domain, true, true)
-
-	ctx.SetCookie("refresh_token", result.RefreshToken, int(tknGen.RefreshTokenTTL.Milliseconds()), "/", tknGen.Domain, true, true)
-
-	ctx.JSON(200, result.User)
-}
-
-func registerUser(ctx *gin.Context) {
-	var payload LoginPayload
-	if err := ctx.ShouldBindJSON(&payload); err != nil {
-		ctx.JSON(400, gin.H{"message": err.Error()})
-		return
-	}
-	db, err := arangoDBFromMiddleware(ctx)
-	if err != nil {
-		log.Error().Err(err).Msg("failed to get arangodb from middleware")
-		ctx.AbortWithStatus(http.StatusInternalServerError)
-		return
-	}
-
-	result, err := user.Register(ctx, db, payload.Username, payload.Password)
-	if err != nil {
-		// TODO: Better error handling
-		ctx.JSON(400, gin.H{"message": err.Error()})
-		return
-	}
-
-	ctx.JSON(http.StatusCreated, result)
+	ctx.JSON(http.StatusOK, u)
 }
 
 func refreshUser(ctx *gin.Context) {
@@ -80,5 +34,13 @@ func refreshUser(ctx *gin.Context) {
 }
 
 func logoutUser(ctx *gin.Context) {
-	ctx.JSON(501, gin.H{"message": "not implemented"})
+	tknGen, err := tknCfgFromMiddleware(ctx)
+	if err != nil {
+		log.Err(err).Msg("failed to get token generator from middleware")
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
+		return
+	}
+	ctx.SetCookie("access_token", "", 0, "/", tknGen.Domain, true, true)
+	ctx.SetCookie("refresh_token", "", 0, "/", tknGen.Domain, true, true)
+	ctx.Status(http.StatusOK)
 }

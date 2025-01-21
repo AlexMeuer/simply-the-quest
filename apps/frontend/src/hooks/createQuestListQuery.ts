@@ -4,6 +4,7 @@ import {
   type QueryKey,
   createInfiniteQuery,
 } from "@tanstack/solid-query";
+import { getRequestEvent } from "solid-js/web";
 import { BackendAPI } from "~/api/backend";
 import type { QuestWithCharacters } from "~/types/questWithCharacters";
 
@@ -13,6 +14,7 @@ type LimitOffsetPageParam = {
 };
 
 export const createQuestListQuery = () => {
+  const cookie = getRequestEvent()?.request.headers.get("cookie") ?? undefined;
   return createInfiniteQuery<
     QuestWithCharacters[],
     DefaultError,
@@ -25,6 +27,7 @@ export const createQuestListQuery = () => {
       BackendAPI.questsWithCharacters(
         ctx.pageParam.limit,
         ctx.pageParam.offset,
+        cookie,
       ),
     initialPageParam: { limit: 10, offset: 0 },
     getNextPageParam: (lastPage, _, lastPageParam) => {

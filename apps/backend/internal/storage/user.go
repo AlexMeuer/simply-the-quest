@@ -10,7 +10,10 @@ import (
 	"github.com/arangodb/go-driver/v2/arangodb"
 )
 
-var ErrUserExists = errors.New("user already exists")
+var (
+	ErrUserExists   = errors.New("user already exists")
+	ErrUserNotFound = errors.New("user not found")
+)
 
 func (a *ArangoDB) RetrieveUser(ctx context.Context, username string) (user.Model, error) {
 	options := arangodb.QueryOptions{
@@ -26,6 +29,9 @@ func (a *ArangoDB) RetrieveUser(ctx context.Context, username string) (user.Mode
 	defer cursor.Close()
 	var u user.Model
 	_, err = cursor.ReadDocument(ctx, &u)
+	if err == nil && u.Username == "" {
+		err = ErrUserNotFound
+	}
 	return u, err
 }
 
@@ -41,11 +47,11 @@ func (a *ArangoDB) CreateUser(ctx context.Context, u user.Model) error {
 	}
 	key := strings.ToLower(u.Username)
 	_, err = col.CreateDocument(ctx, map[string]interface{}{
-		"_key":            key,
-		"_id":             fmt.Sprintf("users/%s", key),
-		"username":        u.Username,
-		"hashed_password": u.HashedPassword,
-		"role":            u.Role,
+		"_key":       key,
+		"_id":        fmt.Sprintf("users/%s", key),
+		"username":   u.Username,
+		"avatar_url": u.AvatarURL,
+		"role":       u.Role,
 	})
 	return err
 }
