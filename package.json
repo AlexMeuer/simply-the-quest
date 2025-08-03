@@ -12,7 +12,7 @@
     "lint": "biome check",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "postinstall": "drizzle-kit generate && react-router typegen"
+    "prepare": "lefthook install && drizzle-kit generate && react-router typegen"
   },
   "dependencies": {
     "@react-router/node": "^7.7.1",
@@ -37,6 +37,7 @@
     "dotenv": "^17.2.1",
     "drizzle-kit": "^0.31.4",
     "drizzle-zod": "^0.8.2",
+    "lefthook": "^1.12.2",
     "tailwindcss": "^4.1.4",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",

@@ -1,0 +1,19 @@
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      run: bun run lint --staged
+    typecheck:
+      run: bun run typecheck
+    # unit-tests:
+    #   run: bun test --runInBand --findRelatedTests {staged_files}
+# pre-push:
+#   commands:
+#     full-tests:
+#       run: bun test
+#     build:
+#       run: bun run build
+#     migrate-dry:
+#       run: bun run db:migrate --dry-run
+#     compose-lint:
+#       run: docker compose -f infra/docker-compose.yml config

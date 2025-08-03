@@ -1,4 +1,7 @@
 {
+  "files": {
+    "ignoreUnknown": true
+  },
   "vcs": {
     "enabled": true,
     "clientKind": "git",
