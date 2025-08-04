@@ -1,5 +1,5 @@
 import { db } from "~/db/db.server";
-import { campaign } from "~/db/schema/campaign";
+import { campaign } from "~/db/schema";
 import { Welcome } from "../welcome/welcome";
 
 export async function loader() {
