@@ -4,7 +4,10 @@ import {
   campaign,
   character,
   event,
+  faction,
   image,
+  item,
+  location,
   note,
   organisation,
   orgMembership,
@@ -58,6 +61,24 @@ export const Character = createSelectSchema(character);
 export const CharacterInsert = createInsertSchema(character);
 export type Character = z.infer<typeof Character>;
 export type CharacterInsert = z.infer<typeof CharacterInsert>;
+
+/* Faction */
+export const Faction = createSelectSchema(faction);
+export const FactionInsert = createInsertSchema(faction);
+export type Faction = z.infer<typeof Faction>;
+export type FactionInsert = z.infer<typeof FactionInsert>;
+
+/* Location */
+export const Location = createSelectSchema(location);
+export const LocationInsert = createInsertSchema(location);
+export type Location = z.infer<typeof Location>;
+export type LocationInsert = z.infer<typeof LocationInsert>;
+
+/* Item */
+export const Item = createSelectSchema(item);
+export const ItemInsert = createInsertSchema(item);
+export type Item = z.infer<typeof Item>;
+export type ItemInsert = z.infer<typeof ItemInsert>;
 
 /* Image */
 export const Image = createSelectSchema(image);

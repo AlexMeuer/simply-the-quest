@@ -104,6 +104,36 @@ export const note = pgTable("note", {
   ...timestamps,
 });
 
+export const faction = pgTable("faction", {
+  id: id(),
+  worldId: uuid("world_id")
+    .references(() => world.id)
+    .notNull(),
+  name: text("name").notNull(),
+  descriptionMd: text("description_md"),
+  ...timestamps,
+});
+
+export const location = pgTable("location", {
+  id: id(),
+  worldId: uuid("world_id")
+    .references(() => world.id)
+    .notNull(),
+  name: text("name").notNull(),
+  descriptionMd: text("description_md"),
+  ...timestamps,
+});
+
+export const item = pgTable("item", {
+  id: id(),
+  worldId: uuid("world_id")
+    .references(() => world.id)
+    .notNull(),
+  name: text("name").notNull(),
+  descriptionMd: text("description_md"),
+  ...timestamps,
+});
+
 export const image = pgTable("image", {
   id: id(),
   worldId: uuid("world_id")

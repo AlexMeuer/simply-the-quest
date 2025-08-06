@@ -28,6 +28,15 @@ CREATE TABLE "event" (
 	"updated_at" timestamp NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE "faction" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"world_id" uuid NOT NULL,
+	"name" text NOT NULL,
+	"description_md" text,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE "image" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"world_id" uuid NOT NULL,
@@ -35,6 +44,24 @@ CREATE TABLE "image" (
 	"alt_text" text,
 	"width" integer,
 	"height" integer,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "item" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"world_id" uuid NOT NULL,
+	"name" text NOT NULL,
+	"description_md" text,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "location" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"world_id" uuid NOT NULL,
+	"name" text NOT NULL,
+	"description_md" text,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp NOT NULL
 );
@@ -103,7 +130,10 @@ ALTER TABLE "campaign" ADD CONSTRAINT "campaign_world_id_world_id_fk" FOREIGN KE
 ALTER TABLE "character" ADD CONSTRAINT "character_world_id_world_id_fk" FOREIGN KEY ("world_id") REFERENCES "public"."world"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "character" ADD CONSTRAINT "character_owner_id_user_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "event" ADD CONSTRAINT "event_campaign_id_campaign_id_fk" FOREIGN KEY ("campaign_id") REFERENCES "public"."campaign"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "faction" ADD CONSTRAINT "faction_world_id_world_id_fk" FOREIGN KEY ("world_id") REFERENCES "public"."world"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "image" ADD CONSTRAINT "image_world_id_world_id_fk" FOREIGN KEY ("world_id") REFERENCES "public"."world"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "item" ADD CONSTRAINT "item_world_id_world_id_fk" FOREIGN KEY ("world_id") REFERENCES "public"."world"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "location" ADD CONSTRAINT "location_world_id_world_id_fk" FOREIGN KEY ("world_id") REFERENCES "public"."world"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "note" ADD CONSTRAINT "note_world_id_world_id_fk" FOREIGN KEY ("world_id") REFERENCES "public"."world"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "note" ADD CONSTRAINT "note_author_id_user_id_fk" FOREIGN KEY ("author_id") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "org_membership" ADD CONSTRAINT "org_membership_org_id_organization_id_fk" FOREIGN KEY ("org_id") REFERENCES "public"."organization"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
