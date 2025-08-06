@@ -64,6 +64,17 @@ export const user = pgTable("user", {
   ...timestamps,
 });
 
+export const authSession = pgTable("auth_session", {
+  id: text("id").primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => user.id),
+  expiresAt: timestamp("expires_at", {
+    withTimezone: true,
+    mode: "date",
+  }).notNull(),
+});
+
 export const orgMembership = pgTable(
   "org_membership",
   {
@@ -160,7 +171,7 @@ export const quest = pgTable("quest", {
   ...timestamps,
 });
 
-export const session = pgTable("session", {
+export const gameSession = pgTable("game_session", {
   id: id(),
   campaignId: uuid("campaign_id")
     .references(() => campaign.id)
@@ -189,11 +200,12 @@ export const schema = {
   world,
   campaign,
   user,
+  authSession,
   orgMembership,
   character,
   note,
   image,
   quest,
-  session,
+  gameSession,
   event,
 };

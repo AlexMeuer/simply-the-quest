@@ -1,17 +1,18 @@
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import type { z } from "zod";
 import {
+  authSession,
   campaign,
   character,
   event,
   faction,
+  gameSession,
   image,
   item,
   location,
   note,
   organisation,
   orgMembership,
-  session,
   user,
   world,
 } from "./schema";
@@ -26,6 +27,9 @@ export const User = createSelectSchema(user);
 export const UserInsert = createInsertSchema(user);
 export type User = z.infer<typeof User>;
 export type UserInsert = z.infer<typeof UserInsert>;
+
+export const AuthSession = createSelectSchema(authSession);
+export type AuthSession = z.infer<typeof AuthSession>;
 
 export const OrgMembership = createSelectSchema(orgMembership);
 export const OrgMembershipInsert = createInsertSchema(orgMembership);
@@ -50,11 +54,11 @@ const NoteInsert = createInsertSchema(note);
 export type Note = z.infer<typeof Note>;
 export type NoteInsert = z.infer<typeof NoteInsert>;
 
-/* Session */
-export const Session = createSelectSchema(session);
-export const SessionInsert = createInsertSchema(session);
-export type Session = z.infer<typeof Session>;
-export type SessionInsert = z.infer<typeof SessionInsert>;
+/* Session (not auth!) */
+export const GameSession = createSelectSchema(gameSession);
+export const GameSessionInsert = createInsertSchema(gameSession);
+export type GameSession = z.infer<typeof GameSession>;
+export type GameSessionInsert = z.infer<typeof GameSessionInsert>;
 
 /* Character */
 export const Character = createSelectSchema(character);

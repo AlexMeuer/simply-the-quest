@@ -13,7 +13,7 @@ import {
   location,
   organisation,
   quest,
-  session,
+  gameSession as session,
   world,
 } from "../app/db/schema";
 
