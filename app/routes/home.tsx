@@ -1,11 +1,5 @@
-import { db } from "~/db/db.server";
 import { campaign } from "~/db/schema";
 import { Welcome } from "../welcome/welcome";
-
-export async function loader() {
-  const campaigns = await db.$count(campaign);
-  console.log("Campaigns count:", campaigns);
-}
 
 export function meta() {
   return [

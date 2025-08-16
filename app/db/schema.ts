@@ -75,6 +75,16 @@ export const authSession = pgTable("auth_session", {
   }).notNull(),
 });
 
+export const passwordCredential = pgTable("password_credential", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id")
+    .references(() => user.id)
+    .notNull()
+    .unique(),
+  hash: text("hash").notNull(),
+  ...timestamps,
+});
+
 export const orgMembership = pgTable(
   "org_membership",
   {

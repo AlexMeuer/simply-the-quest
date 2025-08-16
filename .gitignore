@@ -6,3 +6,10 @@
 # React Router
 /.react-router/
 /build/
+
+## Panda
+styled-system
+styled-system-studio
+## Panda
+app/styled-system
+app/styled-system-studio
