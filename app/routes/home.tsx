@@ -1,4 +1,3 @@
-import { campaign } from "~/db/schema";
 import { Welcome } from "../welcome/welcome";
 
 export function meta() {

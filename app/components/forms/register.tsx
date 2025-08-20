@@ -6,41 +6,32 @@ import { Stack } from "~/styled-system/jsx";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { Field } from "../ui/field";
+import { LoginFormSchema } from "./login";
 
-export const LoginFormSchema = z.object({
-  email: z.email(),
-  password: z
+export const RegisterFormSchema = LoginFormSchema.extend({
+  displayName: z
     .string()
     .trim()
-    .min(8, "Must be at least 8 characters long")
-    .max(128, "Must be at most 128 characters long")
-    .refine(
-      (val) =>
-        /[A-Z]/.test(val) &&
-        /[a-z]/.test(val) &&
-        /\d/.test(val) &&
-        /[!@#$%^&*(),.?":{}|<>]/.test(val),
-      {
-        message:
-          "Must contain at least one uppercase letter, lowercase letter, number, and special character",
-      },
-    ),
+    .min(1, "Display name is required")
+    .min(3, "Must be at least 3 characters long")
+    .max(50, "Must be at most 50 characters long"),
 });
 
-export type LoginFormValues = z.infer<typeof LoginFormSchema>;
+export type RegisterFormValues = z.infer<typeof RegisterFormSchema>;
 
-export type LoginFormProps = {
-  onSubmit: (values: LoginFormValues) => Promise<void>;
+export type RegisterFormProps = {
+  onSubmit: (values: RegisterFormValues) => Promise<void>;
 };
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+export const RegistrationForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(LoginFormSchema),
+  } = useForm<RegisterFormValues>({
+    resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
+      displayName: "",
       email: "",
       password: "",
     },
@@ -50,7 +41,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 
   const [isProcessing, setProcessing] = useState(false);
   const doSubmit = useCallback(
-    async (v: LoginFormValues) => {
+    async (v: RegisterFormValues) => {
       setProcessing(true);
       try {
         return await onSubmit(v);
@@ -65,11 +56,22 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     <form onSubmit={handleSubmit(doSubmit)}>
       <Card.Root width="sm">
         <Card.Header>
-          <Card.Title>Login</Card.Title>
-          <Card.Description>Log in to Simply the Quest!</Card.Description>
+          <Card.Title>Register</Card.Title>
+          <Card.Description>
+            Register an account for Simply the Quest!
+          </Card.Description>
         </Card.Header>
         <Card.Body>
           <Stack gap="4">
+            <Field.Root invalid={!!errors.displayName}>
+              <Field.Label>Display Name</Field.Label>
+              <Field.Input
+                type="text"
+                autoComplete="username"
+                {...register("displayName")}
+              />
+              <Field.ErrorText>{errors.displayName?.message}</Field.ErrorText>
+            </Field.Root>
             <Field.Root invalid={!!errors.email}>
               <Field.Label>Email</Field.Label>
               <Field.Input
@@ -91,7 +93,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
             Cancel
           </Button>
           <Button loading={isProcessing} type="submit">
-            Log in
+            Register
           </Button>
         </Card.Footer>
       </Card.Root>

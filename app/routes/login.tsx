@@ -19,7 +19,6 @@ export async function action({
   const formData = await request.formData();
 
   const result = LoginFormSchema.safeParse({
-    displayName: formData.get("displayName"),
     email: formData.get("email"),
     password: formData.get("password"),
   });
