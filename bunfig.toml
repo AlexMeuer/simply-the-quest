@@ -1,3 +1,0 @@
-# Bun workspace configuration
-[workspace]
-packages = ["./remix"]

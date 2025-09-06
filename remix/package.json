@@ -1,9 +1,10 @@
 {
-	"name": "@simply-the-quest/remix",
+	"name": "@stq/remix",
 	"private": true,
 	"type": "module",
 	"scripts": {
 		"build": "react-router build",
+		"build:docker": "docker build -t stq-remix -f ./Dockerfile .",
 		"dev": "react-router dev",
 		"start": "react-router-serve ./build/server/index.js",
 		"typecheck": "react-router typegen && tsc"
