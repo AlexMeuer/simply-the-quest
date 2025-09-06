@@ -31,6 +31,8 @@ async function main() {
 			url: "http://localhost:9000",
 			path: "/minio/health/ready",
 		},
+		{ name: "Meilisearch", url: "http://localhost:7700", path: "/health" },
+		{ name: "Web app", url: "http://localhost:5173", path: "/" },
 	] satisfies Service[];
 
 	const results = await Promise.all(services.map(check));
