@@ -11,6 +11,10 @@ services:
       - "5173:5173"
     environment:
       CHOKIDAR_USEPOLLING: "true"
+      VITE_MINIO_ENDPOINT: "minio"
+      VITE_MINIO_PORT: 9000
+      VITE_MINIO_ACCESS_KEY: "devminio"
+      VITE_MINIO_SECRET_KEY: "devminiosecret"
     depends_on:
       - neo4j
       - minio
