@@ -1,32 +1,11 @@
 # simply-the-quest
 
-## Prerequisites
-- Docker
-- Node.js
-- pnpm
+A TTRPG Quest Tracker focused on the connections between entities 🕸️
 
-## Start Development Steps
-1. Copy the example environment file: `cp .env.example .env`
-2. Bring the app up: `pnpm dev:up`
+## Quickstart
 
-## Ports Map
-- Neo4j: 7474
-- MinIO: 9001
-- Meili: 7700
-
-## Troubleshooting
-- Ensure all services are up and check logs for any errors.
-
-To install dependencies:
-
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.2.19. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+- Install dependencies: `bun install`
+- Spin up the docker-compose stack: `bun dev:up` (or `bun dev:up -d`)
+  - This supports hot-reloading on the Remix/React-Router app.
+- Open the web app your browser: http://localhost:5173
+- Bring it down with `bun run dev:down`
