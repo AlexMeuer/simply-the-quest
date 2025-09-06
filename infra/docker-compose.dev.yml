@@ -21,8 +21,19 @@ services:
     ports:
       - "7474:7474"
       - "7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/devpassword
     volumes:
       - neo4j-data:/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "cypher-shell -u neo4j -p devpassword 'RETURN 1' || exit 1",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   minio:
     image: minio/minio:latest
@@ -32,7 +43,14 @@ services:
     environment:
       MINIO_ROOT_USER: devminio
       MINIO_ROOT_PASSWORD: devminiosecret
-    command: server /data
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   meilisearch:
     image: getmeili/meilisearch:latest
@@ -41,6 +59,21 @@ services:
     environment:
       MEILI_MASTER_KEY: devmeili
       MEILI_NO_ANALYTICS: true
+    volumes:
+      - meili-data:/meili_data
+
+  # One-shot init to create bucket + enable versioning + set CORS
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    volumes:
+      - ./minio.cors.xml:/cors.xml:ro
+      - ./minio.init.sh:/init.sh:ro
+    entrypoint: ["/bin/sh"]
+    command: "/init.sh"
+    restart: "no"
 
 volumes:
   neo4j-data:
