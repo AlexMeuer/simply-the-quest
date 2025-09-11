@@ -1,4 +1,4 @@
-import { ENV } from "constants.server";
+import { ENV } from "~/constants.server";
 import { Client } from "minio";
 
 const minio = new Client({
@@ -12,5 +12,5 @@ const minio = new Client({
 const TEN_MINUTE_EXPIRY = 600;
 
 export async function presignUpload(bucket: string, object: string) {
-  return await minio.presignedPutObject(bucket, object, TEN_MINUTE_EXPIRY);
+  return minio.presignedPutObject(bucket, object, TEN_MINUTE_EXPIRY);
 }

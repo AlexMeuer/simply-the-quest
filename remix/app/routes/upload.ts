@@ -1,5 +1,6 @@
 import { presignUpload } from "~/services/minio.server";
 import type { Route } from "./+types/upload";
+import { ulid } from "~/services/ulid.server";
 
 export async function action(args: Route.ActionArgs) {
   if (args.request.method !== "POST") {
@@ -8,9 +9,10 @@ export async function action(args: Route.ActionArgs) {
 
   // TODO: Only allow logged in users to upload files.
 
-  const url = await presignUpload("stq-docs", "test-object");
-
-  return new Response(JSON.stringify({ url }), {
+  const docId = ulid();
+  const key = `documents/${docId}`;
+  const url = await presignUpload("stq-docs", key);
+  return new Response(JSON.stringify({ url, key, docId }), {
     status: 201,
     headers: { "Content-Type": "application/json" },
   });
