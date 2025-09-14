@@ -1,26 +1,26 @@
 {
-  "name": "simply-the-quest",
-  "module": "index.ts",
-  "workspaces": [
-    "remix"
-  ],
-  "devDependencies": {
-    "@biomejs/biome": "2.2.2",
-    "@types/bun": "latest",
-    "chalk": "^5.6.0"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "private": true,
-  "scripts": {
-    "dev:up": "docker compose -f infra/docker-compose.dev.yml up --build",
-    "dev:down": "docker compose -f infra/docker-compose.dev.yml down",
-    "health": "bun run scripts/health.ts",
-    "lint": "biome check"
-  },
-  "type": "module",
-  "trustedDependencies": [
-    "@tailwindcss/oxide"
-  ]
+	"name": "simply-the-quest",
+	"module": "index.ts",
+	"workspaces": [
+		"remix"
+	],
+	"devDependencies": {
+		"@biomejs/biome": "2.2.2",
+		"@types/bun": "latest",
+		"chalk": "^5.6.0"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"private": true,
+	"scripts": {
+		"dev:up": "docker compose -f infra/docker-compose.dev.yml up --build",
+		"dev:down": "docker compose -f infra/docker-compose.dev.yml down",
+		"health": "bun run scripts/health.ts",
+		"lint": "biome check"
+	},
+	"type": "module",
+	"trustedDependencies": [
+		"@tailwindcss/oxide"
+	]
 }

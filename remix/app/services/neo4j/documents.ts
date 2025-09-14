@@ -1,7 +1,6 @@
-import { int, Integer, Node } from "neo4j-driver";
-import { startSession } from "./driver.server";
-
+import { type Integer, int, type Node } from "neo4j-driver";
 import z from "zod";
+import { startSession } from "./driver.server";
 
 const Document = z.object({
 	id: z.ulid(),
@@ -18,7 +17,6 @@ export async function upsertDocument(
 	docId: string,
 	title: string,
 	content: string,
-	createdAt?: Date,
 ): Promise<Document | undefined> {
 	const session = startSession();
 
@@ -26,14 +24,13 @@ export async function upsertDocument(
 		const result = await session.executeWrite((tx) =>
 			tx.run<DocumentReturn>(
 				"MERGE (d:Document {id:$docId})\
-ON CREATE SET d += {createdAt:$now}\
-SET d += {title:$title, content:$content, updatedAt: $now}\
+ON CREATE SET d += {createdAt:datetime()}\
+SET d += {title:$title, content:$content, updatedAt: datetime()}\
 RETURN d",
 				{
 					docId,
 					title,
 					content,
-					now: new Date().toISOString(),
 				},
 			),
 		);

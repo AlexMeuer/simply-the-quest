@@ -1,7 +1,7 @@
 import { data, Outlet, redirect, useFetcher } from "react-router";
-import type { Route } from "./+types/list";
-import { deleteById, listDocuments } from "~/services/neo4j/documents";
 import z from "zod";
+import { deleteById, listDocuments } from "~/services/neo4j/documents";
+import type { Route } from "./+types/list";
 
 export async function loader({ context }: Route.LoaderArgs) {
 	const docs = await listDocuments();
